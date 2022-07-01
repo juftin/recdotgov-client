@@ -73,7 +73,7 @@ jobs:
             -   name:              Generate All Code
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
-                                   python ${{ github.workspace }}/auto/.github/helpers/fetch_spec.py
+                                   python ${{ github.workspace }}/auto/.github/helpers/generate_client.py
             -   name:              Commit Changes to gh-pages Branch
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
