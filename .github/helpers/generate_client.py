@@ -15,15 +15,11 @@ project_dir = github_dir.parent
 build_dir = project_dir.joinpath("build")
 build_dir.mkdir(exist_ok=True)
 
-spec_file = build_dir.joinpath("openapi.yaml")
 zip_file_path = build_dir.joinpath("recdotgov_client.zip")
 
 session = requests.Session()
-
 swagger_url = os.getenv("SWAGGER_URL",
                         "https://ridb.recreation.gov/ridb/dist/assets/swagger/ridb.yaml")
-response = session.get(swagger_url)
-spec_file.write_bytes(response.content)
 
 client_response = session.post("https://generator3.swagger.io/api/generate",
                                headers={"content-type": "application/json"},
