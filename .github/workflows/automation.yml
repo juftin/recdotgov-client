@@ -79,5 +79,6 @@ jobs:
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
                                    cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
                                    git add .
-                                   git diff-index --quiet HEAD || git commit -m "CodeGen - ${{ github.run_id }}"
+                                   git commit -m "CodeGen - ${{ github.run_id }}"
+                                   git branch --set-upstream-to origin/auto
                                    git push origin auto --force
