@@ -15,7 +15,9 @@ from __future__ import absolute_import
 import unittest
 
 import recdotgov_client
-from recdotgov_client.models.inline_response20010 import InlineResponse20010  # noqa: E501
+from recdotgov_client.models.inline_response20010 import (  # noqa: E501
+    InlineResponse20010,
+)
 from recdotgov_client.rest import ApiException
 
 
@@ -35,5 +37,5 @@ class TestInlineResponse20010(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

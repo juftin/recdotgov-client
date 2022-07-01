@@ -15,7 +15,9 @@ from __future__ import absolute_import
 import unittest
 
 import recdotgov_client
-from recdotgov_client.models.recreation_area_address import RecreationAreaAddress  # noqa: E501
+from recdotgov_client.models.recreation_area_address import (  # noqa: E501
+    RecreationAreaAddress,
+)
 from recdotgov_client.rest import ApiException
 
 
@@ -35,5 +37,5 @@ class TestRecreationAreaAddress(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

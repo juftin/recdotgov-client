@@ -3,8 +3,8 @@ Download the Latest RIDB Configuration File
 """
 import logging
 import os
-from pathlib import Path
 import zipfile
+from pathlib import Path
 
 import requests
 
@@ -21,28 +21,31 @@ build_dir.mkdir(exist_ok=True)
 zip_file_path = build_dir.joinpath("recdotgov_client.zip")
 
 session = requests.Session()
-swagger_url = os.getenv("SWAGGER_URL",
-                        "https://ridb.recreation.gov/ridb/dist/assets/swagger/ridb.yaml")
+swagger_url = os.getenv(
+    "SWAGGER_URL", "https://ridb.recreation.gov/ridb/dist/assets/swagger/ridb.yaml"
+)
 logger.info("Downloading Python API Client")
-client_response = session.post("https://generator3.swagger.io/api/generate",
-                               headers={"content-type": "application/json"},
-                               json={
-                                   "specURL": swagger_url,
-                                   "lang": "python",
-                                   "options": {
-                                       "additionalProperties": {
-                                           "packageName": "recdotgov_client",
-                                           "projectName": "recdotgov-client",
-                                           "packageVersion": "0.1.0",
-                                           "packageUrl": "https://github.com/juftin/recdotgov-client",
-                                           "sortParamsByRequiredFlag": True,
-                                           "hideGenerationTimestamp": False,
-                                           "library": "asyncio",
-                                       },
-                                   },
-                                   "type": "CLIENT",
-                                   "codegenVersion": "V3"
-                               })
+client_response = session.post(
+    "https://generator3.swagger.io/api/generate",
+    headers={"content-type": "application/json"},
+    json={
+        "specURL": swagger_url,
+        "lang": "python",
+        "options": {
+            "additionalProperties": {
+                "packageName": "recdotgov_client",
+                "projectName": "recdotgov-client",
+                "packageVersion": "0.1.0",
+                "packageUrl": "https://github.com/juftin/recdotgov-client",
+                "sortParamsByRequiredFlag": True,
+                "hideGenerationTimestamp": False,
+                "library": "asyncio",
+            },
+        },
+        "type": "CLIENT",
+        "codegenVersion": "V3",
+    },
+)
 zip_file_path.write_bytes(client_response.content)
 
 zipped_data = zipfile.ZipFile(zip_file_path, mode="r")

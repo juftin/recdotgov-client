@@ -58,7 +58,7 @@ jobs:
                     python-version: 3.9
             -   name: Install Dependencies
                 run:  |
-                      python -m pip install requests pre-commit
+                      python -m pip install requests isort black
             -   name:              Setup Git Config
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
@@ -80,8 +80,8 @@ jobs:
                                    mkdir -p ${{ github.workspace }}/auto/.github
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
                                    cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
-                                   cp ${{ github.workspace }}/main/.pre-commit-config.yaml ${{ github.workspace }}/auto/.pre-commit-config.yaml
-                                   pre-commit run --all-files
+                                   isort --profile black ${{ github.workspace }}/auto
+                                   black ${{ github.workspace }}/auto
                                    git add ${{ github.workspace }}/auto/
                                    git commit -m "CodeGen - ${{ github.run_id }}"
                                    git push origin auto --force

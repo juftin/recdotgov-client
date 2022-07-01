@@ -47,11 +47,13 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_activity_with_http_info(activity_id, **kwargs)  # noqa: E501
         else:
-            (data) = self.get_activity_with_http_info(activity_id, **kwargs)  # noqa: E501
+            (data) = self.get_activity_with_http_info(
+                activity_id, **kwargs
+            )  # noqa: E501
             return data
 
     def get_activity_with_http_info(self, activity_id, **kwargs):  # noqa: E501
@@ -70,31 +72,32 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['activity_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["activity_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_activity" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'activity_id' is set
-        if ('activity_id' not in params or
-                params['activity_id'] is None):
-            raise ValueError("Missing the required parameter `activity_id` when calling `get_activity`")  # noqa: E501
+        if "activity_id" not in params or params["activity_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `activity_id` when calling `get_activity`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'activity_id' in params:
-            path_params['activityId'] = params['activity_id']  # noqa: E501
+        if "activity_id" in params:
+            path_params["activityId"] = params["activity_id"]  # noqa: E501
 
         query_params = []
 
@@ -105,27 +108,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/activities/{activityId}', 'GET',
+            "/activities/{activityId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Activity',  # noqa: E501
+            response_type="Activity",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_all_facility_media(self, **kwargs):  # noqa: E501
         """Retrieve all media for a facility  # noqa: E501
@@ -141,8 +147,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_all_facility_media_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_all_facility_media_with_http_info(**kwargs)  # noqa: E501
@@ -164,20 +170,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_all_facility_media" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -192,10 +198,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/media', 'GET',
+            "/facilities/{facilityId}/media",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -204,11 +211,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_all_rec_area_media(self, **kwargs):  # noqa: E501
         """Retrieve all media for a RecArea  # noqa: E501
@@ -224,8 +232,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_all_rec_area_media_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_all_rec_area_media_with_http_info(**kwargs)  # noqa: E501
@@ -247,20 +255,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_all_rec_area_media" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -275,10 +283,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/media', 'GET',
+            "/recareas/{recAreaId}/media",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -287,11 +296,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_campsite(self, campsite_id, **kwargs):  # noqa: E501
         """Retrieve a specific campsite by id  # noqa: E501
@@ -308,11 +318,13 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_campsite_with_http_info(campsite_id, **kwargs)  # noqa: E501
         else:
-            (data) = self.get_campsite_with_http_info(campsite_id, **kwargs)  # noqa: E501
+            (data) = self.get_campsite_with_http_info(
+                campsite_id, **kwargs
+            )  # noqa: E501
             return data
 
     def get_campsite_with_http_info(self, campsite_id, **kwargs):  # noqa: E501
@@ -331,31 +343,32 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['campsite_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["campsite_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_campsite" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'campsite_id' is set
-        if ('campsite_id' not in params or
-                params['campsite_id'] is None):
-            raise ValueError("Missing the required parameter `campsite_id` when calling `get_campsite`")  # noqa: E501
+        if "campsite_id" not in params or params["campsite_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `campsite_id` when calling `get_campsite`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'campsite_id' in params:
-            path_params['campsiteId'] = params['campsite_id']  # noqa: E501
+        if "campsite_id" in params:
+            path_params["campsiteId"] = params["campsite_id"]  # noqa: E501
 
         query_params = []
 
@@ -366,27 +379,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/campsites/{campsiteId}', 'GET',
+            "/campsites/{campsiteId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Campsite',  # noqa: E501
+            response_type="Campsite",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_event(self, event_id, **kwargs):  # noqa: E501
         """Retrieve a specific event by id  # noqa: E501
@@ -403,8 +419,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_event_with_http_info(event_id, **kwargs)  # noqa: E501
         else:
             (data) = self.get_event_with_http_info(event_id, **kwargs)  # noqa: E501
@@ -426,31 +442,32 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['event_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["event_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_event" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'event_id' is set
-        if ('event_id' not in params or
-                params['event_id'] is None):
-            raise ValueError("Missing the required parameter `event_id` when calling `get_event`")  # noqa: E501
+        if "event_id" not in params or params["event_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `event_id` when calling `get_event`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'event_id' in params:
-            path_params['eventId'] = params['event_id']  # noqa: E501
+        if "event_id" in params:
+            path_params["eventId"] = params["event_id"]  # noqa: E501
 
         query_params = []
 
@@ -461,27 +478,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/events/{eventId}', 'GET',
+            "/events/{eventId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Event',  # noqa: E501
+            response_type="Event",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility(self, facility_id, **kwargs):  # noqa: E501
         """Retrieve a specific facility by id  # noqa: E501
@@ -498,11 +518,13 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_with_http_info(facility_id, **kwargs)  # noqa: E501
         else:
-            (data) = self.get_facility_with_http_info(facility_id, **kwargs)  # noqa: E501
+            (data) = self.get_facility_with_http_info(
+                facility_id, **kwargs
+            )  # noqa: E501
             return data
 
     def get_facility_with_http_info(self, facility_id, **kwargs):  # noqa: E501
@@ -521,31 +543,32 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['facility_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["facility_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'facility_id' is set
-        if ('facility_id' not in params or
-                params['facility_id'] is None):
-            raise ValueError("Missing the required parameter `facility_id` when calling `get_facility`")  # noqa: E501
+        if "facility_id" not in params or params["facility_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `facility_id` when calling `get_facility`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'facility_id' in params:
-            path_params['facilityId'] = params['facility_id']  # noqa: E501
+        if "facility_id" in params:
+            path_params["facilityId"] = params["facility_id"]  # noqa: E501
 
         query_params = []
 
@@ -556,27 +579,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}', 'GET',
+            "/facilities/{facilityId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Facility',  # noqa: E501
+            response_type="Facility",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_activities(self, **kwargs):  # noqa: E501
         """Retrieve all activities for a facility  # noqa: E501
@@ -592,8 +618,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_activities_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_activities_with_http_info(**kwargs)  # noqa: E501
@@ -615,20 +641,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_activities" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -643,10 +669,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/activities', 'GET',
+            "/facilities/{facilityId}/activities",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -655,11 +682,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_activity(self, **kwargs):  # noqa: E501
         """Retrieve a specific activity by id for a facility  # noqa: E501
@@ -675,8 +703,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_activity_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_activity_with_http_info(**kwargs)  # noqa: E501
@@ -698,20 +726,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_activity" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -726,10 +754,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/activities/{activityId}', 'GET',
+            "/facilities/{facilityId}/activities/{activityId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -738,11 +767,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_address(self, facility_address_id, **kwargs):  # noqa: E501
         """Retrieve a specific facility address by id  # noqa: E501
@@ -759,14 +789,20 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_facility_address_with_http_info(facility_address_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_facility_address_with_http_info(
+                facility_address_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_facility_address_with_http_info(facility_address_id, **kwargs)  # noqa: E501
+            (data) = self.get_facility_address_with_http_info(
+                facility_address_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def get_facility_address_with_http_info(self, facility_address_id, **kwargs):  # noqa: E501
+    def get_facility_address_with_http_info(
+        self, facility_address_id, **kwargs
+    ):  # noqa: E501
         """Retrieve a specific facility address by id  # noqa: E501
 
         This endpoint retrieves a specific facility.  # noqa: E501
@@ -782,31 +818,34 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['facility_address_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["facility_address_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_address" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'facility_address_id' is set
-        if ('facility_address_id' not in params or
-                params['facility_address_id'] is None):
-            raise ValueError("Missing the required parameter `facility_address_id` when calling `get_facility_address`")  # noqa: E501
+        if "facility_address_id" not in params or params["facility_address_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `facility_address_id` when calling `get_facility_address`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'facility_address_id' in params:
-            path_params['facilityAddressId'] = params['facility_address_id']  # noqa: E501
+        if "facility_address_id" in params:
+            path_params["facilityAddressId"] = params[
+                "facility_address_id"
+            ]  # noqa: E501
 
         query_params = []
 
@@ -817,27 +856,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilityaddresses/{facilityAddressId}', 'GET',
+            "/facilityaddresses/{facilityAddressId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='FacilityAddress',  # noqa: E501
+            response_type="FacilityAddress",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_campsite(self, **kwargs):  # noqa: E501
         """Retrieve a specific campsite by id for a facility  # noqa: E501
@@ -853,8 +895,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_campsite_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_campsite_with_http_info(**kwargs)  # noqa: E501
@@ -876,20 +918,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_campsite" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -904,10 +946,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/campsites/{campsiteId}', 'GET',
+            "/facilities/{facilityId}/campsites/{campsiteId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -916,11 +959,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_campsites(self, **kwargs):  # noqa: E501
         """Retrieve all campsites for a facility  # noqa: E501
@@ -936,8 +980,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_campsites_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_campsites_with_http_info(**kwargs)  # noqa: E501
@@ -959,20 +1003,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_campsites" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -987,10 +1031,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/campsites', 'GET',
+            "/facilities/{facilityId}/campsites",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -999,11 +1044,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_event(self, **kwargs):  # noqa: E501
         """Retrieve a specific event by id for a facility  # noqa: E501
@@ -1019,8 +1065,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_event_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_event_with_http_info(**kwargs)  # noqa: E501
@@ -1042,20 +1088,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_event" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1070,10 +1116,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/events/{eventId}', 'GET',
+            "/facilities/{facilityId}/events/{eventId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1082,11 +1129,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_events(self, **kwargs):  # noqa: E501
         """Retrieve all events for a facility  # noqa: E501
@@ -1102,8 +1150,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_events_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_events_with_http_info(**kwargs)  # noqa: E501
@@ -1125,20 +1173,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_events" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1153,10 +1201,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/events', 'GET',
+            "/facilities/{facilityId}/events",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1165,11 +1214,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_facility_address(self, **kwargs):  # noqa: E501
         """Retrieve a specific facility address by id for a facility  # noqa: E501
@@ -1185,11 +1235,15 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_facility_facility_address_with_http_info(**kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_facility_facility_address_with_http_info(
+                **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_facility_facility_address_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_facility_facility_address_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def get_facility_facility_address_with_http_info(self, **kwargs):  # noqa: E501
@@ -1208,20 +1262,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_facility_address" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1236,10 +1290,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/facilityaddresses/{facilityAddressId}', 'GET',
+            "/facilities/{facilityId}/facilityaddresses/{facilityAddressId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1248,11 +1303,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_facility_addresses(self, **kwargs):  # noqa: E501
         """Retrieve all facility addresses for a facility  # noqa: E501
@@ -1268,11 +1324,15 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_facility_facility_addresses_with_http_info(**kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_facility_facility_addresses_with_http_info(
+                **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_facility_facility_addresses_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_facility_facility_addresses_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def get_facility_facility_addresses_with_http_info(self, **kwargs):  # noqa: E501
@@ -1291,20 +1351,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_facility_addresses" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1319,10 +1379,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/facilityaddresses', 'GET',
+            "/facilities/{facilityId}/facilityaddresses",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1331,11 +1392,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_link(self, **kwargs):  # noqa: E501
         """Retrieve a specific link by id for a facility  # noqa: E501
@@ -1351,8 +1413,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_link_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_link_with_http_info(**kwargs)  # noqa: E501
@@ -1374,20 +1436,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_link" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1402,10 +1464,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/links/{linkId}', 'GET',
+            "/facilities/{facilityId}/links/{linkId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1414,11 +1477,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_links(self, **kwargs):  # noqa: E501
         """Retrieve all links for a facility  # noqa: E501
@@ -1434,8 +1498,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_links_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_links_with_http_info(**kwargs)  # noqa: E501
@@ -1457,20 +1521,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_links" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1485,10 +1549,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/links', 'GET',
+            "/facilities/{facilityId}/links",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1497,11 +1562,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_media(self, **kwargs):  # noqa: E501
         """Retrieve a specific media by id for a facility  # noqa: E501
@@ -1517,8 +1583,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_media_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_media_with_http_info(**kwargs)  # noqa: E501
@@ -1540,20 +1606,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_media" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1568,10 +1634,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/media/{mediaId}', 'GET',
+            "/facilities/{facilityId}/media/{mediaId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1580,11 +1647,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_permit_entrance(self, **kwargs):  # noqa: E501
         """Retrieve a specific permit entrance by id for a facility  # noqa: E501
@@ -1600,11 +1668,15 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_facility_permit_entrance_with_http_info(**kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_facility_permit_entrance_with_http_info(
+                **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_facility_permit_entrance_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_facility_permit_entrance_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def get_facility_permit_entrance_with_http_info(self, **kwargs):  # noqa: E501
@@ -1623,20 +1695,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_permit_entrance" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1651,10 +1723,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/permitentrances/{permitEntranceId}', 'GET',
+            "/facilities/{facilityId}/permitentrances/{permitEntranceId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1663,11 +1736,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_permit_entrances(self, **kwargs):  # noqa: E501
         """Retrieve all permit entrances for a facility  # noqa: E501
@@ -1683,11 +1757,15 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_facility_permit_entrances_with_http_info(**kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_facility_permit_entrances_with_http_info(
+                **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_facility_permit_entrances_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_facility_permit_entrances_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def get_facility_permit_entrances_with_http_info(self, **kwargs):  # noqa: E501
@@ -1706,20 +1784,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_permit_entrances" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1734,10 +1812,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/permitentrances', 'GET',
+            "/facilities/{facilityId}/permitentrances",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1746,11 +1825,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_tour(self, **kwargs):  # noqa: E501
         """Retrieve a specific tour by id for a facility  # noqa: E501
@@ -1766,8 +1846,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_tour_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_tour_with_http_info(**kwargs)  # noqa: E501
@@ -1789,20 +1869,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_tour" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1817,10 +1897,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/tours/{tourId}', 'GET',
+            "/facilities/{facilityId}/tours/{tourId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1829,11 +1910,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_facility_tours(self, **kwargs):  # noqa: E501
         """Retrieve all tours for a facility  # noqa: E501
@@ -1849,8 +1931,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_facility_tours_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_facility_tours_with_http_info(**kwargs)  # noqa: E501
@@ -1872,20 +1954,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_facility_tours" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -1900,10 +1982,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/facilities/{facilityId}/tours', 'GET',
+            "/facilities/{facilityId}/tours",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -1912,11 +1995,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_link(self, link_id, **kwargs):  # noqa: E501
         """Retrieve a specific link by id  # noqa: E501
@@ -1933,8 +2017,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_link_with_http_info(link_id, **kwargs)  # noqa: E501
         else:
             (data) = self.get_link_with_http_info(link_id, **kwargs)  # noqa: E501
@@ -1956,31 +2040,32 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['link_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["link_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_link" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'link_id' is set
-        if ('link_id' not in params or
-                params['link_id'] is None):
-            raise ValueError("Missing the required parameter `link_id` when calling `get_link`")  # noqa: E501
+        if "link_id" not in params or params["link_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `link_id` when calling `get_link`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'link_id' in params:
-            path_params['linkId'] = params['link_id']  # noqa: E501
+        if "link_id" in params:
+            path_params["linkId"] = params["link_id"]  # noqa: E501
 
         query_params = []
 
@@ -1991,27 +2076,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/links/{linkId}', 'GET',
+            "/links/{linkId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Link',  # noqa: E501
+            response_type="Link",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_media(self, media_id, **kwargs):  # noqa: E501
         """Retrieve a specific media by id  # noqa: E501
@@ -2028,8 +2116,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_media_with_http_info(media_id, **kwargs)  # noqa: E501
         else:
             (data) = self.get_media_with_http_info(media_id, **kwargs)  # noqa: E501
@@ -2051,31 +2139,32 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['media_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["media_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_media" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'media_id' is set
-        if ('media_id' not in params or
-                params['media_id'] is None):
-            raise ValueError("Missing the required parameter `media_id` when calling `get_media`")  # noqa: E501
+        if "media_id" not in params or params["media_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `media_id` when calling `get_media`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'media_id' in params:
-            path_params['mediaId'] = params['media_id']  # noqa: E501
+        if "media_id" in params:
+            path_params["mediaId"] = params["media_id"]  # noqa: E501
 
         query_params = []
 
@@ -2086,27 +2175,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/media/{mediaId}', 'GET',
+            "/media/{mediaId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Media',  # noqa: E501
+            response_type="Media",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_organization(self, org_id, **kwargs):  # noqa: E501
         """Retrieve a specific organization by id  # noqa: E501
@@ -2123,11 +2215,13 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_organization_with_http_info(org_id, **kwargs)  # noqa: E501
         else:
-            (data) = self.get_organization_with_http_info(org_id, **kwargs)  # noqa: E501
+            (data) = self.get_organization_with_http_info(
+                org_id, **kwargs
+            )  # noqa: E501
             return data
 
     def get_organization_with_http_info(self, org_id, **kwargs):  # noqa: E501
@@ -2146,31 +2240,32 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['org_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["org_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_organization" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'org_id' is set
-        if ('org_id' not in params or
-                params['org_id'] is None):
-            raise ValueError("Missing the required parameter `org_id` when calling `get_organization`")  # noqa: E501
+        if "org_id" not in params or params["org_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `org_id` when calling `get_organization`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'org_id' in params:
-            path_params['orgId'] = params['org_id']  # noqa: E501
+        if "org_id" in params:
+            path_params["orgId"] = params["org_id"]  # noqa: E501
 
         query_params = []
 
@@ -2181,27 +2276,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/organizations/{orgId}', 'GET',
+            "/organizations/{orgId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='list[Organization]',  # noqa: E501
+            response_type="list[Organization]",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_organization_facility(self, **kwargs):  # noqa: E501
         """Retrieve a specific facility by id for an organization  # noqa: E501
@@ -2217,11 +2315,13 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_organization_facility_with_http_info(**kwargs)  # noqa: E501
         else:
-            (data) = self.get_organization_facility_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_organization_facility_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def get_organization_facility_with_http_info(self, **kwargs):  # noqa: E501
@@ -2240,20 +2340,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_organization_facility" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -2268,10 +2368,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/organizations/{orgId}/facilities/{facilityId}', 'GET',
+            "/organizations/{orgId}/facilities/{facilityId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -2280,11 +2381,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_organization_rec_area(self, **kwargs):  # noqa: E501
         """Retrieve a specific RecArea by id for an organization  # noqa: E501
@@ -2300,11 +2402,13 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_organization_rec_area_with_http_info(**kwargs)  # noqa: E501
         else:
-            (data) = self.get_organization_rec_area_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_organization_rec_area_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def get_organization_rec_area_with_http_info(self, **kwargs):  # noqa: E501
@@ -2323,20 +2427,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_organization_rec_area" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -2351,10 +2455,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/organizations/{orgId}/recareas/{recAreaId}', 'GET',
+            "/organizations/{orgId}/recareas/{recAreaId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -2363,11 +2468,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_organization_rec_areas(self, **kwargs):  # noqa: E501
         """Retrieve all RecAreas for an organization  # noqa: E501
@@ -2383,11 +2489,15 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_organization_rec_areas_with_http_info(**kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_organization_rec_areas_with_http_info(
+                **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_organization_rec_areas_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_organization_rec_areas_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def get_organization_rec_areas_with_http_info(self, **kwargs):  # noqa: E501
@@ -2406,20 +2516,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_organization_rec_areas" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -2434,10 +2544,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/organizations/{orgId}/recareas', 'GET',
+            "/organizations/{orgId}/recareas",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -2446,11 +2557,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_permit_entrance(self, permit_entrance_id, **kwargs):  # noqa: E501
         """Retrieve a specific permit entrance by id  # noqa: E501
@@ -2467,14 +2579,20 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_permit_entrance_with_http_info(permit_entrance_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_permit_entrance_with_http_info(
+                permit_entrance_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_permit_entrance_with_http_info(permit_entrance_id, **kwargs)  # noqa: E501
+            (data) = self.get_permit_entrance_with_http_info(
+                permit_entrance_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def get_permit_entrance_with_http_info(self, permit_entrance_id, **kwargs):  # noqa: E501
+    def get_permit_entrance_with_http_info(
+        self, permit_entrance_id, **kwargs
+    ):  # noqa: E501
         """Retrieve a specific permit entrance by id  # noqa: E501
 
         This endpoint retrieves a specific permit entrance.  # noqa: E501
@@ -2490,31 +2608,32 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['permit_entrance_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["permit_entrance_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_permit_entrance" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'permit_entrance_id' is set
-        if ('permit_entrance_id' not in params or
-                params['permit_entrance_id'] is None):
-            raise ValueError("Missing the required parameter `permit_entrance_id` when calling `get_permit_entrance`")  # noqa: E501
+        if "permit_entrance_id" not in params or params["permit_entrance_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `permit_entrance_id` when calling `get_permit_entrance`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'permit_entrance_id' in params:
-            path_params['permitEntranceId'] = params['permit_entrance_id']  # noqa: E501
+        if "permit_entrance_id" in params:
+            path_params["permitEntranceId"] = params["permit_entrance_id"]  # noqa: E501
 
         query_params = []
 
@@ -2525,27 +2644,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/permitentrances/{permitentranceId}', 'GET',
+            "/permitentrances/{permitentranceId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='PermitEntrance',  # noqa: E501
+            response_type="PermitEntrance",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_permit_entrance_attributes(self, **kwargs):  # noqa: E501
         """Retrieve all attributes for a permit entrance  # noqa: E501
@@ -2561,11 +2683,15 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_permit_entrance_attributes_with_http_info(**kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_permit_entrance_attributes_with_http_info(
+                **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_permit_entrance_attributes_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_permit_entrance_attributes_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def get_permit_entrance_attributes_with_http_info(self, **kwargs):  # noqa: E501
@@ -2584,20 +2710,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_permit_entrance_attributes" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -2612,10 +2738,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/permitentrances/{permitEntranceId}/attributes', 'GET',
+            "/permitentrances/{permitEntranceId}/attributes",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -2624,11 +2751,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area(self, rec_area_id, **kwargs):  # noqa: E501
         """Retrieve a specific RecArea by id  # noqa: E501
@@ -2645,11 +2773,13 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_rec_area_with_http_info(rec_area_id, **kwargs)  # noqa: E501
         else:
-            (data) = self.get_rec_area_with_http_info(rec_area_id, **kwargs)  # noqa: E501
+            (data) = self.get_rec_area_with_http_info(
+                rec_area_id, **kwargs
+            )  # noqa: E501
             return data
 
     def get_rec_area_with_http_info(self, rec_area_id, **kwargs):  # noqa: E501
@@ -2668,31 +2798,32 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['rec_area_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["rec_area_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'rec_area_id' is set
-        if ('rec_area_id' not in params or
-                params['rec_area_id'] is None):
-            raise ValueError("Missing the required parameter `rec_area_id` when calling `get_rec_area`")  # noqa: E501
+        if "rec_area_id" not in params or params["rec_area_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `rec_area_id` when calling `get_rec_area`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'rec_area_id' in params:
-            path_params['recAreaId'] = params['rec_area_id']  # noqa: E501
+        if "rec_area_id" in params:
+            path_params["recAreaId"] = params["rec_area_id"]  # noqa: E501
 
         query_params = []
 
@@ -2703,27 +2834,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}', 'GET',
+            "/recareas/{recAreaId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='RecreationArea',  # noqa: E501
+            response_type="RecreationArea",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_activities(self, **kwargs):  # noqa: E501
         """Retrieve all activities for a RecArea  # noqa: E501
@@ -2739,8 +2873,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_rec_area_activities_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_rec_area_activities_with_http_info(**kwargs)  # noqa: E501
@@ -2762,20 +2896,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_activities" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -2790,10 +2924,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/activities', 'GET',
+            "/recareas/{recAreaId}/activities",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -2802,11 +2937,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_activity(self, **kwargs):  # noqa: E501
         """Retrieve a specific activity by id for a RecArea  # noqa: E501
@@ -2822,8 +2958,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_rec_area_activity_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_rec_area_activity_with_http_info(**kwargs)  # noqa: E501
@@ -2845,20 +2981,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_activity" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -2873,10 +3009,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/activities/{activityId}', 'GET',
+            "/recareas/{recAreaId}/activities/{activityId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -2885,11 +3022,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_address(self, rec_area_address_id, **kwargs):  # noqa: E501
         """Retrieve a specific RecArea address by id  # noqa: E501
@@ -2906,14 +3044,20 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_rec_area_address_with_http_info(rec_area_address_id, **kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_rec_area_address_with_http_info(
+                rec_area_address_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_rec_area_address_with_http_info(rec_area_address_id, **kwargs)  # noqa: E501
+            (data) = self.get_rec_area_address_with_http_info(
+                rec_area_address_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def get_rec_area_address_with_http_info(self, rec_area_address_id, **kwargs):  # noqa: E501
+    def get_rec_area_address_with_http_info(
+        self, rec_area_address_id, **kwargs
+    ):  # noqa: E501
         """Retrieve a specific RecArea address by id  # noqa: E501
 
         This endpoint retrieves a specific RecArea.  # noqa: E501
@@ -2929,31 +3073,34 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['rec_area_address_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["rec_area_address_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_address" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'rec_area_address_id' is set
-        if ('rec_area_address_id' not in params or
-                params['rec_area_address_id'] is None):
-            raise ValueError("Missing the required parameter `rec_area_address_id` when calling `get_rec_area_address`")  # noqa: E501
+        if "rec_area_address_id" not in params or params["rec_area_address_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `rec_area_address_id` when calling `get_rec_area_address`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'rec_area_address_id' in params:
-            path_params['recAreaAddressId'] = params['rec_area_address_id']  # noqa: E501
+        if "rec_area_address_id" in params:
+            path_params["recAreaAddressId"] = params[
+                "rec_area_address_id"
+            ]  # noqa: E501
 
         query_params = []
 
@@ -2964,27 +3111,30 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareaaddresses/{recAreaAddressId}', 'GET',
+            "/recareaaddresses/{recAreaAddressId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='RecreationAreaAddress',  # noqa: E501
+            response_type="RecreationAreaAddress",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_event(self, **kwargs):  # noqa: E501
         """Retrieve a specific event by id for a RecArea  # noqa: E501
@@ -3000,8 +3150,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_rec_area_event_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_rec_area_event_with_http_info(**kwargs)  # noqa: E501
@@ -3023,20 +3173,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_event" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -3051,10 +3201,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/events/{eventId}', 'GET',
+            "/recareas/{recAreaId}/events/{eventId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -3063,11 +3214,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_events(self, **kwargs):  # noqa: E501
         """Retrieve all events for a RecArea  # noqa: E501
@@ -3083,8 +3235,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_rec_area_events_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_rec_area_events_with_http_info(**kwargs)  # noqa: E501
@@ -3106,20 +3258,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_events" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -3134,10 +3286,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/events', 'GET',
+            "/recareas/{recAreaId}/events",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -3146,11 +3299,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_facility(self, **kwargs):  # noqa: E501
         """Retrieve a specific facility by id for a RecArea  # noqa: E501
@@ -3166,8 +3320,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_rec_area_facility_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_rec_area_facility_with_http_info(**kwargs)  # noqa: E501
@@ -3189,20 +3343,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_facility" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -3217,10 +3371,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/facilities/{facilityId}', 'GET',
+            "/recareas/{recAreaId}/facilities/{facilityId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -3229,11 +3384,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_link(self, **kwargs):  # noqa: E501
         """Retrieve a specific link by id for a RecArea  # noqa: E501
@@ -3249,8 +3405,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_rec_area_link_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_rec_area_link_with_http_info(**kwargs)  # noqa: E501
@@ -3272,20 +3428,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_link" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -3300,10 +3456,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/links/{linkId}', 'GET',
+            "/recareas/{recAreaId}/links/{linkId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -3312,11 +3469,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_links(self, **kwargs):  # noqa: E501
         """Retrieve all links for a RecArea  # noqa: E501
@@ -3332,8 +3490,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_rec_area_links_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_rec_area_links_with_http_info(**kwargs)  # noqa: E501
@@ -3355,20 +3513,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_links" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -3383,10 +3541,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/links', 'GET',
+            "/recareas/{recAreaId}/links",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -3395,11 +3554,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_media(self, **kwargs):  # noqa: E501
         """Retrieve a specific media by id for a RecArea  # noqa: E501
@@ -3415,8 +3575,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_rec_area_media_with_http_info(**kwargs)  # noqa: E501
         else:
             (data) = self.get_rec_area_media_with_http_info(**kwargs)  # noqa: E501
@@ -3438,20 +3598,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_media" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -3466,10 +3626,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/media/{mediaId}', 'GET',
+            "/recareas/{recAreaId}/media/{mediaId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -3478,11 +3639,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_rec_area_address(self, **kwargs):  # noqa: E501
         """Retrieve a specific RecArea address by id for a RecArea  # noqa: E501
@@ -3498,11 +3660,15 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_rec_area_rec_area_address_with_http_info(**kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_rec_area_rec_area_address_with_http_info(
+                **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_rec_area_rec_area_address_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_rec_area_rec_area_address_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def get_rec_area_rec_area_address_with_http_info(self, **kwargs):  # noqa: E501
@@ -3521,20 +3687,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_rec_area_address" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -3549,10 +3715,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/recareaaddresses/{recAreaAddressId}', 'GET',
+            "/recareas/{recAreaId}/recareaaddresses/{recAreaAddressId}",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -3561,11 +3728,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_rec_area_rec_area_addresses(self, **kwargs):  # noqa: E501
         """Retrieve all RecArea addresses for a RecArea  # noqa: E501
@@ -3581,11 +3749,15 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
-            return self.get_rec_area_rec_area_addresses_with_http_info(**kwargs)  # noqa: E501
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_rec_area_rec_area_addresses_with_http_info(
+                **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_rec_area_rec_area_addresses_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_rec_area_rec_area_addresses_with_http_info(
+                **kwargs
+            )  # noqa: E501
             return data
 
     def get_rec_area_rec_area_addresses_with_http_info(self, **kwargs):  # noqa: E501
@@ -3604,20 +3776,20 @@ class DefaultApi(object):
         """
 
         all_params = []  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_rec_area_rec_area_addresses" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
 
         collection_formats = {}
 
@@ -3632,10 +3804,11 @@ class DefaultApi(object):
 
         body_params = None
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/recareas/{recAreaId}/recareaaddresses', 'GET',
+            "/recareas/{recAreaId}/recareaaddresses",
+            "GET",
             path_params,
             query_params,
             header_params,
@@ -3644,11 +3817,12 @@ class DefaultApi(object):
             files=local_var_files,
             response_type=None,  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
 
     def get_tour(self, tour_id, **kwargs):  # noqa: E501
         """Retrieve a specific tour by id  # noqa: E501
@@ -3665,8 +3839,8 @@ class DefaultApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('async_req'):
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
             return self.get_tour_with_http_info(tour_id, **kwargs)  # noqa: E501
         else:
             (data) = self.get_tour_with_http_info(tour_id, **kwargs)  # noqa: E501
@@ -3688,31 +3862,32 @@ class DefaultApi(object):
                  returns the request thread.
         """
 
-        all_params = ['tour_id']  # noqa: E501
-        all_params.append('async_req')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
+        all_params = ["tour_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
 
         params = locals()
-        for key, val in six.iteritems(params['kwargs']):
+        for key, val in six.iteritems(params["kwargs"]):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
                     " to method get_tour" % key
                 )
             params[key] = val
-        del params['kwargs']
+        del params["kwargs"]
         # verify the required parameter 'tour_id' is set
-        if ('tour_id' not in params or
-                params['tour_id'] is None):
-            raise ValueError("Missing the required parameter `tour_id` when calling `get_tour`")  # noqa: E501
+        if "tour_id" not in params or params["tour_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `tour_id` when calling `get_tour`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
-        if 'tour_id' in params:
-            path_params['tourId'] = params['tour_id']  # noqa: E501
+        if "tour_id" in params:
+            path_params["tourId"] = params["tour_id"]  # noqa: E501
 
         query_params = []
 
@@ -3723,24 +3898,27 @@ class DefaultApi(object):
 
         body_params = None
         # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
 
         # Authentication setting
-        auth_settings = ['Apikey']  # noqa: E501
+        auth_settings = ["Apikey"]  # noqa: E501
 
         return self.api_client.call_api(
-            '/tours/{tourId}', 'GET',
+            "/tours/{tourId}",
+            "GET",
             path_params,
             query_params,
             header_params,
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type='Tour',  # noqa: E501
+            response_type="Tour",  # noqa: E501
             auth_settings=auth_settings,
-            async_req=params.get('async_req'),
-            _return_http_data_only=params.get('_return_http_data_only'),
-            _preload_content=params.get('_preload_content', True),
-            _request_timeout=params.get('_request_timeout'),
-            collection_formats=collection_formats)
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
