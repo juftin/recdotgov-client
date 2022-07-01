@@ -80,7 +80,6 @@ jobs:
                                    mkdir -p ${{ github.workspace }}/auto/.github
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
                                    cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
-                                   cp ${{ github.workspace }}/main/.pre-commit-config.yaml ${{ github.workspace }}/auto/.pre-commit-config.yaml
                                    isort --profile black ${{ github.workspace }}/auto
                                    black ${{ github.workspace }}/auto
                                    git add ${{ github.workspace }}/auto/
