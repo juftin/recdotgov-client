@@ -9,13 +9,14 @@ import zipfile
 import requests
 
 _this_file = spec_file_path = Path(__file__).resolve()
-scripts_dir = _this_file.parent
-project_dir = scripts_dir.parent
-assets_dir = project_dir.joinpath("assets")
-assets_dir.mkdir(exist_ok=True)
+helpers_dir = _this_file.parent
+github_dir = helpers_dir.parent
+project_dir = github_dir.parent
+build_dir = project_dir.joinpath("build")
+build_dir.mkdir(exist_ok=True)
 
-spec_file = assets_dir.joinpath("openapi.yaml")
-zip_file_path = assets_dir.joinpath("recdotgov_client.zip")
+spec_file = build_dir.joinpath("openapi.yaml")
+zip_file_path = build_dir.joinpath("recdotgov_client.zip")
 
 session = requests.Session()
 

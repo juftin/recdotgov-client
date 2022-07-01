@@ -1,0 +1,83 @@
+name: ridb-client-automation
+
+on:
+    pull_request:
+        branches: [ "**" ]
+#    schedule:
+#        -   cron: "0 12 1 * *"
+
+jobs:
+
+    #    test-suite:
+    #        runs-on: ubuntu-latest
+    #        strategy:
+    #            fail-fast: true
+    #            matrix:
+    #                include:
+    #                    - { name: 'Python 3.10', python: '3.10', tox: py310 }
+    #                    - { name: 'Python 3.9', python: '3.9', tox: py39 }
+    #                    - { name: 'Python 3.8', python: '3.8', tox: py38 }
+    #                    - { name: 'Python 3.7', python: '3.7', tox: py37 }
+    #                    - { name: 'Python 3.6', python: '3.6', tox: py36 }
+    #        env:
+    #            LOG_LEVEL:    DEBUG
+    #            RIDB_API_KEY: ${{ secrets.RIDB_API_KEY }}
+    #        steps:
+    #            -   name: Set up Github Workspace
+    #                uses: actions/checkout@v2
+    #                with:
+    #                    fetch-depth: 0
+    #            -   name: Set up Python Environment ${{ matrix.python }}
+    #                uses: actions/setup-python@v2
+    #                with:
+    #                    python-version: ${{ matrix.python }}
+    #            -   name: Install Test Dependencies
+    #                run:  |
+    #                      python -m pip install --upgrade pip wheel
+    #                      python -m pip install tox
+    #            -   name: Tox Test Suite
+    #                run:  |
+    #                      tox -e ${{ matrix.tox }}
+
+    code-gen:
+        runs-on: ubuntu-latest
+        #        needs:   test-suite
+        steps:
+            -   name: Checkout Latest Changes
+                uses: actions/checkout@v2
+                with:
+                    path:        ${{ github.workspace }}/main
+                    ref:         ${{ github.ref }}
+                    fetch-depth: 0
+            -   name: Checkout gh-pages Branch
+                uses: actions/checkout@v2
+                with:
+                    path:        ${{ github.workspace }}/auto
+                    ref:         ${{ github.ref }}
+                    fetch-depth: 0
+            -   name: Set up Python Environment
+                uses: actions/setup-python@v2
+                with:
+                    python-version: 3.9
+            -   name: Install Dependencies
+                run:  |
+                      python -m pip install requests
+            -   name:              Generate All Code
+                working-directory: ${{ github.workspace }}/auto
+                run:               |
+                                   python ${{ github.workspace }}/auto/.github/helpers/fetch_spec.py
+            -   name:              Setup Git Config
+                working-directory: ${{ github.workspace }}/auto
+                run:               |
+                                   git config --global user.name "github-actions[bot]"
+                                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            -   name:              Commit Changes to gh-pages Branch
+                working-directory: ${{ github.workspace }}/auto
+                run:               |
+                                   git rm -rf . || true
+                                   mkdir ${{ github.workspace }}/auto/.github
+                                   cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
+                                   cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
+                                   git add .
+                                   git diff-index --quiet HEAD || git commit -m "CodeGen - ${{ github.run_id }}"
+                                   git push origin auto --force
