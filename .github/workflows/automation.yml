@@ -53,7 +53,7 @@ jobs:
                 uses: actions/checkout@v2
                 with:
                     path:        ${{ github.workspace }}/auto
-                    ref:         ${{ github.ref }}
+                    ref:         auto
                     fetch-depth: 0
             -   name: Set up Python Environment
                 uses: actions/setup-python@v2
@@ -62,6 +62,11 @@ jobs:
             -   name: Install Dependencies
                 run:  |
                       python -m pip install requests
+            -   name:              Bring In Changes
+                working-directory: ${{ github.workspace }}/auto
+                run:               |
+                                   mkdir -p ${{ github.workspace }}/auto/.github
+                                   cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
             -   name:              Generate All Code
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
@@ -75,9 +80,9 @@ jobs:
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
                                    git rm -rf . || true
-                                   mkdir ${{ github.workspace }}/auto/.github
+                                   mkdir -p ${{ github.workspace }}/auto/.github
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
                                    cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
                                    git add .
-                                   git diff-index --quiet HEAD || git commit -m "CodeGen - ${{ github.run_id }}"
+                                   git commit -m "CodeGen - ${{ github.run_id }}"
                                    git push origin auto --force
