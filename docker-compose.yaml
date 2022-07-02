@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+    codegen:
+        image:   swaggerapi/swagger-codegen-cli-v3
+        volumes:
+            - ${PWD}:/tmp/main
+        command: "generate
+             --input-spec https://ridb.recreation.gov/ridb/dist/assets/swagger/ridb.yaml \
+             --lang python \
+             --output /tmp/main/build/client/ \
+             --config /tmp/main/.github/helpers/config.json"
