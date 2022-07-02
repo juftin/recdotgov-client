@@ -16,9 +16,9 @@ jobs:
                 include:
 #                    - { name: 'Python 3.10', python: '3.10', tox: py310 }
                     - { name: 'Python 3.9', python: '3.9', tox: py39 }
-                    - { name: 'Python 3.8', python: '3.8', tox: py38 }
-                    - { name: 'Python 3.7', python: '3.7', tox: py37 }
-                    - { name: 'Python 3.6', python: '3.6', tox: py36 }
+#                    - { name: 'Python 3.8', python: '3.8', tox: py38 }
+#                    - { name: 'Python 3.7', python: '3.7', tox: py37 }
+#                    - { name: 'Python 3.6', python: '3.6', tox: py36 }
         steps:
             -   name: Set up Github Workspace
                 uses: actions/checkout@v2
@@ -80,7 +80,7 @@ jobs:
                 run:               |
                                    mkdir -p ${{ github.workspace }}/auto/.github
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
-                                   rm ${{ github.workspace }}/main/.gitignore
+                                   ${{ github.workspace }}/auto/.gitignore
                                    cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
                                    isort --profile black ${{ github.workspace }}/auto
                                    black ${{ github.workspace }}/auto
