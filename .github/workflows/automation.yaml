@@ -107,11 +107,11 @@ jobs:
                 run:  |
                       echo PROJECT_RELEASE="true" >> ${GITHUB_ENV}
             -   name:              Increment Version Number
-                if:                ${{ env.PRROJECT_RELEASE }} == "true"
+                if:                ${{ env.PROJECT_RELEASE }} == "true"
                 working-directory: ${{ github.workspace }}/main
                 run:               |
-                                   echo PROJECT_VERSION=$(python .github/helpers/packaging_increment.py --increment patch) >> ${GITHUB_ENV}
-                                   NEW_CONFIG=$(cat .github/helpers/config.json | jq '.packageVersion = "${{ env.PROJECT_VERSION }}"')
+                                   PROJECT_VERSION=$(python .github/helpers/packaging_increment.py --increment patch)
+                                   NEW_CONFIG=$(cat .github/helpers/config.json | jq '.packageVersion = "${PROJECT_VERSION}"')
                                    echo ${NEW_CONFIG} > .github/helpers/config.json
             -   name:              Commit Changes
                 id:                commit
@@ -136,6 +136,7 @@ jobs:
                 uses: actions/checkout@v2
                 with:
                     fetch-depth: 0
+                    ref:         main
             -   name: Set up Python Environment
                 uses: actions/setup-python@v2
                 with:
