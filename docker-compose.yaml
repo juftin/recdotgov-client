@@ -7,5 +7,5 @@ services:
         command: "generate
              --input-spec https://ridb.recreation.gov/ridb/dist/assets/swagger/ridb.yaml \
              --lang python \
-             --output /tmp/main/build/client/ \
+             --output /tmp/main/ \
              --config /tmp/main/.github/helpers/config.json"
