@@ -91,7 +91,7 @@ class ApiClient(object):
     def set_default_header(self, header_name, header_value):
         self.default_headers[header_name] = header_value
 
-    async def __call_api(
+    def __call_api(
         self,
         resource_path,
         method,
@@ -154,7 +154,7 @@ class ApiClient(object):
         url = self.configuration.host + resource_path
 
         # perform request and return response
-        response_data = await self.request(
+        response_data = self.request(
             method,
             url,
             query_params=query_params,

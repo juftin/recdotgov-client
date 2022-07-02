@@ -5,5 +5,5 @@
     "packageUrl": "https://github.com/juftin/recdotgov-client",
     "sortParamsByRequiredFlag": true,
     "hideGenerationTimestamp": false,
-    "library": "asyncio"
+    "library": "urllib3"
 }
