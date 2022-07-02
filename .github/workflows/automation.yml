@@ -76,10 +76,10 @@ jobs:
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
                                    docker-compose run codegen
-            -   name:              Commit Changes to gh-pages Branch
+            -   name:              Commit Changes
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
-                                   sudo chmod -R 777 ${{ github.workspace }}/auto
+                                   sudo chown -R "$(id -u)" ${{ github.workspace }}/auto
                                    mkdir -p ${{ github.workspace }}/auto/.github
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
                                    cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
