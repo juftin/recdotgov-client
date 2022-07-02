@@ -8,7 +8,7 @@ from pathlib import Path
 from packaging.version import Version
 
 _this_file = Path(__file__).resolve()
-version_file = _this_file.parent.joinpath("VERSION")
+version_file = _this_file.parent.parent.joinpath("VERSION")
 version = Version(version_file.read_text())
 
 increment_dict = dict(
