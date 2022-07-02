@@ -111,7 +111,8 @@ jobs:
                 working-directory: ${{ github.workspace }}/main
                 run:               |
                                    PROJECT_VERSION=$(python .github/helpers/packaging_increment.py --increment patch)
-                                   NEW_CONFIG=$(cat .github/helpers/config.json | jq '.packageVersion = "${PROJECT_VERSION}"')
+                                   JQ_QUERY='.packageVersion = "${PROJECT_VERSION}"'
+                                   NEW_CONFIG=$(cat .github/helpers/config.json | jq '"${JQ_QUERY}"')
                                    echo ${NEW_CONFIG} > .github/helpers/config.json
             -   name:              Commit Changes
                 id:                commit
