@@ -68,12 +68,13 @@ jobs:
             -   name:              Bring In Changes
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
-                                   git rm -rf . || true
+                                   git rm -rf ${{ github.workspace }}/auto/ || true
                                    mkdir -p ${{ github.workspace }}/auto/.github
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
             -   name:              Generate All Code
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
+                                   python ${{ github.workspace }}/auto/.github/helpers/generate_spec.py
                                    docker-compose --file ${{ github.workspace }}/auto/.github/helpers/docker-compose.yaml run codegen
             -   name:              Commit Changes
                 working-directory: ${{ github.workspace }}/auto
