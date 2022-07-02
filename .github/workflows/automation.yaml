@@ -4,6 +4,8 @@ on:
 
     push:
         branches: [ "main" ]
+        paths:
+            - ".github/**"
     schedule:
         -   cron: "0 4 * * 6"
 
@@ -53,13 +55,14 @@ jobs:
                     path:        ${{ github.workspace }}/main
                     ref:         main
                     fetch-depth: 0
+                    token:       ${{ secrets.PERSONAL_ACCESS_TOKEN }}
             -   name: Set up Python Environment
                 uses: actions/setup-python@v2
                 with:
                     python-version: 3.9
             -   name: Install Dependencies
                 run:  |
-                      python -m pip install isort black requests
+                      python -m pip install isort black requests packaging
             -   name:              Setup Git Config
                 working-directory: ${{ github.workspace }}/main
                 run:               |
@@ -71,63 +74,75 @@ jobs:
                                    git rm -rf ${{ github.workspace }}/main/ || true
                                    mkdir -p ${{ github.workspace }}/main/.github
                                    cp -a ${{ github.workspace }}/latest/.github/. ${{ github.workspace }}/main/.github/
+            -   name:              Increment Version Number
+                working-directory: ${{ github.workspace }}/main
+                run:               |
+                                   echo PROJECT_VERSION=$(python .github/helpers/packaging_increment.py --increment patch) >> ${GITHUB_ENV}
+                                   NEW_CONFIG=$(cat .github/helpers/config.json | jq '.packageVersion = "${{ env.PROJECT_VERSION }}"')
+                                   echo ${NEW_CONFIG} > .github/helpers/config.json
             -   name:              Generate All Code
                 working-directory: ${{ github.workspace }}/main
                 run:               |
                                    python ${{ github.workspace }}/main/.github/helpers/generate_spec.py
                                    docker-compose --file ${{ github.workspace }}/main/.github/helpers/docker-compose.yaml run codegen
-            -   name:              Commit Changes
+            -   name:              Prepare Changes
                 working-directory: ${{ github.workspace }}/main
                 run:               |
                                    git checkout -b ${{ github.run_id }}
                                    sudo chown -R "$(id -u)" ${{ github.workspace }}/main
-                                   mkdir -p ${{ github.workspace }}/main/.github
-                                   cp -a ${{ github.workspace }}/latest/.github/. ${{ github.workspace }}/main/.github/
                                    cp ${{ github.workspace }}/latest/.gitignore ${{ github.workspace }}/main/.gitignore
                                    cp ${{ github.workspace }}/latest/LICENSE ${{ github.workspace }}/main/LICENSE
+            -   name:              Increment Version Number
+                working-directory: ${{ github.workspace }}/main
+                run:               |
+                                   python .github/helpers/packaging_increment.py --increment patch
+            -   name:              Format Code
+                working-directory: ${{ github.workspace }}/main
+                run:               |
                                    isort --profile black ${{ github.workspace }}/main
                                    black ${{ github.workspace }}/main
+            -   name:              Commit Changes
+                working-directory: ${{ github.workspace }}/main
+                run:               |
                                    git add ${{ github.workspace }}/main/
                                    git commit -m "CodeGen - ${{ github.run_id }}"
+                                   git push --set-upstream origin ${{ github.run_id }}
                                    git checkout main
                                    git merge ${{ github.run_id }}
                                    git push origin main --force
                                    git branch -d ${{ github.run_id }}
                                    git fetch -p
 
-    github-pages-publish:
+    release:
         runs-on: ubuntu-latest
-        if:      ${{ github.event_name == 'push' }}
         needs:   code-gen
         steps:
-            -   name: Checkout Latest Changes
+            -   name: Set up Github Workspace
                 uses: actions/checkout@v2
                 with:
-                    path:        ${{ github.workspace }}/main
-                    ref:         ${{ github.ref }}
                     fetch-depth: 0
-            -   name: Checkout gh-pages Branch
-                uses: actions/checkout@v2
+            -   name: Set up Python Environment
+                uses: actions/setup-python@v2
                 with:
-                    path:        ${{ github.workspace }}/gh-pages
-                    ref:         gh-pages
-                    fetch-depth: 0
-
-            -   name: Setup Git Config
+                    python-version: 3.9
+            -   name: Version Incrementer
                 run:  |
-                      git config --global user.name "github-actions[bot]"
-                      git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            -   name:              Get Commit SHA from main
-                working-directory: ${{ github.workspace }}/main
-                run:               |
-                                   COMMIT_SHA=$(git rev-parse HEAD)
-                                   echo "COMMIT_SHA=${COMMIT_SHA}" >> ${GITHUB_ENV}
-            -   name:              Commit Changes to gh-pages Branch
-                working-directory: ${{ github.workspace }}/gh-pages
-                run:               |
-                                   git rm -rf . || true
-                                   rm -rf ${{ github.workspace }}/main/.git/
-                                   cp -a ${{ github.workspace }}/main/. ${{ github.workspace }}/gh-pages/
-                                   git add .
-                                   git diff-index --quiet HEAD || git commit -m "GitHub Pages - ${{ env.COMMIT_SHA }}"
-                                   git push origin gh-pages --force
+                      python -m pip install packaging
+            -   name: Version Fetcher
+                run:  |
+                      echo PROJECT_NAME=$(python setup.py --name) >> ${GITHUB_ENV}
+                      echo PROJECT_VERSION=$(python .github/helpers/packaging_increment.py) >> ${GITHUB_ENV}
+            -   name: Tag Setter
+                run:  |
+                      echo PROJECT_TAG='v${{ env.PROJECT_VERSION }}' >> ${GITHUB_ENV}
+                      echo PROJECT_RELEASE='${{ env.PROJECT_NAME }} v${{ env.PROJECT_VERSION }}' >> ${GITHUB_ENV}
+            -   name: Draft a Release
+                uses: release-drafter/release-drafter@v5
+                with:
+                    config-name: release-drafter.yml
+                    name:        ${{ env.PROJECT_RELEASE }}
+                    version:     ${{ env.PROJECT_VERSION }}
+                    tag:         ${{ env.PROJECT_TAG }}
+                    publish:     true
+                env:
+                    GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
