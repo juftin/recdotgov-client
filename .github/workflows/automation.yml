@@ -71,7 +71,6 @@ jobs:
                                    git rm -rf . || true
                                    mkdir -p ${{ github.workspace }}/auto/.github
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
-                                   cp ${{ github.workspace }}/main/docker-compose.yaml ${{ github.workspace }}/auto/docker-compose.yaml
             -   name:              Generate All Code
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
