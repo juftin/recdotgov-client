@@ -1,8 +1,7 @@
 name: ridb-client-automation
 
 on:
-    pull_request:
-        branches: [ "**" ]
+
     push:
         branches: [ "main" ]
     schedule:
@@ -16,7 +15,7 @@ jobs:
             fail-fast: true
             matrix:
                 include:
-                    - { name: 'Python 3.10', python: '3.10', tox: py310 }
+                    #  - { name: 'Python 3.10', python: '3.10', tox: py310 }
                     - { name: 'Python 3.9', python: '3.9', tox: py39 }
                     - { name: 'Python 3.8', python: '3.8', tox: py38 }
                     - { name: 'Python 3.7', python: '3.7', tox: py37 }
@@ -51,8 +50,8 @@ jobs:
             -   name: Checkout Destination Branch
                 uses: actions/checkout@v2
                 with:
-                    path:        ${{ github.workspace }}/auto
-                    ref:         auto
+                    path:        ${{ github.workspace }}/main
+                    ref:         main
                     fetch-depth: 0
             -   name: Set up Python Environment
                 uses: actions/setup-python@v2
@@ -62,30 +61,71 @@ jobs:
                 run:  |
                       python -m pip install isort black requests
             -   name:              Setup Git Config
-                working-directory: ${{ github.workspace }}/auto
+                working-directory: ${{ github.workspace }}/main
                 run:               |
                                    git config --global user.name "github-actions[bot]"
                                    git config --global user.email "github-actions[bot]@users.noreply.github.com"
             -   name:              Bring In Changes
-                working-directory: ${{ github.workspace }}/auto
+                working-directory: ${{ github.workspace }}/main
                 run:               |
-                                   git rm -rf ${{ github.workspace }}/auto/ || true
-                                   mkdir -p ${{ github.workspace }}/auto/.github
-                                   cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
+                                   git rm -rf ${{ github.workspace }}/main/ || true
+                                   mkdir -p ${{ github.workspace }}/main/.github
+                                   cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/main/.github/
             -   name:              Generate All Code
-                working-directory: ${{ github.workspace }}/auto
+                working-directory: ${{ github.workspace }}/main
                 run:               |
-                                   python ${{ github.workspace }}/auto/.github/helpers/generate_spec.py
-                                   docker-compose --file ${{ github.workspace }}/auto/.github/helpers/docker-compose.yaml run codegen
+                                   python ${{ github.workspace }}/main/.github/helpers/generate_spec.py
+                                   docker-compose --file ${{ github.workspace }}/main/.github/helpers/docker-compose.yaml run codegen
             -   name:              Commit Changes
-                working-directory: ${{ github.workspace }}/auto
+                working-directory: ${{ github.workspace }}/main
                 run:               |
-                                   sudo chown -R "$(id -u)" ${{ github.workspace }}/auto
-                                   mkdir -p ${{ github.workspace }}/auto/.github
-                                   cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
-                                   cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
-                                   isort --profile black ${{ github.workspace }}/auto
-                                   black ${{ github.workspace }}/auto
-                                   git add ${{ github.workspace }}/auto/
+                                   git checkout -b ${{ github.run_id }}
+                                   sudo chown -R "$(id -u)" ${{ github.workspace }}/main
+                                   mkdir -p ${{ github.workspace }}/main/.github
+                                   cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/main/.github/
+                                   cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/main/.gitignore
+                                   isort --profile black ${{ github.workspace }}/main
+                                   black ${{ github.workspace }}/main
+                                   git add ${{ github.workspace }}/main/
                                    git commit -m "CodeGen - ${{ github.run_id }}"
-                                   git push origin auto --force
+                                   git checkout main
+                                   git merge --strategy=theirs ${{ github.run_id }}
+                                   git push origin main --force
+                                   git branch -d ${{ github.run_id }}
+                                   git fetch -p
+
+    github-pages-publish:
+        runs-on: ubuntu-latest
+        if:      ${{ github.event_name == 'push' }}
+        needs:   code-gen
+        steps:
+            -   name: Checkout Latest Changes
+                uses: actions/checkout@v2
+                with:
+                    path:        ${{ github.workspace }}/main
+                    ref:         ${{ github.ref }}
+                    fetch-depth: 0
+            -   name: Checkout gh-pages Branch
+                uses: actions/checkout@v2
+                with:
+                    path:        ${{ github.workspace }}/gh-pages
+                    ref:         gh-pages
+                    fetch-depth: 0
+
+            -   name: Setup Git Config
+                run:  |
+                      git config --global user.name "github-actions[bot]"
+                      git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            -   name:              Get Commit SHA from main
+                working-directory: ${{ github.workspace }}/main
+                run:               |
+                                   COMMIT_SHA=$(git rev-parse HEAD)
+                                   echo "COMMIT_SHA=${COMMIT_SHA}" >> ${GITHUB_ENV}
+            -   name:              Commit Changes to gh-pages Branch
+                working-directory: ${{ github.workspace }}/gh-pages
+                run:               |
+                                   git rm -rf . || true
+                                   cp -R ${{ github.workspace }}/main/* ${PWD}
+                                   git add .
+                                   git diff-index --quiet HEAD || git commit -m "GitHub Pages - ${{ env.COMMIT_SHA }}"
+                                   git push origin gh-pages --force
