@@ -75,15 +75,15 @@ jobs:
             -   name:              Generate All Code
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
-                                   docker-compose run codegen
+                                   docker-compose run -u 1000 codegen
             -   name:              Commit Changes to gh-pages Branch
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
                                    mkdir -p ${{ github.workspace }}/auto/.github
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
-                                   sudo cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
-                                   sudo isort --profile black ${{ github.workspace }}/auto
-                                   sudo black ${{ github.workspace }}/auto
+                                   cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
+                                   isort --profile black ${{ github.workspace }}/auto
+                                   black ${{ github.workspace }}/auto
                                    git add ${{ github.workspace }}/auto/
                                    git commit -m "CodeGen - ${{ github.run_id }}"
                                    git push origin auto --force
