@@ -80,6 +80,7 @@ jobs:
                 run:               |
                                    mkdir -p ${{ github.workspace }}/auto/.github
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
+                                   rm ${{ github.workspace }}/main/.gitignore
                                    cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
                                    isort --profile black ${{ github.workspace }}/auto
                                    black ${{ github.workspace }}/auto
