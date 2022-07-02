@@ -1,7 +1,7 @@
 {
     "packageName": "recdotgov_client",
     "projectName": "recdotgov-client",
-    "packageVersion": "0.1.0",
+    "packageVersion": "<SET AT RUNTIME>",
     "packageUrl": "https://github.com/juftin/recdotgov-client",
     "sortParamsByRequiredFlag": true,
     "hideGenerationTimestamp": false,
