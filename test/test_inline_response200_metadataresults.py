@@ -15,7 +15,9 @@ from __future__ import absolute_import
 import unittest
 
 import recdotgov_client
-from recdotgov_client.models.inline_response200_metadataresults import InlineResponse200METADATARESULTS  # noqa: E501
+from recdotgov_client.models.inline_response200_metadataresults import (  # noqa: E501
+    InlineResponse200METADATARESULTS,
+)
 from recdotgov_client.rest import ApiException
 
 
@@ -35,5 +37,5 @@ class TestInlineResponse200METADATARESULTS(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

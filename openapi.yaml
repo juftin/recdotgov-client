@@ -1,0 +1,2328 @@
+---
+openapi: 3.0.0
+info:
+    title: RIDB API
+    description: >-
+        The Recreation Information Database (RIDB) provides data resources to citizens, offering a single point of access to information about recreational opportunities nationwide. The RIDB represents an authoritative source of information and services for millions of visitors to federal lands, historic sites, museums, and other attractions/resources. This initiative integrates multiple Federal channels and sources about recreation opportunities into a one-stop, searchable database of recreational areas nationwide.
+    version: 1.0.0
+servers:
+    -   url: https://ridb.recreation.gov/api/v1
+        description: RIDB API 1.0
+tags:
+    -   name: Activities
+        description: Activities are associated to RecAreas and facilities. Examples are climbing, boating, and camping.
+    -   name: Attributes
+    -   name: Campsites
+        description: Campsites are associated to parent facilities.
+    -   name: Events
+        description: Events are associated to either RecAreas or facilities. Examples are Salmon Festivals, Halloween in the Park, Balloon Festivals, Environmental Fairs, and Fishing tournaments.
+    -   name: Facilities
+        description: Facilities are points of interest within recreations areas. Facilities can also “stand on their own” without a parent RecArea. Facilities can also be comprised of or more child facilities. Examples are a ranger station, hotel, campground or trail. Facilities can also be areas within larger facilities. Example is Alamo National Park that resides within the Alamo Lake RecArea. Facilities can also be reservable or non-reservable.
+    -   name: Facility Addresses
+    -   name: Links
+        description: Links are hyperlinks that provide information associated with a RecArea or facility. Link type examples are official websites, local partnerships, concessionaires, Flickr, Facebook, YouTube channels, Google+, and Twitter.
+    -   name: Media
+        description: Media is hyperlinks to either images or video associated with a RecArea, facility or campsite.
+    -   name: Organizations
+        description: RIDB organizations are the federal agencies that provide RIDB data.
+    -   name: Permit Entrances
+        description: Permit entrances are associated to parent facilities.
+    -   name: Recreation Areas
+        description: Recreation areas are large tracts of federal land for the purpose of, you guessed it, recreating! Recreation areas have many distinguishing characteristics (attributes) ranging from addresses, organizations, links, media links, activities, etc. Recreation areas can contain one to many child facilities. Recreation area examples are Yosemite National Park and the Aldo Leopold Wilderness.
+    -   name: Recreation Area Addresses
+    -   name: Tours
+        description: Tours are associated to parent facilities. Tours can also be members of parent tour packages as denoted by the “membertours” attribute.
+components:
+    securitySchemes:
+        Apikey:
+            type: apiKey
+            in: header
+            name: apikey
+    schemas:
+        Activity:
+            type: object
+            required:
+                - ActivityID
+                - ActivityParentID
+                - ActivityName
+                - ActivityLevel
+            properties:
+                ActivityID:
+                    type: integer
+                    description: Activity ID
+                    example: 11
+                ActivityParentID:
+                    type: integer
+                    description: ParentID of the related Actitvity
+                    example: 0
+                ActivityName:
+                    type: string
+                    maxLength: 60
+                    description: Name of the activity
+                    example: FISHING
+                ActivityLevel:
+                    type: integer
+                    description: Amount of physical exertion to be expected for a given activity such as hiking, swimming, etc
+                    example: 0
+        Attribute:
+            type: object
+            required:
+                - AttributeName
+                - AttributeValue
+            properties:
+                AttributeID:
+                    type: integer
+                    description: Attribute ID
+                AttributeName:
+                    type: string
+                    maxLength: 60
+                    description: Attribute name
+                AttributeValue:
+                    type: string
+                    maxLength: 255
+                    description: Attribute value
+        Campsite:
+            type: object
+            required:
+                - CampsiteID
+                - FacilityID
+                - CampsiteName
+                - CampsiteType
+                - TypeOfUse
+                - Loop
+                - CampsiteAccessible
+                - ATTRIBUTES
+                - PERMITTEDEQUIPMENT
+                - ENTITYMEDIA
+                - CreatedDate
+                - LastUpdatedDate
+            properties:
+                CampsiteID:
+                    type: string
+                    description: Campsite ID
+                FacilityID:
+                    type: string
+                    description: Facility ID the campsite belongs to
+                CampsiteName:
+                    type: string
+                    maxLength: 255
+                    description: Campsite name
+                CampsiteType:
+                    type: string
+                    maxLength: 255
+                    description: Campsite type
+                TypeOfUse:
+                    type: string
+                    maxLength: 255
+                    description: Type of use
+                Loop:
+                    type: string
+                    maxLength: 255
+                    description: Name of loop the campsite resides on
+                CampsiteAccessible:
+                    type: boolean
+                    description: Is the campsite accessible by vehicle
+                CampsiteLongitude:
+                    type: number
+                    description: Longitude of the permit
+                    format: double
+                    example: -118.0186111
+                CampsiteLatitude:
+                    type: number
+                    description: Latitude of the permit
+                    format: double
+                    example: 44.6969444
+                CreatedDate: &CreatedDate
+                    <<: &Date
+                        type: string
+                        format: date
+                        example: '2018-10-01'
+                    description: Record creation date
+                LastUpdatedDate: &LastUpdateDate
+                    <<: *Date
+                    description: Record last update date
+                ATTRIBUTES:
+                    <<: &Attributes
+                        type: array
+                        items:
+                            $ref: '#/components/schemas/Attribute'
+                    description: Array of Campsite Attributes
+                PERMITTEDEQUIPMENT:
+                    type: array
+                    description: Array of Permitted Equipment allowed in the Campsite
+                    items:
+                        $ref: '#/components/schemas/Permitted Equipment'
+                ENTITYMEDIA:
+                    <<: &EntityMedia
+                        type: array
+                        items:
+                            $ref: '#/components/schemas/Media'
+                    description: Array of Media for the Campsite
+        Event:
+            type: object
+            required:
+                - EventID
+                - EventName
+                - ResourceLink
+            properties:
+                EventID:
+                    type: string
+                    description: Event ID
+                EventName:
+                    type: string
+                    maxLength: 60
+                    description: Full name of the Event
+                ResourceLink: &ResourceLink
+                    type: string
+                    description: Internet address (URL) to a web site providing details
+                    format: url
+        Facility:
+            type: object
+            required:
+                - FacilityID
+                - LegacyFacilityID
+                - OrgFacilityID
+                - FacilityName
+                - FacilityDescription
+                - FacilityTypeDescription
+                - FacilityUseFeeDescription
+                - FacilityDirections
+                - FacilityPhone
+                - FacilityEmail
+                - FacilityReservationURL
+                - FacilityMapURL
+                - FacilityAdaAccess
+                - GEOJSON
+                - FacilityLongitude
+                - FacilityLatitude
+                - StayLimit
+                - Keywords
+                - Reservable
+                - Enabled
+                - LastUpdatedDate
+            properties:
+                FacilityID:
+                    type: string
+                    description: RIDB unique Facility ID
+                    example: '233115'
+                LegacyFacilityID:
+                    type: string
+                    description: Legacy Facility ID
+                    example: '71992'
+                OrgFacilityID:
+                    type: string
+                    description: The agency's internal Facility ID provided to the RIDB by the agency
+                    example: 'AN371992'
+                ParentOrgID:
+                    type: string
+                    description: The parent Organization ID
+                    example: '131'
+                ParentRecAreaID:
+                    type: string
+                    description: The parent RecArea ID
+                    example: '1113'
+                FacilityName:
+                    type: string
+                    maxLength: 256
+                    description: Full name of the Facility
+                    example: UNION CREEK CAMPGROUND
+                FacilityDescription:
+                    type: string
+                    maxLength: 4000
+                    description: Text describing the main features of the Facility
+                    example: >-
+                        <h2>Overview:</h2>The Union Creek Campground is one of the largest Forest Service campgrounds in eastern Oregon. It's nestled on the northern shore of Phillips Reservoir amid mature
+                        Ponderosa pine, with a few sites offering views of the lake.<br /><br />
+
+                        This camp is part of the Union Creek Recreation Area, which includes a picnic and day-use area. Union Creek Campground is set on three loops with separate walk-in tent
+                        camping, and it has four group sites that can accommodate from 60-100 people.<h4>Natural Features:</h4>Phillips Reservoir is a popular destination within the Wallowa-Whitman National Forest because it offers scenic views of the surrounding Elkhorn Mountains. The
+                        shoreline is forested with a mix of Ponderosa pine and various firs interspersed with small grasslands.<br /><br />
+
+                        Visitors enjoy several varieties of colorful wildflowers in the spring.<h4>Recreation:</h4>The campground is near a boat launch and a small, rocky swim beach. Activities include swimming, fishing, boating and water
+                        skiing.<br /><br />
+
+                        Anglers can fish for bass, trout and perch. There's an access point for the Phillips Lake Shoreline Trail, a 6.5-mile scenic trail for hiking and mountain biking.<h4>Facilities:</h4>The parking spurs are paved and gravel and large enough for any size RV. Several sites offer full hookups, and some others offer water and electric.<br /><br />
+
+                        Units are equipped with picnic tables and grills. Drinking water and flush toilets are available.
+                        Some of the facilities are handicap-accessible.<h4>Nearby Attractions:</h4>The historic gold mining town of Sumpter is about 10 miles away. Visitors can explore the Sumpter Dredge State Heritage Park, browse the holiday weekend flea
+                        markets or take a ride on a historic steam locomotive.
+                FacilityTypeDescription:
+                    maxLength: 1024
+                    type: string
+                    description: Description of the type of Facility
+                    example: Campground
+                FacilityUseFeeDescription:
+                    type: string
+                    description: Text describing monetary charges associated with entrance to or usage of the Facility
+                    example: ''
+                FacilityDirections:
+                    type: string
+                    maxLength: 4000
+                    description: Text that provides general directions and/or the general location of the Facility
+                    example: From Baker City, Oregon, travel south on Highway 7 for about 18 miles. The campground and day-use entrance is signed on the left side of the road. Follow the signs in the Union Creek Recreation Area down to the various campground loops and areas.
+                FacilityPhone:
+                    type: string
+                    maxLength: 256
+                    description: Phone number of the Facility
+                    example: 541-894-2332
+                FacilityEmail:
+                    type: string
+                    maxLength: 60
+                    description: Email address of the Facility
+                    format: email
+                    example: campgrounds@anthonylakes.com
+                FacilityReservationURL:
+                    type: string
+                    maxLength: 256
+                    description: Internet address (URL) for the web site hosting the reservation system
+                    format: url
+                    example: ''
+                FacilityMapURL:
+                    type: string
+                    maxLength: 256
+                    description: Internet address (URL) that hosts the Facility map
+                    format: url
+                    example: ''
+                FacilityAdaAccess:
+                    type: string
+                    maxLength: 1024
+                    description: Information about the Americans with Disabilities Act accessibility for the Facility
+                    example: 'N'
+                GEOJSON: &GEOJSON
+                    type: object
+                    properties: &GEOJSONProperties
+                        TYPE:
+                            type: string
+                            example: Point
+                        COORDINATES: &GEOJSONCoordinates
+                            type: array
+                            items:
+                                type: number
+                                format: double
+                            minItems: 2
+                            maxItems: 2
+                            example: [ -118.0186111, 44.6969444 ]
+                FacilityLongitude:
+                    type: number
+                    description: Longitude in decimal degrees -180.0 to 180.0
+                    format: double
+                    example: -118.0186111
+                FacilityLatitude:
+                    type: number
+                    description: Latitude in decimal degrees -90.0 to 90.0
+                    format: double
+                    example: 44.6969444
+                StayLimit:
+                    type: string
+                    maxLength: 500
+                    description: Details on the stay limits for the Facility
+                    example: ''
+                Keywords:
+                    type: string
+                    maxLength: 4000
+                    description: List of keywords for the Facility
+                    example: NW02,Phillips Reservoir
+                Reservable:
+                    <<: &Reservable
+                        type: boolean
+                        example: false
+                    description: Whether the Facility is reservable
+                Enabled:
+                    <<: &Enabled
+                        type: boolean
+                        example: true
+                    description: Whether the Facility is enabled
+                LastUpdatedDate: *LastUpdateDate
+                CAMPSITE:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Facility Campsite'
+                PERMITENTRANCE:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Facility Permit Entrance'
+                TOUR:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Facility Tour'
+                ORGANIZATION:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Organization'
+                RECAREA:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Facility RecArea'
+                FACILITYADDRESS:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Facility Address'
+                ACTIVITY:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Facility Activity'
+                EVENT:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Event'
+                LINK:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Link'
+                MEDIA:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Media'
+        Facility Activity:
+            type: object
+            required:
+                - ActivityID
+                - FacilityID
+                - ActivityName
+                - FacilityActivityDescription
+                - FacilityActivityFeeDescription
+            properties:
+                ActivityID:
+                    type: string
+                    description: Activity ID
+                FacilityID:
+                    type: string
+                    description: Parent Facility ID of the Actitvity
+                ActivityName:
+                    type: string
+                    maxLength: 60
+                    description: Name of the Activity
+                FacilityActivityDescription:
+                    type: string
+                    maxLength: 1024
+                    description: Description of the Activity
+                FacilityActivityFeeDescription:
+                    type: string
+                    maxLength: 1024
+                    description: Text describing monetary charges associated with the Activity
+        Facility Address:
+            type: object
+            required:
+                - FacilityAddressID
+                - FacilityID
+                - FacilityAddressType
+                - FacilityStreetAddress1
+                - FacilityStreetAddress2
+                - FacilityStreetAddress3
+                - City
+                - PostalCode
+                - AddressStateCode
+                - AddressCountryCode
+                - LastUpdatedDate
+            properties:
+                FacilityAddressID:
+                    type: string
+                    description: Facility Address ID
+                    example: '10639'
+                FacilityID:
+                    type: string
+                    description: Facility ID
+                    example: '203140'
+                FacilityAddressType:
+                    type: string
+                    maxLength: 20
+                    description: Address type for the Facility
+                    enum: [ Default, Mailing, Physical ]
+                    example: Default
+                FacilityStreetAddress1:
+                    type: string
+                    maxLength: 256
+                    description: Address line 1 of the Facility
+                    example: P.O. Box 150153
+                FacilityStreetAddress2:
+                    type: string
+                    maxLength: 256
+                    description: Address line 2 of the Facility
+                    example: ''
+                FacilityStreetAddress3:
+                    type: string
+                    maxLength: 256
+                    description: Address line 3 of the Facility
+                    example: ''
+                City:
+                    type: string
+                    maxLength: 60
+                    description: City where the Facility is located
+                    example: Dallas
+                PostalCode:
+                    type: string
+                    maxLength: 20
+                    description: Postal code for the Facility
+                    example: '75315-0153'
+                AddressStateCode:
+                    type: string
+                    maxLength: 20
+                    description: State code for the Facility
+                    example: TX
+                AddressCountryCode:
+                    type: string
+                    maxLength: 5
+                    description: Abbreviated country code for the Facility Address
+                    example: USA
+                LastUpdatedDate: *LastUpdateDate
+        Facility Campsite:
+            type: object
+            required:
+                - CampsiteID
+                - CampsiteName
+                - ResourceLink
+            properties:
+                CampsiteID:
+                    type: string
+                    description: Campsite ID
+                CampsiteName:
+                    type: string
+                    maxLength: 255
+                    description: Campsite Name
+                ResourceLink: *ResourceLink
+        Facility Permit Entrance:
+            type: object
+            required:
+                - PermitEntranceID
+                - PermitEntranceName
+                - ResourceLink
+            properties:
+                PermitEntranceID:
+                    type: string
+                    description: Permit Entrance ID
+                PermitEntranceName:
+                    type: string
+                    maxLength: 512
+                    description: Permit Entrance name
+                ResourceLink: *ResourceLink
+        Facility RecArea:
+            type: object
+            required:
+                - RecAreaID
+                - RecAreaName
+                - ResourceLink
+            properties:
+                RecAreaID:
+                    type: string
+                    description: RIDB unique RecArea ID
+                    example: '1113'
+                RecAreaName:
+                    type: string
+                    maxLength: 256
+                    description: Full name of the RecArea
+                    example: Wallowa Whitman National Forest
+                ResourceLink: *ResourceLink
+        Facility Tour:
+            type: object
+            required:
+                - TourID
+                - TourName
+                - ResourceLink
+            properties:
+                TourID:
+                    type: string
+                    description: Tour ID
+                TourName:
+                    type: string
+                    maxLength: 255
+                    description: Tour name
+                ResourceLink: *ResourceLink
+        Link:
+            type: object
+            required:
+                - EntityLinkID
+                - LinkType
+                - EntityID
+                - EntityType
+                - Title
+                - Description
+                - URL
+            properties:
+                EntityLinkID:
+                    type: string
+                    description: Primary Key
+                LinkType:
+                    type: string
+                    maxLength: 500
+                    description: Type of link, e.g. Facebook, Twitter, official site
+                EntityID:
+                    type: string
+                    description: RecArea ID OR Facility ID
+                EntityType:
+                    type: string
+                    maxLength: 50
+                    description: RecArea or Facility
+                Title:
+                    type: string
+                    maxLength: 500
+                    description: Full text title
+                Description:
+                    type: string
+                    description: Text description of the entity link
+                URL:
+                    type: string
+                    maxLength: 2000
+                    description: Internet address (URL) to a web site
+                    format: url
+        Media:
+            type: object
+            required:
+                - EntityMediaID
+                - MediaType
+                - EntityID
+                - EntityType
+                - Title
+                - Subtitle
+                - Description
+                - EmbedCode
+                - Height
+                - Width
+                - URL
+                - Credits
+            properties:
+                EntityMediaID:
+                    type: string
+                    description: Primary Key
+                MediaType:
+                    type: string
+                    maxLength: 500
+                    description: Type of Media, e.g. Image, Video, etc.
+                    enum: [ Image, Video ]
+                EntityID:
+                    type: string
+                    description: RecArea ID OR Facility ID OR Tour ID OR Permit Entrance ID OR Campsite ID
+                EntityType:
+                    type: string
+                    maxLength: 50
+                    description: RecArea, Facility, Tour, Entrance, or Site
+                Title:
+                    type: string
+                    maxLength: 500
+                    description: Full title of the entity media
+                Subtitle:
+                    type: string
+                    maxLength: 1000
+                    description: Optional subtitle of the entity media
+                Description:
+                    type: string
+                    description: Optional description of the entity media
+                EmbedCode:
+                    type: string
+                    description: Optional embedded code for media entity
+                Height:
+                    type: integer
+                    description: Height in pixels for media image
+                Width:
+                    type: integer
+                    description: Width in pixels for the media image
+                IsPrimary:
+                    type: boolean
+                    description: Whether the image is a primary image
+                IsPreview:
+                    type: boolean
+                    description: Whether the image is a preview image
+                IsGallery:
+                    type: boolean
+                    description: Whether the image is a gallery image
+                URL:
+                    type: string
+                    description: Internet address (URL) to the entity media
+                    format: url
+                Credits:
+                    type: string
+                    maxLength: 1000
+                    description: Optional credit for entity media
+        Organization:
+            type: object
+            required:
+                - OrgID
+                - OrgName
+                - OrgImageURL
+                - OrgURLText
+                - OrgURLAddress
+                - OrgType
+                - OrgAbbrevName
+                - OrgJurisdictionType
+                - OrgParentID
+                - LastUpdatedDate
+            properties:
+                OrgID:
+                    type: string
+                    description: Organization ID
+                    example: '128'
+                OrgName:
+                    type: string
+                    maxLength: 60
+                    description: Full name of organization
+                    example: National Park Service
+                OrgImageURL:
+                    type: string
+                    maxLength: 256
+                    description: Internet address (URL) that hosts the sample image or photo of the organization
+                    format: url
+                    example: nps.jpeg
+                OrgURLText:
+                    type: string
+                    maxLength: 256
+                    description: Optional Readable text that provides the URL address link
+                    example: ''
+                OrgURLAddress:
+                    type: string
+                    description: Internet address (URL) for web site of the organization responsible for submitting and maintaining the data to be exchanged
+                    format: url
+                    example: http://www.nps.gov
+                OrgType:
+                    type: string
+                    maxLength: 40
+                    description: Internet address (URL) that hosts the sample image or photo of the organization
+                    example: Department of the Interior
+                OrgAbbrevName:
+                    type: string
+                    maxLength: 20
+                    description: Abbreviated name of the organization
+                    example: NPS
+                OrgJurisdictionType:
+                    type: string
+                    maxLength: 20
+                    description: Organization jurisdiction type
+                    example: Federal
+                OrgParentID:
+                    type: string
+                    description: Parent Organization ID
+                    example: 139
+                LastUpdatedDate: *LastUpdateDate
+        Permit Entrance:
+            type: object
+            required:
+                - PermitEntranceID
+                - PermitEntranceType
+                - FacilityID
+                - PermitEntranceName
+                - PermitEntranceDescription
+                - District
+                - Town
+                - PermitEntranceAccessible
+                - Longitude
+                - Latitude
+                - GEOJSON
+                - CreatedDate
+                - LastUpdatedDate
+                - ATTRIBUTES
+                - ENTITYMEDIA
+                - ZONES
+            properties:
+                PermitEntranceID:
+                    type: string
+                    description: Permit Entrance ID
+                FacilityID:
+                    type: string
+                    description: Facility ID the permit belongs to
+                PermitEntranceName:
+                    type: string
+                    maxLength: 512
+                    description: Permit Entrance name
+                PermitEntranceDescription:
+                    type: string
+                    maxLength: 255
+                    description: Permit Entrance description
+                District:
+                    type: string
+                    maxLength: 60
+                    description: District the permit resides in
+                Town:
+                    type: string
+                    maxLength: 60
+                    description: Town the permit resides in
+                PermitEntranceAccessible:
+                    type: boolean
+                    maxLength: 10
+                    description: Is the permit accessible by vehicle
+                Longitude:
+                    type: number
+                    description: Latitude of the permit location
+                    format: double
+                Latitude:
+                    type: number
+                    description: Longitude of the permit location
+                    format: double
+                GEOSJON: *GEOJSON
+                CreatedDate: *CreatedDate
+                LastUpdatedDate: *LastUpdateDate
+                ATTRIBUTES:
+                    <<: *Attributes
+                    description: Attributes related to the permit
+                ENTITYMEDIA:
+                    <<: *EntityMedia
+                    description: Array of Media for the Permit Entrance
+                ZONES:
+                    type: array
+                    description: Additional Zone information related to the permit
+                    items:
+                        $ref: '#/components/schemas/Zone'
+        Permitted Equipment:
+            type: object
+            required:
+                - EquipmentName
+                - MaxLength
+            properties:
+                EquipmentName:
+                    type: string
+                    maxLength: 255
+                    description: Equipment name
+                    example: RV
+                MaxLength:
+                    type: number
+                    description: Maximum length of equipment
+                    format: double
+                    example: 27.0
+        Recreation Area:
+            type: object
+            required:
+                - RecAreaID
+                - OrgRecAreaID
+                - RecAreaName
+                - RecAreaDescription
+                - RecAreaFeeDescription
+                - RecAreaDirections
+                - RecAreaPhone
+                - RecAreaEmail
+                - RecAreaReservationURL
+                - RecAreaMapURL
+                - GEOJSON
+                - RecAreaLongitude
+                - RecAreaLatitude
+                - StayLimit
+                - Keywords
+                - Reservable
+                - Enabled
+                - LastUpdatedDate
+            properties:
+                RecAreaID:
+                    type: string
+                    description: RIDB unique RecArea ID
+                    example: '2837'
+                OrgRecAreaID:
+                    type: string
+                    description: The agency's internal RecArea ID provided to the RIDB by the agency
+                    example: MORU
+                ParentOrgID:
+                    type: string
+                    description: Parent Organization ID
+                    example: '128'
+                RecAreaName:
+                    type: string
+                    maxLength: 256
+                    description: Full name of the RecArea
+                    example: Mount Rushmore National Memorial
+                RecAreaDescription:
+                    type: string
+                    maxLength: 4000
+                    description: Text that describes the RecArea
+                    example: Majestic figures of George Washington, Thomas Jefferson, Theodore Roosevelt and Abraham Lincoln, surrounded by the beauty of the Black Hills of South Dakota, tell the story of the birth, growth, development and preservation of this country. From the history of the first inhabitants to the diversity of America today, Mount Rushmore brings visitors face to face with the rich heritage we all share.
+                RecAreaFeeDescription:
+                    type: string
+                    description: Text describing monetary charges associated with entrance to or usage of a RecArea
+                    example: ''
+                RecAreaDirections:
+                    type: string
+                    maxLength: 4000
+                    description: Directions to the RecArea
+                    example: Visitors traveling by car from the East use Exit 61 off I-90 follow signs. Coming from the West use exit 57 exit at Rapid City and follow U.S. Highway 16 southwest to Keystone and then Highway 244 to Mount Rushmore. Visitors coming from the south should follow Highway 385 north to Highway 244, which is the road leading to the memorial.
+                RecAreaPhone:
+                    type: string
+                    maxLength: 256
+                    description: Phone number for RecArea
+                    example: (605) 574-2523
+                RecAreaEmail:
+                    type: string
+                    maxLength: 256
+                    description: Email address of the RecArea
+                    format: email
+                    example: ed_menard@nps.gov
+                RecAreaReservationURL:
+                    type: string
+                    maxLength: 256
+                    description: Internet address (URL) for the web site hosting the reservation system
+                    format: url
+                    example: ''
+                RecAreaMapURL:
+                    type: string
+                    maxLength: 256
+                    description: Internet address (URL) that hosts the RecArea map
+                    format: url
+                    example: ''
+                GEOJSON:
+                    <<: *GEOJSON
+                    properties:
+                        <<: *GEOJSONProperties
+                        COORDINATES:
+                            <<: *GEOJSONCoordinates
+                            example: [ -103.4525186, 43.88037021 ]
+                RecAreaLongitude:
+                    type: number
+                    description: Longitude in decimal degrees -180.0 to 180.0
+                    format: double
+                    example: -103.4525186
+                RecAreaLatitude:
+                    type: number
+                    description: Latitude in decimal degrees -90.0 to 90.0
+                    format: double
+                    example: 43.88037021
+                StayLimit:
+                    type: string
+                    maxLength: 500
+                    description: Details on the stay limits for the RecArea
+                    example: ''
+                Keywords:
+                    type: string
+                    maxLength: 4000
+                    description: List of keywords for the RecArea
+                    example: Mount Rushmore National Memorial
+                Reservable:
+                    <<: *Reservable
+                    description: Whether the RecArea is reservable
+                Enabled:
+                    <<: *Enabled
+                    description: Whether the RecArea is enabled
+                LastUpdatedDate: *LastUpdateDate
+                ORGANIZATION:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Organization'
+                FACILITY:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Recreation Area Facility'
+                RECAREAADDRESS:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Recreation Area Address'
+                ACTIVITY:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Recreation Area Activity'
+                EVENT:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Event'
+                MEDIA:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Media'
+                LINK:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Link'
+        Recreation Area Activity:
+            type: object
+            required:
+                - ActivityID
+                - ActivityParentID
+                - RecAreaID
+                - ActivityName
+                - RecAreaActivityDescription
+                - RecAreaActivityFeeDescription
+            properties:
+                ActivityID:
+                    type: string
+                    description: Activity ID
+                ActivityParentID:
+                    type: string
+                    description: Parent ID of the related Actitvity
+                RecAreaID:
+                    type: string
+                    description: Parent RecArea ID of the Actitvity
+                ActivityName:
+                    type: string
+                    maxLength: 60
+                    description: Name of the Activity
+                RecAreaActivityDescription:
+                    type: string
+                    maxLength: 1024
+                    description: Description of the Activity
+                RecAreaActivityFeeDescription:
+                    type: string
+                    maxLength: 1024
+                    description: Text describing monetary charges associated with the Activity
+        Recreation Area Address:
+            type: object
+            required:
+                - RecAreaAddressID
+                - RecAreaID
+                - RecAreaAddressType
+                - RecAreaStreetAddress1
+                - RecAreaStreetAddress2
+                - RecAreaStreetAddress3
+                - City
+                - PostalCode
+                - AddressStateCode
+                - AddressCountryCode
+                - LastUpdatedDate
+            properties:
+                RecAreaAddressID:
+                    type: string
+                    description: RecArea Address ID
+                    example: '857423'
+                RecAreaID:
+                    type: string
+                    description: RecArea ID
+                    example: '2820'
+                RecAreaAddressType:
+                    type: string
+                    maxLength: 20
+                    description: Address type for the RecArea
+                    enum: [ Default, Mailing, Physical ]
+                    example: Mailing
+                RecAreaStreetAddress1:
+                    type: string
+                    maxLength: 256
+                    description: Address line 1 of the RecArea
+                    example: '12521 Lee Highway'
+                RecAreaStreetAddress2:
+                    type: string
+                    maxLength: 256
+                    description: Address line 2 of the RecArea
+                    example: ''
+                RecAreaStreetAddress3:
+                    type: string
+                    maxLength: 256
+                    description: Address line 3 of the RecArea
+                    example: ''
+                City:
+                    type: string
+                    maxLength: 60
+                    description: City where the RecArea is located
+                    example: Manassas
+                PostalCode:
+                    type: string
+                    maxLength: 20
+                    description: Postal code for the RecArea
+                    example: '20109'
+                AddressStateCode:
+                    type: string
+                    maxLength: 20
+                    description: State code for the RecArea
+                    example: VA
+                AddressCountryCode:
+                    type: string
+                    maxLength: 5
+                    description: Abbreviated country code for the RecArea
+                    example: USA
+                LastUpdatedDate: *LastUpdateDate
+        Recreation Area Facility:
+            type: object
+            required:
+                - FacilityID
+                - FacilityName
+                - ResourceLink
+            properties:
+                FacilityID:
+                    type: string
+                    description: RIDB unique Facility ID
+                FacilityName:
+                    type: string
+                    maxLength: 256
+                    description: Full name of the Facility
+                ResourceLink: *ResourceLink
+        Tour:
+            type: object
+            required:
+                - TourID
+                - FacilityID
+                - TourName
+                - TourType
+                - TourDescription
+                - TourDuration
+                - TourAccessible
+                - CreatedDate
+                - LastUpdatedDate
+                - ATTRIBUTES
+                - ENTITYMEDIA
+                - MEMBERTOURS
+            properties:
+                TourID:
+                    type: string
+                    description: Tour ID
+                FacilityID:
+                    type: string
+                    description: Facility ID the tour belongs to
+                TourName:
+                    type: string
+                    maxLength: 255
+                    description: Tour name
+                TourType:
+                    type: string
+                    maxLength: 255
+                    description: Tour Type
+                TourDescription:
+                    type: string
+                    maxLength: 255
+                    description: Tour description
+                TourDuration:
+                    type: integer
+                    description: Tour duration
+                TourAccessible:
+                    type: boolean
+                    description: Is the tour accessible by vehicle
+                CreatedDate: *CreatedDate
+                LastUpdatedDate: *LastUpdateDate
+                ATTRIBUTES:
+                    <<: *Attributes
+                    description: Array of Attributes for the tour
+                ENTITYMEDIA:
+                    <<: *EntityMedia
+                    description: Media records for Tour
+                MEMBERTOURS:
+                    type: array
+                    description: Tour IDs of associated or multi-part Tours
+                    items:
+                        type: object
+                        required:
+                            - MemberTourID
+                        properties:
+                            MemberTourID:
+                                type: integer
+                                description: Tour ID of associated or multi-part Tour
+        Zone:
+            type: object
+            required:
+                - PermitEntranceZoneID
+                - Zone
+            properties:
+                PermitEntranceZoneID:
+                    type: string
+                    description: Attribute ID
+                Zone:
+                    type: string
+                    maxLength: 255
+                    description: Attribute value
+security:
+    -   Apikey: []
+paths:
+    # Organizations ------------------------------------------------------------
+    /organizations:
+        get:
+            tags: &OrgTags
+                - Organizations
+            summary: Retrieve all organizations
+            description: This endpoint retrieves all organizations.
+            operationId: getOrganizations
+            parameters:
+                - &QueryParam
+                    description: Query filter criteria, searches on organization name and organization abbreviated name
+                    in: query
+                    name: query
+                    schema:
+                        type: string
+                - &LimitParam
+                    description: Number of records to return (max 50)
+                    in: query
+                    name: limit
+                    schema:
+                        type: integer
+                        minimum: 1
+                        maximum: 50
+                        default: 50
+                - &OffsetParam
+                    description: Start record of overall result set
+                    in: query
+                    name: offset
+                    schema:
+                        type: integer
+                        minimum: 0
+                        default: 0
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties: &SearchResponseProperties
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Organization'
+                                    METADATA:
+                                        type: object
+                                        properties:
+                                            RESULTS:
+                                                type: object
+                                                properties:
+                                                    CURRENT_COUNT:
+                                                        type: integer
+                                                        example: 1
+                                                    TOTAL_COUNT:
+                                                        type: integer
+                                                        example: 2110
+                                            PARAMETERS:
+                                                type: object
+                                                properties:
+                                                    QUERY:
+                                                        type: string
+                                                        example: ''
+                                                    LIMIT:
+                                                        type: integer
+                                                        example: 50
+                                                    OFFSET:
+                                                        type: integer
+                                                        example: 0
+                '401': &UnauthorizedResponse
+                    description: Unauthorized
+    /organizations/{orgId}:
+        get:
+            tags: *OrgTags
+            summary: Retrieve a specific organization by id
+            description: This endpoint retrieves a specific organization.
+            operationId: getOrganization
+            parameters:
+                - &OrgIDParam
+                    description: Id of the organization
+                    in: path
+                    name: orgId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200':
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Organization'
+                '401': *UnauthorizedResponse
+    # RecAreas -----------------------------------------------------------------
+    /recareas:
+        get:
+            tags: &RecAreaTags
+                - Recreation Areas
+            summary: Retrieve all RecAreas
+            description: This endpoint retrieves all RecAreas.
+            operationId: getRecAreas
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on RecArea name, description, keywords, and stay limit
+                - *LimitParam
+                - *OffsetParam
+                - &FullParam
+                    description: Return the full record details or compact (abbreviated) details
+                    in: query
+                    name: full
+                    schema:
+                        type: string
+                        enum: [true, false]
+                - &StateParam
+                    description: Comma delimited list of 2 character state codes
+                    in: query
+                    name: state
+                    schema:
+                        type: array
+                        items:
+                            type: string
+                    style: simple
+                    example: [ CO, VA, NC ]
+                - &ActivityParam
+                    description: Comma delimited list of activity IDs or keyword
+                    in: query
+                    name: activity
+                    schema:
+                        type: array
+                        items:
+                            type: string
+                    style: simple
+                    example: [ '6', BOATING ]
+                - &LatitudeParam
+                    description: Latitude of the point in decimal degrees
+                    in: query
+                    name: latitude
+                    schema:
+                        type: number
+                        format: double
+                    example: -118.0186111
+                - &LongitudeParam
+                    description: Longitude of the point in decimal degrees
+                    in: query
+                    name: longitude
+                    schema:
+                        type: number
+                        format: double
+                    example: 43.88037021
+                - &RadiusParam
+                    description: Distance (in miles) by which to include search results
+                    in: query
+                    name: radius
+                    schema:
+                        type: number
+                        format: double
+                        minimum: 0
+                        maximum: 25
+                        default: 25
+                    example: 9.75
+                - &LastUpdatedParam
+                    description: 'Return all records modified since this date **Date Format: (mm-dd-yyyy)**'
+                    in: query
+                    name: lastupdated
+                    schema:
+                        type: string
+                    example: 10-01-2018
+                - &SortParam
+                    description: Sort the results by "ID", "Date" or "Name"
+                    in: query
+                    name: sort
+                    schema:
+                        type: string
+            responses:
+                '200': &RecAreasResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Recreation Area'
+                                    <<: *SearchResponseProperties
+                '401': *UnauthorizedResponse
+    /recareas/{recAreaId}:
+        get:
+            tags: *RecAreaTags
+            summary: Retrieve a specific RecArea by id
+            description: This endpoint retrieves a specific RecArea.
+            operationId: getRecArea
+            parameters:
+                - &RecAreaIDParam
+                    description: Id of the RecArea
+                    in: path
+                    name: recAreaId
+                    schema:
+                        type: string
+                    required: true
+                - *FullParam
+            responses:
+                '200': &RecAreaResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Recreation Area'
+                '401': *UnauthorizedResponse
+    /organizations/{orgId}/recareas:
+        get:
+            tags: *RecAreaTags
+            summary: Retrieve all RecAreas for an organization
+            description: This endpoint retrieves all RecAreas belonging to a specific organization.
+            operationId: getOrganizationRecAreas
+            parameters:
+                - *OrgIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on RecArea name, description, keywords, and stay limit
+                - *LimitParam
+                - *OffsetParam
+                - *FullParam
+                - *StateParam
+                - *ActivityParam
+                - *LastUpdatedParam
+                - *SortParam
+            responses:
+                '200': *RecAreasResponse
+                '401': *UnauthorizedResponse
+    /organizations/{orgId}/recareas/{recAreaId}:
+        get:
+            tags: *RecAreaTags
+            summary: Retrieve a specific RecArea by id for an organization
+            description: This endpoint retrieves a specific RecArea belonging to a specific organization.
+            operationId: getOrganizationRecArea
+            parameters:
+                - *RecAreaIDParam
+                - *FullParam
+            responses:
+                '200': *RecAreaResponse
+                '401': *UnauthorizedResponse
+    # Facilities ---------------------------------------------------------------
+    /facilities:
+        get:
+            tags: &FacilityTags
+                - Facilities
+            summary: Retrieve all facilities
+            description: This endpoint retrieves all facilities
+            operationId: getFacilities
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on facility name, description, keywords, and stay limit
+                - *LimitParam
+                - *OffsetParam
+                - *FullParam
+                - *StateParam
+                - *LatitudeParam
+                - *LongitudeParam
+                - *RadiusParam
+                - *ActivityParam
+                - *LastUpdatedParam
+                - *SortParam
+            responses:
+                '200': &FacilitiesResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Facility'
+                                    <<: *SearchResponseProperties
+                '401': *UnauthorizedResponse
+    /facilities/{facilityId}:
+        get:
+            tags: *FacilityTags
+            summary: Retrieve a specific facility by id
+            description: This endpoint retrieves a specific facility.
+            operationId: getFacility
+            parameters:
+                - &FacilityIDParam
+                    description: Id of the facility
+                    in: path
+                    name: facilityId
+                    schema:
+                        type: string
+                    required: true
+                - *FullParam
+            responses:
+                '200': &FacilityResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Facility'
+                '401': *UnauthorizedResponse
+    /organizations/{orgId}/facilities:
+        get:
+            tags: &FacilityTags
+                - Facilities
+            summary: Retrieve all facilities for an organization
+            description: This endpoint retrieves all facilities belonging to a specific organization.
+            operationId: getOrganizationFacilities
+            parameters:
+                - *OrgIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on facility name, description, keywords, and stay limit
+                - *LimitParam
+                - *OffsetParam
+                - *FullParam
+                - *StateParam
+                - *ActivityParam
+                - *LastUpdatedParam
+                - *SortParam
+            responses:
+                '200': *FacilitiesResponse
+                '401': *UnauthorizedResponse
+    /organizations/{orgId}/facilities/{facilityId}:
+        get:
+            tags: *FacilityTags
+            summary: Retrieve a specific facility by id for an organization
+            description: This endpoint retrieves a specific facility belonging to a specific organization.
+            operationId: getOrganizationFacility
+            parameters:
+                - *OrgIDParam
+                - *FacilityIDParam
+                - *FullParam
+            responses:
+                '200': *FacilityResponse
+                '401': *UnauthorizedResponse
+    /recareas/{recAreaId}/facilities:
+        get:
+            tags: &FacilityTags
+                - Facilities
+            summary: Retrieve all facilities for a RecArea
+            description: This endpoint retrieves all facilities belonging to a specific RecArea.
+            operationId: getRecAreaFacilities
+            parameters:
+                - *RecAreaIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on facility name, description, keywords, and stay limit
+                - *LimitParam
+                - *OffsetParam
+                - *FullParam
+                - *StateParam
+                - *ActivityParam
+                - *LastUpdatedParam
+                - *SortParam
+            responses:
+                '200': *FacilitiesResponse
+                '401': *UnauthorizedResponse
+    /recareas/{recAreaId}/facilities/{facilityId}:
+        get:
+            tags: *FacilityTags
+            summary: Retrieve a specific facility by id for a RecArea
+            description: This endpoint retrieves a specific facility belonging to a specific RecArea.
+            operationId: getRecAreaFacility
+            parameters:
+                - *RecAreaIDParam
+                - *FacilityIDParam
+                - *FullParam
+            responses:
+                '200': *FacilityResponse
+                '401': *UnauthorizedResponse
+    # RecArea Addresses ---------------------------------------------------------
+    /recareaaddresses:
+        get:
+            tags: &RecAreaAddressTags
+                - Recreation Area Addresses
+            summary: Retrieve all RecArea addresses
+            description: This endpoint retrieves all RecArea addresses.
+            operationId: getRecAreaAddresses
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on city, state, postal code, country code, and street address fields 1, 2, and 3
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': &RecAreaAddressesResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Recreation Area Address'
+                                    <<: *SearchResponseProperties
+                '401': *UnauthorizedResponse
+    /recareaaddresses/{recAreaAddressId}:
+        get:
+            tags: *RecAreaAddressTags
+            summary: Retrieve a specific RecArea address by id
+            description: This endpoint retrieves a specific RecArea.
+            operationId: getRecAreaAddress
+            parameters:
+                - &RecAreaAddressIDParam
+                    description: Id of the RecArea address
+                    in: path
+                    name: recAreaAddressId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200': &RecAreaAddressResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Recreation Area Address'
+                '401': *UnauthorizedResponse
+    /recareas/{recAreaId}/recareaaddresses:
+        get:
+            tags: *RecAreaAddressTags
+            summary: Retrieve all RecArea addresses for a RecArea
+            description: This endpoint retrieves all RecArea addresses for a specific RecArea.
+            operationId: getRecAreaRecAreaAddresses
+            parameters:
+                - *RecAreaIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on city, state, postal code, country code, and street address fields 1, 2, and 3
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *RecAreaAddressesResponse
+                '401': *UnauthorizedResponse
+    /recareas/{recAreaId}/recareaaddresses/{recAreaAddressId}:
+        get:
+            tags: *RecAreaAddressTags
+            summary: Retrieve a specific RecArea address by id for a RecArea
+            description: This endpoint retrieves a specific RecArea for a specific RecArea.
+            operationId: getRecAreaRecAreaAddress
+            parameters:
+                - *RecAreaIDParam
+                - *RecAreaAddressIDParam
+            responses:
+                '200': *RecAreaAddressResponse
+                '401': *UnauthorizedResponse
+    # Facility Addresses --------------------------------------------------------
+    /facilityaddresses:
+        get:
+            tags: &FacilityAddressTags
+                - Facility Addresses
+            summary: Retrieve all facility addresses
+            description: This endpoint retrieves all facility addresses.
+            operationId: getFacilityAddresses
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on city, state, postal code, country code, and street address fields 1, 2, and 3
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': &FacilityAddressesResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Facility Address'
+                                    <<: *SearchResponseProperties
+                '401': *UnauthorizedResponse
+    /facilityaddresses/{facilityAddressId}:
+        get:
+            tags: *FacilityAddressTags
+            summary: Retrieve a specific facility address by id
+            description: This endpoint retrieves a specific facility.
+            operationId: getFacilityAddress
+            parameters:
+                - &FacilityAddressIDParam
+                    description: Id of the facility address
+                    in: path
+                    name: facilityAddressId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200': &FacilityAddressResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Facility Address'
+                '401': *UnauthorizedResponse
+    /facilities/{facilityId}/facilityaddresses:
+        get:
+            tags: *FacilityAddressTags
+            summary: Retrieve all facility addresses for a facility
+            description: This endpoint retrieves all facility addresses for a specific facility.
+            operationId: getFacilityFacilityAddresses
+            parameters:
+                - *FacilityIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on city, state, postal code, country code, and street address fields 1, 2, and 3
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *FacilityAddressesResponse
+                '401': *UnauthorizedResponse
+    /facilities/{facilityId}/facilityaddresses/{facilityAddressId}:
+        get:
+            tags: *FacilityAddressTags
+            summary: Retrieve a specific facility address by id for a facility
+            description: This endpoint retrieves a specific facility for a specific facility.
+            operationId: getFacilityFacilityAddress
+            parameters:
+                - *FacilityIDParam
+                - *FacilityAddressIDParam
+            responses:
+                '200': *FacilityAddressResponse
+                '401': *UnauthorizedResponse
+    # Campsites -----------------------------------------------------------------
+    /campsites:
+        get:
+            tags: &CampsiteTags
+                - Campsites
+            summary: Retrieve all campsites
+            description: This endpoint retrieves all campsites
+            operationId: getCampsites
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on campsite name, type, loop, type of use (Overnight/Day), campsite accessible (Yes/No)
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': &CampsitesResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Campsite'
+                                    <<: *SearchResponseProperties
+    /campsites/{campsiteId}:
+        get:
+            tags: *CampsiteTags
+            summary: Retrieve a specific campsite by id
+            description: This endpoint retrieves a specific campsite.
+            operationId: getCampsite
+            parameters:
+                - &CampsiteIDParam
+                    description: Id of the campsite
+                    in: path
+                    name: campsiteId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200': &CampsiteResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Campsite'
+    /facilities/{facilityId}/campsites:
+        get:
+            tags: *CampsiteTags
+            summary: Retrieve all campsites for a facility
+            description: This endpoint retrieves all campsites for a specific facility.
+            operationId: getFacilityCampsites
+            parameters:
+                - *FacilityIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on campsite name, type, loop, type of use (Overnight/Day), campsite accessible (Yes/No)
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *CampsitesResponse
+    /facilities/{facilityId}/campsites/{campsiteId}:
+        get:
+            tags: *CampsiteTags
+            summary: Retrieve a specific campsite by id for a facility
+            description: This endpoint retrieves a specific campsite for a specific facility.
+            operationId: getFacilityCampsite
+            parameters:
+                - *FacilityIDParam
+                - *CampsiteIDParam
+            responses:
+                '200': *CampsiteResponse
+    # Permit Entrances ----------------------------------------------------------
+    /permitentrances:
+        get:
+            tags: &PermitEntranceTags
+                - Permit Entrances
+            summary: Retrieve all permit entrances
+            description: This endpoint retrieves all permit entrances
+            operationId: getPermitEntrances
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on permit name, type (Campground, Cabin, etc.), description, accessible (Yes/No), district, and town
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': &PermitEntrancesResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Permit Entrance'
+                                    <<: *SearchResponseProperties
+    /permitentrances/{permitentranceId}:
+        get:
+            tags: *PermitEntranceTags
+            summary: Retrieve a specific permit entrance by id
+            description: This endpoint retrieves a specific permit entrance.
+            operationId: getPermitEntrance
+            parameters:
+                - &PermitEntranceIDParam
+                    description: Id of the permit entrance
+                    in: path
+                    name: permitEntranceId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200': &PermitEntranceResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Permit Entrance'
+    /facilities/{facilityId}/permitentrances:
+        get:
+            tags: *PermitEntranceTags
+            summary: Retrieve all permit entrances for a facility
+            description: This endpoint retrieves all permit entrances for a specific facility.
+            operationId: getFacilityPermitEntrances
+            parameters:
+                - *FacilityIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on permit name, type (Campground, Cabin, etc.), description, accessible (Yes/No), district, and town
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *PermitEntrancesResponse
+    /facilities/{facilityId}/permitentrances/{permitEntranceId}:
+        get:
+            tags: *PermitEntranceTags
+            summary: Retrieve a specific permit entrance by id for a facility
+            description: This endpoint retrieves a specific permit entrance for a specific facility.
+            operationId: getFacilityPermitEntrance
+            parameters:
+                - *FacilityIDParam
+                - *PermitEntranceIDParam
+            responses:
+                '200': *PermitEntranceResponse
+    # Tours ---------------------------------------------------------------------
+    /tours:
+        get:
+            tags: &TourTags
+                - Tours
+            summary: Retrieve all tours
+            description: This endpoint retrieves all tours
+            operationId: getTours
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on tour name, type, description, and accessible (Yes/No)
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': &ToursResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Tour'
+                                    <<: *SearchResponseProperties
+    /tours/{tourId}:
+        get:
+            tags: *TourTags
+            summary: Retrieve a specific tour by id
+            description: This endpoint retrieves a specific tour.
+            operationId: getTour
+            parameters:
+                - &TourIDParam
+                    description: Id of the tour
+                    in: path
+                    name: tourId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200': &TourResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Tour'
+    /facilities/{facilityId}/tours:
+        get:
+            tags: *TourTags
+            summary: Retrieve all tours for a facility
+            description: This endpoint retrieves all tours for a specific facility.
+            operationId: getFacilityTours
+            parameters:
+                - *FacilityIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on tour name, type, description, and accessible (Yes/No)
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *ToursResponse
+    /facilities/{facilityId}/tours/{tourId}:
+        get:
+            tags: *TourTags
+            summary: Retrieve a specific tour by id for a facility
+            description: This endpoint retrieves a specific tour for a specific facility.
+            operationId: getFacilityTour
+            parameters:
+                - *FacilityIDParam
+                - *TourIDParam
+            responses:
+                '200': *TourResponse
+    # Activities ----------------------------------------------------------------
+    /activities:
+        get:
+            tags: &ActivityTags
+                - Activities
+            summary: Retrieve all activities
+            description: This endpoint retrieves all activities.
+            operationId: getActivities
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on activity name
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': &ActivitiesResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Activity'
+                                    <<: *SearchResponseProperties
+    /activities/{activityId}:
+        get:
+            tags: *ActivityTags
+            summary: Retrieve a specific activity by id
+            description: This endpoint retrieves a specific activity.
+            operationId: getActivity
+            parameters:
+                - &ActivityIDParam
+                    description: Id of the activity
+                    in: path
+                    name: activityId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200': &ActivityResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Activity'
+    /recareas/{recAreaId}/activities:
+        get:
+            tags: *ActivityTags
+            summary: Retrieve all activities for a RecArea
+            description: This endpoint retrieves all activities for a specific RecArea.
+            operationId: getRecAreaActivities
+            parameters:
+                - *RecAreaIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on activity name
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *ActivitiesResponse
+    /recareas/{recAreaId}/activities/{activityId}:
+        get:
+            tags: *ActivityTags
+            summary: Retrieve a specific activity by id for a RecArea
+            description: This endpoint retrieves a specific activity for a specific RecArea.
+            operationId: getRecAreaActivity
+            parameters:
+                - *RecAreaIDParam
+                - *ActivityIDParam
+            responses:
+                '200': *ActivityResponse
+    /facilities/{facilityId}/activities:
+        get:
+            tags: *ActivityTags
+            summary: Retrieve all activities for a facility
+            description: This endpoint retrieves all activities for a specific facility.
+            operationId: getFacilityActivities
+            parameters:
+                - *FacilityIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on activity name
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *ActivitiesResponse
+    /facilities/{facilityId}/activities/{activityId}:
+        get:
+            tags: *ActivityTags
+            summary: Retrieve a specific activity by id for a facility
+            description: This endpoint retrieves a specific activity for a specific facility.
+            operationId: getFacilityActivity
+            parameters:
+                - *FacilityIDParam
+                - *ActivityIDParam
+            responses:
+                '200': *ActivityResponse
+    # Attributes ----------------------------------------------------------------
+    /campsites/{campsiteId}/attributes:
+        get:
+            tags: &AttributeTags
+                - Attributes
+            summary: Retrieve all attributes for a campsite
+            description: This endpoint retrieves all attributes for a specific campsite.
+            operationId: getCampsiteAttributes
+            parameters:
+                - *CampsiteIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on attribute name
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': &AttributesResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Attribute'
+                                    <<: *SearchResponseProperties
+    /permitentrances/{permitEntranceId}/attributes:
+        get:
+            tags: *AttributeTags
+            summary: Retrieve all attributes for a permit entrance
+            description: This endpoint retrieves all attributes for a specific permit entrance.
+            operationId: getPermitEntranceAttributes
+            parameters:
+                - *PermitEntranceIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on attribute name
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *AttributesResponse
+    /tours/{tourId}/attributes:
+        get:
+            tags: &AttributeTags
+                - Attributes
+            summary: Retrieve all attributes for a tour
+            description: This endpoint retrieves all attributes for a specific tour.
+            operationId: getTourAttributes
+            parameters:
+                - *TourIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on attribute name
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *AttributesResponse
+    # Zones ---------------------------------------------------------------------
+    /permitentrances/{permitEntranceId}/zones:
+        get:
+            tags: &ZoneTags
+                - Zones
+            summary: Retrieve all zones for a permit entrance
+            description: This endpoint retrieves all zones for a specific permit entrance.
+            operationId: getPermitEntranceZones
+            parameters:
+                - *PermitEntranceIDParam
+            responses:
+                '200': &ZonesResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Zone'
+                                    <<: *SearchResponseProperties
+    /permitentrances/{permitEntranceId}/zones/{zoneId}:
+        get:
+            tags: &ZoneTags
+                - Zones
+            summary: Retrieve a zone for a permit entrance
+            description: This endpoint retrieves a specific zone for a specific permit entrance.
+            operationId: getPermitEntranceZone
+            parameters:
+                - *PermitEntranceIDParam
+                - &ZoneIDParam
+                    description: Id of the zone
+                    in: path
+                    name: zoneId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200': &ZoneResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Zone'
+    # Events --------------------------------------------------------------------
+    /events:
+        get:
+            tags: &EventTags
+                - Events
+            summary: Retrieve all events
+            description: This endpoint retrieves all events.
+            operationId: getEvents
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on event name, start/end date, description, age group, ADA access, fee description, scope description, and type description
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': &EventsResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Event'
+                                    <<: *SearchResponseProperties
+    /events/{eventId}:
+        get:
+            tags: *EventTags
+            summary: Retrieve a specific event by id
+            description: This endpoint retrieves a specific event.
+            operationId: getEvent
+            parameters:
+                - &EventIDParam
+                    description: Id of the event
+                    in: path
+                    name: eventId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200': &EventResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Event'
+    /recareas/{recAreaId}/events:
+        get:
+            tags: *EventTags
+            summary: Retrieve all events for a RecArea
+            description: This endpoint retrieves all events for a specific RecArea.
+            operationId: getRecAreaEvents
+            parameters:
+                - *RecAreaIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on event name, start/end date, description, age group, ADA access, fee description, scope description, and type description
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *EventsResponse
+    /recareas/{recAreaId}/events/{eventId}:
+        get:
+            tags: *EventTags
+            summary: Retrieve a specific event by id for a RecArea
+            description: This endpoint retrieves a specific event for a specific RecArea.
+            operationId: getRecAreaEvent
+            parameters:
+                - *RecAreaIDParam
+                - *EventIDParam
+            responses:
+                '200': *EventResponse
+    /facilities/{facilityId}/events:
+        get:
+            tags: *EventTags
+            summary: Retrieve all events for a facility
+            description: This endpoint retrieves all events for a specific facility.
+            operationId: getFacilityEvents
+            parameters:
+                - *FacilityIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on event name, start/end date, description, age group, ADA access, fee description, scope description, and type description
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *EventsResponse
+    /facilities/{facilityId}/events/{eventId}:
+        get:
+            tags: *EventTags
+            summary: Retrieve a specific event by id for a facility
+            description: This endpoint retrieves a specific event for a specific facility.
+            operationId: getFacilityEvent
+            parameters:
+                - *FacilityIDParam
+                - *EventIDParam
+            responses:
+                '200': *EventResponse
+    # Links ---------------------------------------------------------------------
+    /links:
+        get:
+            tags: &LinkTags
+                - Links
+            summary: Retrieve all links
+            description: This endpoint retrieves all links.
+            operationId: getLinks
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on title, description, and link type
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': &LinksResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Link'
+                                    <<: *SearchResponseProperties
+    /links/{linkId}:
+        get:
+            tags: *LinkTags
+            summary: Retrieve a specific link by id
+            description: This endpoint retrieves a specific link.
+            operationId: getLink
+            parameters:
+                - &LinkIDParam
+                    description: Id of the link
+                    in: path
+                    name: linkId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200': &LinkResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Link'
+    /recareas/{recAreaId}/links:
+        get:
+            tags: *LinkTags
+            summary: Retrieve all links for a RecArea
+            description: This endpoint retrieves all links for a specific RecArea.
+            operationId: getRecAreaLinks
+            parameters:
+                - *RecAreaIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on title, description, and link type
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *LinksResponse
+    /recareas/{recAreaId}/links/{linkId}:
+        get:
+            tags: *LinkTags
+            summary: Retrieve a specific link by id for a RecArea
+            description: This endpoint retrieves a specific link for a specific RecArea.
+            operationId: getRecAreaLink
+            parameters:
+                - *RecAreaIDParam
+                - *LinkIDParam
+            responses:
+                '200': *LinkResponse
+    /facilities/{facilityId}/links:
+        get:
+            tags: *LinkTags
+            summary: Retrieve all links for a facility
+            description: This endpoint retrieves all links for a specific facility.
+            operationId: getFacilityLinks
+            parameters:
+                - *FacilityIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on title, description, and link type
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *LinksResponse
+    /facilities/{facilityId}/links/{linkId}:
+        get:
+            tags: *LinkTags
+            summary: Retrieve a specific link by id for a facility
+            description: This endpoint retrieves a specific link for a specific facility.
+            operationId: getFacilityLink
+            parameters:
+                - *FacilityIDParam
+                - *LinkIDParam
+            responses:
+                '200': *LinkResponse
+    # Media ---------------------------------------------------------------------
+    /media:
+        get:
+            tags: &MediaTags
+                - Media
+            summary: Retrieve all media
+            description: This endpoint retrieves all media.
+            operationId: getAllMedia
+            parameters:
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on title, subtitle, description, credits, and media type
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': &AllMediaResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    RECDATA:
+                                        type: array
+                                        items:
+                                            $ref: '#/components/schemas/Media'
+                                    <<: *SearchResponseProperties
+    /media/{mediaId}:
+        get:
+            tags: *MediaTags
+            summary: Retrieve a specific media by id
+            description: This endpoint retrieves a specific media.
+            operationId: getMedia
+            parameters:
+                - &MediaIDParam
+                    description: Id of the media
+                    in: path
+                    name: mediaId
+                    schema:
+                        type: string
+                    required: true
+            responses:
+                '200': &MediaResponse
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Media'
+    /recareas/{recAreaId}/media:
+        get:
+            tags: *MediaTags
+            summary: Retrieve all media for a RecArea
+            description: This endpoint retrieves all media for a specific RecArea.
+            operationId: getAllRecAreaMedia
+            parameters:
+                - *RecAreaIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on title, subtitle, description, credits, and media type
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *AllMediaResponse
+    /recareas/{recAreaId}/media/{mediaId}:
+        get:
+            tags: *MediaTags
+            summary: Retrieve a specific media by id for a RecArea
+            description: This endpoint retrieves a specific media for a specific RecArea.
+            operationId: getRecAreaMedia
+            parameters:
+                - *RecAreaIDParam
+                - *MediaIDParam
+            responses:
+                '200': *MediaResponse
+    /facilities/{facilityId}/media:
+        get:
+            tags: *MediaTags
+            summary: Retrieve all media for a facility
+            description: This endpoint retrieves all media for a specific facility.
+            operationId: getAllFacilityMedia
+            parameters:
+                - *FacilityIDParam
+                -   <<: *QueryParam
+                    description: Query filter criteria. Searches on title, subtitle, description, credits, and media type
+                - *LimitParam
+                - *OffsetParam
+            responses:
+                '200': *AllMediaResponse
+    /facilities/{facilityId}/media/{mediaId}:
+        get:
+            tags: *MediaTags
+            summary: Retrieve a specific media by id for a facility
+            description: This endpoint retrieves a specific media for a specific facility.
+            operationId: getFacilityMedia
+            parameters:
+                - *FacilityIDParam
+                - *MediaIDParam
+            responses:
+                '200': *MediaResponse
