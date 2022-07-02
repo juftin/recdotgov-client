@@ -59,7 +59,7 @@ jobs:
                     python-version: 3.9
             -   name: Install Dependencies
                 run:  |
-                      python -m pip install isort black
+                      python -m pip install isort black requests
             -   name:              Setup Git Config
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
