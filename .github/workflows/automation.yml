@@ -82,7 +82,7 @@ jobs:
                                    git checkout -b ${{ github.run_id }}
                                    sudo chown -R "$(id -u)" ${{ github.workspace }}/main
                                    mkdir -p ${{ github.workspace }}/main/.github
-                                   cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/main/.github/
+                                   cp -a ${{ github.workspace }}/main/.github/. ${{ github.workspace }}/main/.github/
                                    cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/main/.gitignore
                                    isort --profile black ${{ github.workspace }}/main
                                    black ${{ github.workspace }}/main
@@ -125,7 +125,8 @@ jobs:
                 working-directory: ${{ github.workspace }}/gh-pages
                 run:               |
                                    git rm -rf . || true
-                                   cp -R ${{ github.workspace }}/main/* ${PWD}
+                                   rm -rf ${{ github.workspace }}/main/.git/
+                                   cp -a ${{ github.workspace }}/main/. ${{ github.workspace }}/gh-pages/
                                    git add .
                                    git diff-index --quiet HEAD || git commit -m "GitHub Pages - ${{ env.COMMIT_SHA }}"
                                    git push origin gh-pages --force
