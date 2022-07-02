@@ -42,6 +42,8 @@ jobs:
     code-gen:
         runs-on: ubuntu-latest
         needs:   test-suite
+        outputs:
+            release: ${{ steps.commit.outputs.release }}
         steps:
             -   name: Checkout Latest Changes
                 uses: actions/checkout@v2
@@ -55,7 +57,6 @@ jobs:
                     path:        ${{ github.workspace }}/main
                     ref:         main
                     fetch-depth: 0
-                    token:       ${{ secrets.PERSONAL_ACCESS_TOKEN }}
             -   name: Set up Python Environment
                 uses: actions/setup-python@v2
                 with:
@@ -74,12 +75,6 @@ jobs:
                                    git rm -rf ${{ github.workspace }}/main/ || true
                                    mkdir -p ${{ github.workspace }}/main/.github
                                    cp -a ${{ github.workspace }}/latest/.github/. ${{ github.workspace }}/main/.github/
-            -   name:              Increment Version Number
-                working-directory: ${{ github.workspace }}/main
-                run:               |
-                                   echo PROJECT_VERSION=$(python .github/helpers/packaging_increment.py --increment patch) >> ${GITHUB_ENV}
-                                   NEW_CONFIG=$(cat .github/helpers/config.json | jq '.packageVersion = "${{ env.PROJECT_VERSION }}"')
-                                   echo ${NEW_CONFIG} > .github/helpers/config.json
             -   name:              Generate All Code
                 working-directory: ${{ github.workspace }}/main
                 run:               |
@@ -92,16 +87,32 @@ jobs:
                                    sudo chown -R "$(id -u)" ${{ github.workspace }}/main
                                    cp ${{ github.workspace }}/latest/.gitignore ${{ github.workspace }}/main/.gitignore
                                    cp ${{ github.workspace }}/latest/LICENSE ${{ github.workspace }}/main/LICENSE
-            -   name:              Increment Version Number
-                working-directory: ${{ github.workspace }}/main
-                run:               |
-                                   python .github/helpers/packaging_increment.py --increment patch
             -   name:              Format Code
                 working-directory: ${{ github.workspace }}/main
                 run:               |
                                    isort --profile black ${{ github.workspace }}/main
                                    black ${{ github.workspace }}/main
+            -   name: Find File Paths Changed
+                id:   diff
+                run:  |
+                      echo ::set-output name=diff::$(git diff --name-only origin/main)
+                      echo PROJECT_RELEASE="false" >> ${GITHUB_ENV}
+            -   name: Enable New Release
+                if:   |
+                      Contains(steps.diff.outputs.diff, 'recdotgov_client/') ||
+                        Contains(steps.diff.outputs.diff, 'docs/') ||
+                        Contains(steps.diff.outputs.diff, 'tests/')
+                run:  |
+                      echo PROJECT_RELEASE="true" >> ${GITHUB_ENV}
+            -   name:              Increment Version Number
+                if:                ${{ env.PRROJECT_RELEASE }} == "true"
+                working-directory: ${{ github.workspace }}/main
+                run:               |
+                                   echo PROJECT_VERSION=$(python .github/helpers/packaging_increment.py --increment patch) >> ${GITHUB_ENV}
+                                   NEW_CONFIG=$(cat .github/helpers/config.json | jq '.packageVersion = "${{ env.PROJECT_VERSION }}"')
+                                   echo ${NEW_CONFIG} > .github/helpers/config.json
             -   name:              Commit Changes
+                id:                commit
                 working-directory: ${{ github.workspace }}/main
                 run:               |
                                    git add ${{ github.workspace }}/main/
@@ -112,10 +123,12 @@ jobs:
                                    git push origin main --force
                                    git branch -d ${{ github.run_id }}
                                    git fetch -p
+                                   echo ::set-output name=release::${{ env.PROJECT_RELEASE }}
 
     release:
         runs-on: ubuntu-latest
         needs:   code-gen
+        if:      ${{needs.code-gen.outputs.release}} == "true"
         steps:
             -   name: Set up Github Workspace
                 uses: actions/checkout@v2
@@ -144,5 +157,39 @@ jobs:
                     version:     ${{ env.PROJECT_VERSION }}
                     tag:         ${{ env.PROJECT_TAG }}
                     publish:     true
-                env:
-                    GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+    github-pages-publish:
+        runs-on: ubuntu-latest
+        needs:   release
+        steps:
+            -   name: Checkout Latest Changes
+                uses: actions/checkout@v2
+                with:
+                    path:        ${{ github.workspace }}/main
+                    ref:         ${{ github.ref }}
+                    fetch-depth: 0
+            -   name: Checkout gh-pages Branch
+                uses: actions/checkout@v2
+                with:
+                    path:        ${{ github.workspace }}/gh-pages
+                    ref:         gh-pages
+                    fetch-depth: 0
+
+            -   name: Setup Git Config
+                run:  |
+                      git config --global user.name "github-actions[bot]"
+                      git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            -   name:              Get Commit SHA from main
+                working-directory: ${{ github.workspace }}/main
+                run:               |
+                                   COMMIT_SHA=$(git rev-parse HEAD)
+                                   echo "COMMIT_SHA=${COMMIT_SHA}" >> ${GITHUB_ENV}
+            -   name:              Commit Changes to gh-pages Branch
+                working-directory: ${{ github.workspace }}/gh-pages
+                run:               |
+                                   git rm -rf . || true
+                                   rm -rf ${{ github.workspace }}/main/.git/
+                                   cp -a ${{ github.workspace }}/main/. ${{ github.workspace }}/gh-pages/
+                                   git add .
+                                   git diff-index --quiet HEAD || git commit -m "GitHub Pages - ${{ env.COMMIT_SHA }}"
+                                   git push origin gh-pages --force
