@@ -101,7 +101,8 @@ jobs:
                 if:   |
                       Contains(steps.diff.outputs.diff, 'recdotgov_client/') ||
                         Contains(steps.diff.outputs.diff, 'docs/') ||
-                        Contains(steps.diff.outputs.diff, 'tests/')
+                        Contains(steps.diff.outputs.diff, 'tests/') ||
+                        Contains(steps.diff.outputs.diff, '.github/')
                 run:  |
                       echo PROJECT_RELEASE="true" >> ${GITHUB_ENV}
             -   name:              Increment Version Number
