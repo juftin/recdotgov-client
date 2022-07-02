@@ -92,11 +92,12 @@ jobs:
                 run:               |
                                    isort --profile black ${{ github.workspace }}/main
                                    black ${{ github.workspace }}/main
-            -   name: Find File Paths Changed
-                id:   diff
-                run:  |
-                      echo ::set-output name=diff::$(git diff --name-only origin/main)
-                      echo PROJECT_RELEASE="false" >> ${GITHUB_ENV}
+            -   name:              Find File Paths Changed
+                id:                diff
+                working-directory: ${{ github.workspace }}/main
+                run:               |
+                                   echo ::set-output name=diff::$(git diff --name-only origin/main)
+                                   echo PROJECT_RELEASE="false" >> ${GITHUB_ENV}
             -   name: Enable New Release
                 if:   |
                       Contains(steps.diff.outputs.diff, 'recdotgov_client/') ||
@@ -158,6 +159,8 @@ jobs:
                     version:     ${{ env.PROJECT_VERSION }}
                     tag:         ${{ env.PROJECT_TAG }}
                     publish:     true
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     github-pages-publish:
         runs-on: ubuntu-latest
