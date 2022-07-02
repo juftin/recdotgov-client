@@ -75,7 +75,7 @@ jobs:
             -   name:              Generate All Code
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
-                                   docker-compose run codegen
+                                   docker-compose --file ${{ github.workspace }}/auto/.github/helpers/docker-compose.yaml run codegen
             -   name:              Commit Changes
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
