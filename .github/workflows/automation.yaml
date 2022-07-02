@@ -75,6 +75,10 @@ jobs:
                                    git rm -rf ${{ github.workspace }}/main/ || true
                                    mkdir -p ${{ github.workspace }}/main/.github
                                    cp -a ${{ github.workspace }}/latest/.github/. ${{ github.workspace }}/main/.github/
+            -   name:              Increment Latest Version Number
+                working-directory: ${{ github.workspace }}/latest
+                run:               |
+                                   python .github/helpers/packaging_increment.py --increment patch
             -   name:              Generate All Code
                 working-directory: ${{ github.workspace }}/main
                 run:               |
@@ -110,13 +114,14 @@ jobs:
                 if:                ${{ env.PROJECT_RELEASE }} == "true"
                 working-directory: ${{ github.workspace }}/main
                 run:               |
-                                   PROJECT_VERSION=$(python .github/helpers/packaging_increment.py --increment patch)
+                                   cp ${{ github.workspace }}/latest/.github/VERSION ${{ github.workspace }}/main/.github/VERSION
+                                   PROJECT_VERSION=$(python .github/helpers/packaging_increment.py)
                                    echo PROJECT_VERSION="${PROJECT_VERSION}" >> ${GITHUB_ENV}
             -   name:              Update Configuration File
                 if:                ${{ env.PROJECT_RELEASE }} == "true"
                 working-directory: ${{ github.workspace }}/main
                 run:               |
-                                   NEW_CONFIG=$(cat .github/helpers/config.json | jq '.packageVersion = $ENV.PROJECT_VERSION' --indent 4)
+                                   NEW_CONFIG=$(cat .github/helpers/config.json | jq '.packageVersion = $ENV.PROJECT_VERSION' | jq --indent 4)
                                    echo ${NEW_CONFIG} > .github/helpers/config.json
             -   name:              Commit Changes
                 id:                commit
