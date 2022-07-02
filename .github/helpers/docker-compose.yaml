@@ -5,7 +5,7 @@ services:
         volumes:
             - ${PWD}:/tmp/main
         command: "generate
-             --input-spec /tmp/main/build/openapi.yaml \
+             --input-spec /tmp/main/openapi.yaml \
              --lang python \
              --output /tmp/main/ \
              --config /tmp/main/.github/helpers/config.json"
