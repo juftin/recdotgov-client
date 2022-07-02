@@ -75,10 +75,11 @@ jobs:
             -   name:              Generate All Code
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
-                                   docker-compose run -u 1000 codegen
+                                   docker-compose run codegen
             -   name:              Commit Changes to gh-pages Branch
                 working-directory: ${{ github.workspace }}/auto
                 run:               |
+                                   sudo chmod -R 777 ${{ github.workspace }}/auto
                                    mkdir -p ${{ github.workspace }}/auto/.github
                                    cp -R ${{ github.workspace }}/main/.github/* ${{ github.workspace }}/auto/.github/
                                    cp ${{ github.workspace }}/main/.gitignore ${{ github.workspace }}/auto/.gitignore
