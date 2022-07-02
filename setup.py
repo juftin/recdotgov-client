@@ -22,7 +22,6 @@ VERSION = "0.1.0"
 # http://pypi.python.org/pypi/setuptools
 
 REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil"]
-REQUIRES.append("aiohttp")
 
 setup(
     name=NAME,
