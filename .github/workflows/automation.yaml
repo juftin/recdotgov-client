@@ -89,8 +89,6 @@ jobs:
                 run:               |
                                    git checkout -b ${{ github.run_id }}
                                    sudo chown -R "$(id -u)" ${{ github.workspace }}/main
-                                   cp ${{ github.workspace }}/latest/.gitignore ${{ github.workspace }}/main/.gitignore
-                                   cp ${{ github.workspace }}/latest/LICENSE ${{ github.workspace }}/main/LICENSE
             -   name:              Format Code
                 working-directory: ${{ github.workspace }}/main
                 run:               |
@@ -123,6 +121,15 @@ jobs:
                 run:               |
                                    NEW_CONFIG=$(cat .github/helpers/config.json | jq '.packageVersion = $ENV.PROJECT_VERSION' | jq --indent 4)
                                    echo ${NEW_CONFIG} > .github/helpers/config.json
+            -   name:              Generate All Code Again
+                working-directory: ${{ github.workspace }}/main
+                run:               |
+                                   docker-compose --file ${{ github.workspace }}/main/.github/helpers/docker-compose.yaml run codegen
+                                   sudo chown -R "$(id -u)" ${{ github.workspace }}/main
+                                   cp ${{ github.workspace }}/latest/.gitignore ${{ github.workspace }}/main/.gitignore
+                                   cp ${{ github.workspace }}/latest/LICENSE ${{ github.workspace }}/main/LICENSE
+                                   isort --profile black ${{ github.workspace }}/main
+                                   black ${{ github.workspace }}/main
             -   name:              Commit Changes
                 id:                commit
                 working-directory: ${{ github.workspace }}/main
