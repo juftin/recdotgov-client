@@ -28,10 +28,45 @@ class TestLinksApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_facility_link(self):
+        """Test case for get_facility_link
+
+        Retrieve a specific link by id for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_links(self):
+        """Test case for get_facility_links
+
+        Retrieve all links for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_link(self):
+        """Test case for get_link
+
+        Retrieve a specific link by id  # noqa: E501
+        """
+        pass
+
     def test_get_links(self):
         """Test case for get_links
 
         Retrieve all links  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area_link(self):
+        """Test case for get_rec_area_link
+
+        Retrieve a specific link by id for a RecArea  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area_links(self):
+        """Test case for get_rec_area_links
+
+        Retrieve all links for a RecArea  # noqa: E501
         """
         pass
 

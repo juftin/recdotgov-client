@@ -32,43 +32,57 @@ class AttributesApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def get_campsite_attributes(self, **kwargs):  # noqa: E501
+    def get_campsite_attributes(self, campsite_id, **kwargs):  # noqa: E501
         """Retrieve all attributes for a campsite  # noqa: E501
 
         This endpoint retrieves all attributes for a specific campsite.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_campsite_attributes(async_req=True)
+        >>> thread = api.get_campsite_attributes(campsite_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
+        :param str campsite_id: Id of the campsite (required)
+        :param str query: Query filter criteria. Searches on attribute name
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
         :return: InlineResponse2009
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs["_return_http_data_only"] = True
         if kwargs.get("async_req"):
-            return self.get_campsite_attributes_with_http_info(**kwargs)  # noqa: E501
+            return self.get_campsite_attributes_with_http_info(
+                campsite_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_campsite_attributes_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_campsite_attributes_with_http_info(
+                campsite_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def get_campsite_attributes_with_http_info(self, **kwargs):  # noqa: E501
+    def get_campsite_attributes_with_http_info(
+        self, campsite_id, **kwargs
+    ):  # noqa: E501
         """Retrieve all attributes for a campsite  # noqa: E501
 
         This endpoint retrieves all attributes for a specific campsite.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_campsite_attributes_with_http_info(async_req=True)
+        >>> thread = api.get_campsite_attributes_with_http_info(campsite_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
+        :param str campsite_id: Id of the campsite (required)
+        :param str query: Query filter criteria. Searches on attribute name
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
         :return: InlineResponse2009
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []  # noqa: E501
+        all_params = ["campsite_id", "query", "limit", "offset"]  # noqa: E501
         all_params.append("async_req")
         all_params.append("_return_http_data_only")
         all_params.append("_preload_content")
@@ -83,12 +97,25 @@ class AttributesApi(object):
                 )
             params[key] = val
         del params["kwargs"]
+        # verify the required parameter 'campsite_id' is set
+        if "campsite_id" not in params or params["campsite_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `campsite_id` when calling `get_campsite_attributes`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
+        if "campsite_id" in params:
+            path_params["campsiteId"] = params["campsite_id"]  # noqa: E501
 
         query_params = []
+        if "query" in params:
+            query_params.append(("query", params["query"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
 
         header_params = {}
 
@@ -122,43 +149,174 @@ class AttributesApi(object):
             collection_formats=collection_formats,
         )
 
-    def get_tour_attributes(self, **kwargs):  # noqa: E501
-        """Retrieve all attributes for a tour  # noqa: E501
+    def get_permit_entrance_attributes(
+        self, permit_entrance_id, **kwargs
+    ):  # noqa: E501
+        """Retrieve all attributes for a permit entrance  # noqa: E501
 
-        This endpoint retrieves all attributes for a specific tour.  # noqa: E501
+        This endpoint retrieves all attributes for a specific permit entrance.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_tour_attributes(async_req=True)
+        >>> thread = api.get_permit_entrance_attributes(permit_entrance_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :return: None
+        :param str permit_entrance_id: Id of the permit entrance (required)
+        :param str query: Query filter criteria. Searches on attribute name
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
+        :return: InlineResponse2009
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs["_return_http_data_only"] = True
         if kwargs.get("async_req"):
-            return self.get_tour_attributes_with_http_info(**kwargs)  # noqa: E501
+            return self.get_permit_entrance_attributes_with_http_info(
+                permit_entrance_id, **kwargs
+            )  # noqa: E501
         else:
-            (data) = self.get_tour_attributes_with_http_info(**kwargs)  # noqa: E501
+            (data) = self.get_permit_entrance_attributes_with_http_info(
+                permit_entrance_id, **kwargs
+            )  # noqa: E501
             return data
 
-    def get_tour_attributes_with_http_info(self, **kwargs):  # noqa: E501
+    def get_permit_entrance_attributes_with_http_info(
+        self, permit_entrance_id, **kwargs
+    ):  # noqa: E501
+        """Retrieve all attributes for a permit entrance  # noqa: E501
+
+        This endpoint retrieves all attributes for a specific permit entrance.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_permit_entrance_attributes_with_http_info(permit_entrance_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str permit_entrance_id: Id of the permit entrance (required)
+        :param str query: Query filter criteria. Searches on attribute name
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
+        :return: InlineResponse2009
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ["permit_entrance_id", "query", "limit", "offset"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
+
+        params = locals()
+        for key, val in six.iteritems(params["kwargs"]):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_permit_entrance_attributes" % key
+                )
+            params[key] = val
+        del params["kwargs"]
+        # verify the required parameter 'permit_entrance_id' is set
+        if "permit_entrance_id" not in params or params["permit_entrance_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `permit_entrance_id` when calling `get_permit_entrance_attributes`"
+            )  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if "permit_entrance_id" in params:
+            path_params["permitEntranceId"] = params["permit_entrance_id"]  # noqa: E501
+
+        query_params = []
+        if "query" in params:
+            query_params.append(("query", params["query"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ["Apikey"]  # noqa: E501
+
+        return self.api_client.call_api(
+            "/permitentrances/{permitEntranceId}/attributes",
+            "GET",
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type="InlineResponse2009",  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
+
+    def get_tour_attributes(self, tour_id, **kwargs):  # noqa: E501
         """Retrieve all attributes for a tour  # noqa: E501
 
         This endpoint retrieves all attributes for a specific tour.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_tour_attributes_with_http_info(async_req=True)
+        >>> thread = api.get_tour_attributes(tour_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :return: None
+        :param str tour_id: Id of the tour (required)
+        :param str query: Query filter criteria. Searches on attribute name
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
+        :return: InlineResponse2009
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_tour_attributes_with_http_info(
+                tour_id, **kwargs
+            )  # noqa: E501
+        else:
+            (data) = self.get_tour_attributes_with_http_info(
+                tour_id, **kwargs
+            )  # noqa: E501
+            return data
+
+    def get_tour_attributes_with_http_info(self, tour_id, **kwargs):  # noqa: E501
+        """Retrieve all attributes for a tour  # noqa: E501
+
+        This endpoint retrieves all attributes for a specific tour.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_tour_attributes_with_http_info(tour_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str tour_id: Id of the tour (required)
+        :param str query: Query filter criteria. Searches on attribute name
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
+        :return: InlineResponse2009
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []  # noqa: E501
+        all_params = ["tour_id", "query", "limit", "offset"]  # noqa: E501
         all_params.append("async_req")
         all_params.append("_return_http_data_only")
         all_params.append("_preload_content")
@@ -173,12 +331,25 @@ class AttributesApi(object):
                 )
             params[key] = val
         del params["kwargs"]
+        # verify the required parameter 'tour_id' is set
+        if "tour_id" not in params or params["tour_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `tour_id` when calling `get_tour_attributes`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
+        if "tour_id" in params:
+            path_params["tourId"] = params["tour_id"]  # noqa: E501
 
         query_params = []
+        if "query" in params:
+            query_params.append(("query", params["query"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
 
         header_params = {}
 
@@ -186,6 +357,11 @@ class AttributesApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
+
         # Authentication setting
         auth_settings = ["Apikey"]  # noqa: E501
 
@@ -198,7 +374,7 @@ class AttributesApi(object):
             body=body_params,
             post_params=form_params,
             files=local_var_files,
-            response_type=None,  # noqa: E501
+            response_type="InlineResponse2009",  # noqa: E501
             auth_settings=auth_settings,
             async_req=params.get("async_req"),
             _return_http_data_only=params.get("_return_http_data_only"),

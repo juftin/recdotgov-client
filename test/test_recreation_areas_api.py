@@ -28,6 +28,27 @@ class TestRecreationAreasApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_organization_rec_area(self):
+        """Test case for get_organization_rec_area
+
+        Retrieve a specific RecArea by id for an organization  # noqa: E501
+        """
+        pass
+
+    def test_get_organization_rec_areas(self):
+        """Test case for get_organization_rec_areas
+
+        Retrieve all RecAreas for an organization  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area(self):
+        """Test case for get_rec_area
+
+        Retrieve a specific RecArea by id  # noqa: E501
+        """
+        pass
+
     def test_get_rec_areas(self):
         """Test case for get_rec_areas
 

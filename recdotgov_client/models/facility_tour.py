@@ -29,17 +29,23 @@ class FacilityTour(object):
       attribute_map (dict): The key is attribute name
                             and the value is json key in definition.
     """
-    swagger_types = {"tour_id": "str", "tour_name": "str"}
+    swagger_types = {"tour_id": "str", "tour_name": "str", "resource_link": "str"}
 
-    attribute_map = {"tour_id": "TourID", "tour_name": "TourName"}
+    attribute_map = {
+        "tour_id": "TourID",
+        "tour_name": "TourName",
+        "resource_link": "ResourceLink",
+    }
 
-    def __init__(self, tour_id=None, tour_name=None):  # noqa: E501
+    def __init__(self, tour_id=None, tour_name=None, resource_link=None):  # noqa: E501
         """FacilityTour - a model defined in Swagger"""  # noqa: E501
         self._tour_id = None
         self._tour_name = None
+        self._resource_link = None
         self.discriminator = None
         self.tour_id = tour_id
         self.tour_name = tour_name
+        self.resource_link = resource_link
 
     @property
     def tour_id(self):
@@ -94,6 +100,33 @@ class FacilityTour(object):
             )  # noqa: E501
 
         self._tour_name = tour_name
+
+    @property
+    def resource_link(self):
+        """Gets the resource_link of this FacilityTour.  # noqa: E501
+
+        Internet address (URL) to a web site providing details  # noqa: E501
+
+        :return: The resource_link of this FacilityTour.  # noqa: E501
+        :rtype: str
+        """
+        return self._resource_link
+
+    @resource_link.setter
+    def resource_link(self, resource_link):
+        """Sets the resource_link of this FacilityTour.
+
+        Internet address (URL) to a web site providing details  # noqa: E501
+
+        :param resource_link: The resource_link of this FacilityTour.  # noqa: E501
+        :type: str
+        """
+        if resource_link is None:
+            raise ValueError(
+                "Invalid value for `resource_link`, must not be `None`"
+            )  # noqa: E501
+
+        self._resource_link = resource_link
 
     def to_dict(self):
         """Returns the model properties as a dict"""

@@ -32,16 +32,19 @@ class ZonesApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def get_permit_entrance_zone(self, zone_id, **kwargs):  # noqa: E501
+    def get_permit_entrance_zone(
+        self, permit_entrance_id, zone_id, **kwargs
+    ):  # noqa: E501
         """Retrieve a zone for a permit entrance  # noqa: E501
 
         This endpoint retrieves a specific zone for a specific permit entrance.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_permit_entrance_zone(zone_id, async_req=True)
+        >>> thread = api.get_permit_entrance_zone(permit_entrance_id, zone_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
+        :param str permit_entrance_id: Id of the permit entrance (required)
         :param str zone_id: Id of the zone (required)
         :return: Zone
                  If the method is called asynchronously,
@@ -50,31 +53,34 @@ class ZonesApi(object):
         kwargs["_return_http_data_only"] = True
         if kwargs.get("async_req"):
             return self.get_permit_entrance_zone_with_http_info(
-                zone_id, **kwargs
+                permit_entrance_id, zone_id, **kwargs
             )  # noqa: E501
         else:
             (data) = self.get_permit_entrance_zone_with_http_info(
-                zone_id, **kwargs
+                permit_entrance_id, zone_id, **kwargs
             )  # noqa: E501
             return data
 
-    def get_permit_entrance_zone_with_http_info(self, zone_id, **kwargs):  # noqa: E501
+    def get_permit_entrance_zone_with_http_info(
+        self, permit_entrance_id, zone_id, **kwargs
+    ):  # noqa: E501
         """Retrieve a zone for a permit entrance  # noqa: E501
 
         This endpoint retrieves a specific zone for a specific permit entrance.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_permit_entrance_zone_with_http_info(zone_id, async_req=True)
+        >>> thread = api.get_permit_entrance_zone_with_http_info(permit_entrance_id, zone_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
+        :param str permit_entrance_id: Id of the permit entrance (required)
         :param str zone_id: Id of the zone (required)
         :return: Zone
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ["zone_id"]  # noqa: E501
+        all_params = ["permit_entrance_id", "zone_id"]  # noqa: E501
         all_params.append("async_req")
         all_params.append("_return_http_data_only")
         all_params.append("_preload_content")
@@ -89,6 +95,11 @@ class ZonesApi(object):
                 )
             params[key] = val
         del params["kwargs"]
+        # verify the required parameter 'permit_entrance_id' is set
+        if "permit_entrance_id" not in params or params["permit_entrance_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `permit_entrance_id` when calling `get_permit_entrance_zone`"
+            )  # noqa: E501
         # verify the required parameter 'zone_id' is set
         if "zone_id" not in params or params["zone_id"] is None:
             raise ValueError(
@@ -98,6 +109,8 @@ class ZonesApi(object):
         collection_formats = {}
 
         path_params = {}
+        if "permit_entrance_id" in params:
+            path_params["permitEntranceId"] = params["permit_entrance_id"]  # noqa: E501
         if "zone_id" in params:
             path_params["zoneId"] = params["zone_id"]  # noqa: E501
 
@@ -135,45 +148,51 @@ class ZonesApi(object):
             collection_formats=collection_formats,
         )
 
-    def get_permit_entrance_zones(self, **kwargs):  # noqa: E501
+    def get_permit_entrance_zones(self, permit_entrance_id, **kwargs):  # noqa: E501
         """Retrieve all zones for a permit entrance  # noqa: E501
 
         This endpoint retrieves all zones for a specific permit entrance.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_permit_entrance_zones(async_req=True)
+        >>> thread = api.get_permit_entrance_zones(permit_entrance_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
+        :param str permit_entrance_id: Id of the permit entrance (required)
         :return: InlineResponse20010
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs["_return_http_data_only"] = True
         if kwargs.get("async_req"):
-            return self.get_permit_entrance_zones_with_http_info(**kwargs)  # noqa: E501
+            return self.get_permit_entrance_zones_with_http_info(
+                permit_entrance_id, **kwargs
+            )  # noqa: E501
         else:
             (data) = self.get_permit_entrance_zones_with_http_info(
-                **kwargs
+                permit_entrance_id, **kwargs
             )  # noqa: E501
             return data
 
-    def get_permit_entrance_zones_with_http_info(self, **kwargs):  # noqa: E501
+    def get_permit_entrance_zones_with_http_info(
+        self, permit_entrance_id, **kwargs
+    ):  # noqa: E501
         """Retrieve all zones for a permit entrance  # noqa: E501
 
         This endpoint retrieves all zones for a specific permit entrance.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_permit_entrance_zones_with_http_info(async_req=True)
+        >>> thread = api.get_permit_entrance_zones_with_http_info(permit_entrance_id, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
+        :param str permit_entrance_id: Id of the permit entrance (required)
         :return: InlineResponse20010
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []  # noqa: E501
+        all_params = ["permit_entrance_id"]  # noqa: E501
         all_params.append("async_req")
         all_params.append("_return_http_data_only")
         all_params.append("_preload_content")
@@ -188,10 +207,17 @@ class ZonesApi(object):
                 )
             params[key] = val
         del params["kwargs"]
+        # verify the required parameter 'permit_entrance_id' is set
+        if "permit_entrance_id" not in params or params["permit_entrance_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `permit_entrance_id` when calling `get_permit_entrance_zones`"
+            )  # noqa: E501
 
         collection_formats = {}
 
         path_params = {}
+        if "permit_entrance_id" in params:
+            path_params["permitEntranceId"] = params["permit_entrance_id"]  # noqa: E501
 
         query_params = []
 

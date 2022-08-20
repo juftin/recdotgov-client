@@ -30,10 +30,31 @@ class TestRecreationAreaAddressesApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_rec_area_address(self):
+        """Test case for get_rec_area_address
+
+        Retrieve a specific RecArea address by id  # noqa: E501
+        """
+        pass
+
     def test_get_rec_area_addresses(self):
         """Test case for get_rec_area_addresses
 
         Retrieve all RecArea addresses  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area_rec_area_address(self):
+        """Test case for get_rec_area_rec_area_address
+
+        Retrieve a specific RecArea address by id for a RecArea  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area_rec_area_addresses(self):
+        """Test case for get_rec_area_rec_area_addresses
+
+        Retrieve all RecArea addresses for a RecArea  # noqa: E501
         """
         pass
 

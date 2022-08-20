@@ -28,6 +28,27 @@ class TestPermitEntrancesApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_facility_permit_entrance(self):
+        """Test case for get_facility_permit_entrance
+
+        Retrieve a specific permit entrance by id for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_permit_entrances(self):
+        """Test case for get_facility_permit_entrances
+
+        Retrieve all permit entrances for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_permit_entrance(self):
+        """Test case for get_permit_entrance
+
+        Retrieve a specific permit entrance by id  # noqa: E501
+        """
+        pass
+
     def test_get_permit_entrances(self):
         """Test case for get_permit_entrances
 

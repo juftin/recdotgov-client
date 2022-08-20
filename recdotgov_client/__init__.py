@@ -18,7 +18,6 @@ from __future__ import absolute_import
 from recdotgov_client.api.activities_api import ActivitiesApi
 from recdotgov_client.api.attributes_api import AttributesApi
 from recdotgov_client.api.campsites_api import CampsitesApi
-from recdotgov_client.api.default_api import DefaultApi
 from recdotgov_client.api.events_api import EventsApi
 from recdotgov_client.api.facilities_api import FacilitiesApi
 from recdotgov_client.api.facility_addresses_api import FacilityAddressesApi

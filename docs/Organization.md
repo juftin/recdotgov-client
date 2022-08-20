@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **org_abbrev_name** | **str** | Abbreviated name of the organization | 
 **org_jurisdiction_type** | **str** | Organization jurisdiction type | 
 **org_parent_id** | **str** | Parent Organization ID | 
+**last_updated_date** | **date** | Record last update date | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

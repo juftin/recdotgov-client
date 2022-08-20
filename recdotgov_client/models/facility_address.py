@@ -40,6 +40,7 @@ class FacilityAddress(object):
         "postal_code": "str",
         "address_state_code": "str",
         "address_country_code": "str",
+        "last_updated_date": "date",
     }
 
     attribute_map = {
@@ -53,6 +54,7 @@ class FacilityAddress(object):
         "postal_code": "PostalCode",
         "address_state_code": "AddressStateCode",
         "address_country_code": "AddressCountryCode",
+        "last_updated_date": "LastUpdatedDate",
     }
 
     def __init__(
@@ -67,6 +69,7 @@ class FacilityAddress(object):
         postal_code=None,
         address_state_code=None,
         address_country_code=None,
+        last_updated_date=None,
     ):  # noqa: E501
         """FacilityAddress - a model defined in Swagger"""  # noqa: E501
         self._facility_address_id = None
@@ -79,6 +82,7 @@ class FacilityAddress(object):
         self._postal_code = None
         self._address_state_code = None
         self._address_country_code = None
+        self._last_updated_date = None
         self.discriminator = None
         self.facility_address_id = facility_address_id
         self.facility_id = facility_id
@@ -90,6 +94,7 @@ class FacilityAddress(object):
         self.postal_code = postal_code
         self.address_state_code = address_state_code
         self.address_country_code = address_country_code
+        self.last_updated_date = last_updated_date
 
     @property
     def facility_address_id(self):
@@ -367,6 +372,33 @@ class FacilityAddress(object):
             )  # noqa: E501
 
         self._address_country_code = address_country_code
+
+    @property
+    def last_updated_date(self):
+        """Gets the last_updated_date of this FacilityAddress.  # noqa: E501
+
+        Record last update date  # noqa: E501
+
+        :return: The last_updated_date of this FacilityAddress.  # noqa: E501
+        :rtype: date
+        """
+        return self._last_updated_date
+
+    @last_updated_date.setter
+    def last_updated_date(self, last_updated_date):
+        """Sets the last_updated_date of this FacilityAddress.
+
+        Record last update date  # noqa: E501
+
+        :param last_updated_date: The last_updated_date of this FacilityAddress.  # noqa: E501
+        :type: date
+        """
+        if last_updated_date is None:
+            raise ValueError(
+                "Invalid value for `last_updated_date`, must not be `None`"
+            )  # noqa: E501
+
+        self._last_updated_date = last_updated_date
 
     def to_dict(self):
         """Returns the model properties as a dict"""

@@ -28,10 +28,45 @@ class TestMediaApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_all_facility_media(self):
+        """Test case for get_all_facility_media
+
+        Retrieve all media for a facility  # noqa: E501
+        """
+        pass
+
     def test_get_all_media(self):
         """Test case for get_all_media
 
         Retrieve all media  # noqa: E501
+        """
+        pass
+
+    def test_get_all_rec_area_media(self):
+        """Test case for get_all_rec_area_media
+
+        Retrieve all media for a RecArea  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_media(self):
+        """Test case for get_facility_media
+
+        Retrieve a specific media by id for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_media(self):
+        """Test case for get_media
+
+        Retrieve a specific media by id  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area_media(self):
+        """Test case for get_rec_area_media
+
+        Retrieve a specific media by id for a RecArea  # noqa: E501
         """
         pass
 

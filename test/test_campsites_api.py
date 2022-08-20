@@ -28,10 +28,31 @@ class TestCampsitesApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_campsite(self):
+        """Test case for get_campsite
+
+        Retrieve a specific campsite by id  # noqa: E501
+        """
+        pass
+
     def test_get_campsites(self):
         """Test case for get_campsites
 
         Retrieve all campsites  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_campsite(self):
+        """Test case for get_facility_campsite
+
+        Retrieve a specific campsite by id for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_campsites(self):
+        """Test case for get_facility_campsites
+
+        Retrieve all campsites for a facility  # noqa: E501
         """
         pass
 

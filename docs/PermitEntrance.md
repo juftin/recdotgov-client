@@ -12,8 +12,11 @@ Name | Type | Description | Notes
 **permit_entrance_accessible** | **bool** | Is the permit accessible by vehicle | 
 **longitude** | **float** | Latitude of the permit location | 
 **latitude** | **float** | Longitude of the permit location | 
-**attributes** | **object** | Attributes related to the permit | 
-**entitymedia** | **object** | Array of Media for the Permit Entrance | 
+**geosjon** | [**FacilityGEOJSON**](FacilityGEOJSON.md) |  | [optional] 
+**created_date** | **date** | Record creation date | 
+**last_updated_date** | **date** | Record last update date | 
+**attributes** | [**list[Attribute]**](Attribute.md) | Attributes related to the permit | 
+**entitymedia** | [**list[Media]**](Media.md) | Array of Media for the Permit Entrance | 
 **zones** | [**list[Zone]**](Zone.md) | Additional Zone information related to the permit | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

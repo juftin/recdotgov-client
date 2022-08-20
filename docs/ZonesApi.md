@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**get_permit_entrance_zones**](ZonesApi.md#get_permit_entrance_zones) | **GET** /permitentrances/{permitEntranceId}/zones | Retrieve all zones for a permit entrance
 
 # **get_permit_entrance_zone**
-> Zone get_permit_entrance_zone(zone_id)
+> Zone get_permit_entrance_zone(permit_entrance_id, zone_id)
 
 Retrieve a zone for a permit entrance
 
@@ -30,11 +30,12 @@ configuration.api_key['apikey'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = recdotgov_client.ZonesApi(recdotgov_client.ApiClient(configuration))
+permit_entrance_id = 'permit_entrance_id_example' # str | Id of the permit entrance
 zone_id = 'zone_id_example' # str | Id of the zone
 
 try:
     # Retrieve a zone for a permit entrance
-    api_response = api_instance.get_permit_entrance_zone(zone_id)
+    api_response = api_instance.get_permit_entrance_zone(permit_entrance_id, zone_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ZonesApi->get_permit_entrance_zone: %s\n" % e)
@@ -44,6 +45,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **permit_entrance_id** | **str**| Id of the permit entrance | 
  **zone_id** | **str**| Id of the zone | 
 
 ### Return type
@@ -62,7 +64,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_permit_entrance_zones**
-> InlineResponse20010 get_permit_entrance_zones()
+> InlineResponse20010 get_permit_entrance_zones(permit_entrance_id)
 
 Retrieve all zones for a permit entrance
 
@@ -84,17 +86,21 @@ configuration.api_key['apikey'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = recdotgov_client.ZonesApi(recdotgov_client.ApiClient(configuration))
+permit_entrance_id = 'permit_entrance_id_example' # str | Id of the permit entrance
 
 try:
     # Retrieve all zones for a permit entrance
-    api_response = api_instance.get_permit_entrance_zones()
+    api_response = api_instance.get_permit_entrance_zones(permit_entrance_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling ZonesApi->get_permit_entrance_zones: %s\n" % e)
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **permit_entrance_id** | **str**| Id of the permit entrance | 
 
 ### Return type
 

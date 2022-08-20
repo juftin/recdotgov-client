@@ -46,8 +46,9 @@ class RecreationArea(object):
         "rec_area_latitude": "float",
         "stay_limit": "str",
         "keywords": "str",
-        "reservable": "object",
-        "enabled": "object",
+        "reservable": "bool",
+        "enabled": "bool",
+        "last_updated_date": "date",
         "organization": "list[Organization]",
         "facility": "list[RecreationAreaFacility]",
         "recareaaddress": "list[RecreationAreaAddress]",
@@ -76,6 +77,7 @@ class RecreationArea(object):
         "keywords": "Keywords",
         "reservable": "Reservable",
         "enabled": "Enabled",
+        "last_updated_date": "LastUpdatedDate",
         "organization": "ORGANIZATION",
         "facility": "FACILITY",
         "recareaaddress": "RECAREAADDRESS",
@@ -105,6 +107,7 @@ class RecreationArea(object):
         keywords=None,
         reservable=None,
         enabled=None,
+        last_updated_date=None,
         organization=None,
         facility=None,
         recareaaddress=None,
@@ -132,6 +135,7 @@ class RecreationArea(object):
         self._keywords = None
         self._reservable = None
         self._enabled = None
+        self._last_updated_date = None
         self._organization = None
         self._facility = None
         self._recareaaddress = None
@@ -159,6 +163,7 @@ class RecreationArea(object):
         self.keywords = keywords
         self.reservable = reservable
         self.enabled = enabled
+        self.last_updated_date = last_updated_date
         if organization is not None:
             self.organization = organization
         if facility is not None:
@@ -607,7 +612,7 @@ class RecreationArea(object):
         Whether the RecArea is reservable  # noqa: E501
 
         :return: The reservable of this RecreationArea.  # noqa: E501
-        :rtype: object
+        :rtype: bool
         """
         return self._reservable
 
@@ -618,7 +623,7 @@ class RecreationArea(object):
         Whether the RecArea is reservable  # noqa: E501
 
         :param reservable: The reservable of this RecreationArea.  # noqa: E501
-        :type: object
+        :type: bool
         """
         if reservable is None:
             raise ValueError(
@@ -634,7 +639,7 @@ class RecreationArea(object):
         Whether the RecArea is enabled  # noqa: E501
 
         :return: The enabled of this RecreationArea.  # noqa: E501
-        :rtype: object
+        :rtype: bool
         """
         return self._enabled
 
@@ -645,7 +650,7 @@ class RecreationArea(object):
         Whether the RecArea is enabled  # noqa: E501
 
         :param enabled: The enabled of this RecreationArea.  # noqa: E501
-        :type: object
+        :type: bool
         """
         if enabled is None:
             raise ValueError(
@@ -653,6 +658,33 @@ class RecreationArea(object):
             )  # noqa: E501
 
         self._enabled = enabled
+
+    @property
+    def last_updated_date(self):
+        """Gets the last_updated_date of this RecreationArea.  # noqa: E501
+
+        Record last update date  # noqa: E501
+
+        :return: The last_updated_date of this RecreationArea.  # noqa: E501
+        :rtype: date
+        """
+        return self._last_updated_date
+
+    @last_updated_date.setter
+    def last_updated_date(self, last_updated_date):
+        """Sets the last_updated_date of this RecreationArea.
+
+        Record last update date  # noqa: E501
+
+        :param last_updated_date: The last_updated_date of this RecreationArea.  # noqa: E501
+        :type: date
+        """
+        if last_updated_date is None:
+            raise ValueError(
+                "Invalid value for `last_updated_date`, must not be `None`"
+            )  # noqa: E501
+
+        self._last_updated_date = last_updated_date
 
     @property
     def organization(self):

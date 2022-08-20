@@ -4,7 +4,62 @@ All URIs are relative to *https://ridb.recreation.gov/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**get_organization**](OrganizationsApi.md#get_organization) | **GET** /organizations/{orgId} | Retrieve a specific organization by id
 [**get_organizations**](OrganizationsApi.md#get_organizations) | **GET** /organizations | Retrieve all organizations
+
+# **get_organization**
+> list[Organization] get_organization(org_id)
+
+Retrieve a specific organization by id
+
+This endpoint retrieves a specific organization.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import recdotgov_client
+from recdotgov_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Apikey
+configuration = recdotgov_client.Configuration()
+configuration.api_key['apikey'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['apikey'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = recdotgov_client.OrganizationsApi(recdotgov_client.ApiClient(configuration))
+org_id = 'org_id_example' # str | Id of the organization
+
+try:
+    # Retrieve a specific organization by id
+    api_response = api_instance.get_organization(org_id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling OrganizationsApi->get_organization: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **org_id** | **str**| Id of the organization | 
+
+### Return type
+
+[**list[Organization]**](Organization.md)
+
+### Authorization
+
+[Apikey](../README.md#Apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_organizations**
 > InlineResponse200 get_organizations(query=query, limit=limit, offset=offset)

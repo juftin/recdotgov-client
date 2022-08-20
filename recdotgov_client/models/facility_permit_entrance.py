@@ -29,22 +29,29 @@ class FacilityPermitEntrance(object):
       attribute_map (dict): The key is attribute name
                             and the value is json key in definition.
     """
-    swagger_types = {"permit_entrance_id": "str", "permit_entrance_name": "str"}
+    swagger_types = {
+        "permit_entrance_id": "str",
+        "permit_entrance_name": "str",
+        "resource_link": "str",
+    }
 
     attribute_map = {
         "permit_entrance_id": "PermitEntranceID",
         "permit_entrance_name": "PermitEntranceName",
+        "resource_link": "ResourceLink",
     }
 
     def __init__(
-        self, permit_entrance_id=None, permit_entrance_name=None
+        self, permit_entrance_id=None, permit_entrance_name=None, resource_link=None
     ):  # noqa: E501
         """FacilityPermitEntrance - a model defined in Swagger"""  # noqa: E501
         self._permit_entrance_id = None
         self._permit_entrance_name = None
+        self._resource_link = None
         self.discriminator = None
         self.permit_entrance_id = permit_entrance_id
         self.permit_entrance_name = permit_entrance_name
+        self.resource_link = resource_link
 
     @property
     def permit_entrance_id(self):
@@ -99,6 +106,33 @@ class FacilityPermitEntrance(object):
             )  # noqa: E501
 
         self._permit_entrance_name = permit_entrance_name
+
+    @property
+    def resource_link(self):
+        """Gets the resource_link of this FacilityPermitEntrance.  # noqa: E501
+
+        Internet address (URL) to a web site providing details  # noqa: E501
+
+        :return: The resource_link of this FacilityPermitEntrance.  # noqa: E501
+        :rtype: str
+        """
+        return self._resource_link
+
+    @resource_link.setter
+    def resource_link(self, resource_link):
+        """Sets the resource_link of this FacilityPermitEntrance.
+
+        Internet address (URL) to a web site providing details  # noqa: E501
+
+        :param resource_link: The resource_link of this FacilityPermitEntrance.  # noqa: E501
+        :type: str
+        """
+        if resource_link is None:
+            raise ValueError(
+                "Invalid value for `resource_link`, must not be `None`"
+            )  # noqa: E501
+
+        self._resource_link = resource_link
 
     def to_dict(self):
         """Returns the model properties as a dict"""
