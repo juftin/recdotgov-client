@@ -23,8 +23,9 @@ Name | Type | Description | Notes
 **facility_latitude** | **float** | Latitude in decimal degrees -90.0 to 90.0 | 
 **stay_limit** | **str** | Details on the stay limits for the Facility | 
 **keywords** | **str** | List of keywords for the Facility | 
-**reservable** | **object** | Whether the Facility is reservable | 
-**enabled** | **object** | Whether the Facility is enabled | 
+**reservable** | **bool** | Whether the Facility is reservable | 
+**enabled** | **bool** | Whether the Facility is enabled | 
+**last_updated_date** | **date** | Record last update date | 
 **campsite** | [**list[FacilityCampsite]**](FacilityCampsite.md) |  | [optional] 
 **permitentrance** | [**list[FacilityPermitEntrance]**](FacilityPermitEntrance.md) |  | [optional] 
 **tour** | [**list[FacilityTour]**](FacilityTour.md) |  | [optional] 

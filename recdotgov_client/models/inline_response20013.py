@@ -29,16 +29,19 @@ class InlineResponse20013(object):
       attribute_map (dict): The key is attribute name
                             and the value is json key in definition.
     """
-    swagger_types = {"recdata": "list[Media]"}
+    swagger_types = {"recdata": "list[Media]", "metadata": "InlineResponse200METADATA"}
 
-    attribute_map = {"recdata": "RECDATA"}
+    attribute_map = {"recdata": "RECDATA", "metadata": "METADATA"}
 
-    def __init__(self, recdata=None):  # noqa: E501
+    def __init__(self, recdata=None, metadata=None):  # noqa: E501
         """InlineResponse20013 - a model defined in Swagger"""  # noqa: E501
         self._recdata = None
+        self._metadata = None
         self.discriminator = None
         if recdata is not None:
             self.recdata = recdata
+        if metadata is not None:
+            self.metadata = metadata
 
     @property
     def recdata(self):
@@ -60,6 +63,27 @@ class InlineResponse20013(object):
         """
 
         self._recdata = recdata
+
+    @property
+    def metadata(self):
+        """Gets the metadata of this InlineResponse20013.  # noqa: E501
+
+
+        :return: The metadata of this InlineResponse20013.  # noqa: E501
+        :rtype: InlineResponse200METADATA
+        """
+        return self._metadata
+
+    @metadata.setter
+    def metadata(self, metadata):
+        """Sets the metadata of this InlineResponse20013.
+
+
+        :param metadata: The metadata of this InlineResponse20013.  # noqa: E501
+        :type: InlineResponse200METADATA
+        """
+
+        self._metadata = metadata
 
     def to_dict(self):
         """Returns the model properties as a dict"""

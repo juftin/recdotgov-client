@@ -29,16 +29,40 @@ class RecreationAreaGEOJSON(object):
       attribute_map (dict): The key is attribute name
                             and the value is json key in definition.
     """
-    swagger_types = {"coordinates": "object"}
+    swagger_types = {"type": "str", "coordinates": "list[float]"}
 
-    attribute_map = {"coordinates": "COORDINATES"}
+    attribute_map = {"type": "TYPE", "coordinates": "COORDINATES"}
 
-    def __init__(self, coordinates=None):  # noqa: E501
+    def __init__(self, type=None, coordinates=None):  # noqa: E501
         """RecreationAreaGEOJSON - a model defined in Swagger"""  # noqa: E501
+        self._type = None
         self._coordinates = None
         self.discriminator = None
+        if type is not None:
+            self.type = type
         if coordinates is not None:
             self.coordinates = coordinates
+
+    @property
+    def type(self):
+        """Gets the type of this RecreationAreaGEOJSON.  # noqa: E501
+
+
+        :return: The type of this RecreationAreaGEOJSON.  # noqa: E501
+        :rtype: str
+        """
+        return self._type
+
+    @type.setter
+    def type(self, type):
+        """Sets the type of this RecreationAreaGEOJSON.
+
+
+        :param type: The type of this RecreationAreaGEOJSON.  # noqa: E501
+        :type: str
+        """
+
+        self._type = type
 
     @property
     def coordinates(self):
@@ -46,7 +70,7 @@ class RecreationAreaGEOJSON(object):
 
 
         :return: The coordinates of this RecreationAreaGEOJSON.  # noqa: E501
-        :rtype: object
+        :rtype: list[float]
         """
         return self._coordinates
 
@@ -56,7 +80,7 @@ class RecreationAreaGEOJSON(object):
 
 
         :param coordinates: The coordinates of this RecreationAreaGEOJSON.  # noqa: E501
-        :type: object
+        :type: list[float]
         """
 
         self._coordinates = coordinates

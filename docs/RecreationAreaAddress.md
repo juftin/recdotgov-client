@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **postal_code** | **str** | Postal code for the RecArea | 
 **address_state_code** | **str** | State code for the RecArea | 
 **address_country_code** | **str** | Abbreviated country code for the RecArea | 
+**last_updated_date** | **date** | Record last update date | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

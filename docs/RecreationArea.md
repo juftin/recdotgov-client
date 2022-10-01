@@ -19,8 +19,9 @@ Name | Type | Description | Notes
 **rec_area_latitude** | **float** | Latitude in decimal degrees -90.0 to 90.0 | 
 **stay_limit** | **str** | Details on the stay limits for the RecArea | 
 **keywords** | **str** | List of keywords for the RecArea | 
-**reservable** | **object** | Whether the RecArea is reservable | 
-**enabled** | **object** | Whether the RecArea is enabled | 
+**reservable** | **bool** | Whether the RecArea is reservable | 
+**enabled** | **bool** | Whether the RecArea is enabled | 
+**last_updated_date** | **date** | Record last update date | 
 **organization** | [**list[Organization]**](Organization.md) |  | [optional] 
 **facility** | [**list[RecreationAreaFacility]**](RecreationAreaFacility.md) |  | [optional] 
 **recareaaddress** | [**list[RecreationAreaAddress]**](RecreationAreaAddress.md) |  | [optional] 

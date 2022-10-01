@@ -39,11 +39,11 @@ class Campsite(object):
         "campsite_accessible": "bool",
         "campsite_longitude": "float",
         "campsite_latitude": "float",
-        "created_date": "object",
-        "last_updated_date": "object",
-        "attributes": "object",
+        "created_date": "date",
+        "last_updated_date": "date",
+        "attributes": "list[Attribute]",
         "permittedequipment": "list[PermittedEquipment]",
-        "entitymedia": "object",
+        "entitymedia": "list[Media]",
     }
 
     attribute_map = {
@@ -355,7 +355,7 @@ class Campsite(object):
         Record creation date  # noqa: E501
 
         :return: The created_date of this Campsite.  # noqa: E501
-        :rtype: object
+        :rtype: date
         """
         return self._created_date
 
@@ -366,7 +366,7 @@ class Campsite(object):
         Record creation date  # noqa: E501
 
         :param created_date: The created_date of this Campsite.  # noqa: E501
-        :type: object
+        :type: date
         """
         if created_date is None:
             raise ValueError(
@@ -382,7 +382,7 @@ class Campsite(object):
         Record last update date  # noqa: E501
 
         :return: The last_updated_date of this Campsite.  # noqa: E501
-        :rtype: object
+        :rtype: date
         """
         return self._last_updated_date
 
@@ -393,7 +393,7 @@ class Campsite(object):
         Record last update date  # noqa: E501
 
         :param last_updated_date: The last_updated_date of this Campsite.  # noqa: E501
-        :type: object
+        :type: date
         """
         if last_updated_date is None:
             raise ValueError(
@@ -409,7 +409,7 @@ class Campsite(object):
         Array of Campsite Attributes  # noqa: E501
 
         :return: The attributes of this Campsite.  # noqa: E501
-        :rtype: object
+        :rtype: list[Attribute]
         """
         return self._attributes
 
@@ -420,7 +420,7 @@ class Campsite(object):
         Array of Campsite Attributes  # noqa: E501
 
         :param attributes: The attributes of this Campsite.  # noqa: E501
-        :type: object
+        :type: list[Attribute]
         """
         if attributes is None:
             raise ValueError(
@@ -463,7 +463,7 @@ class Campsite(object):
         Array of Media for the Campsite  # noqa: E501
 
         :return: The entitymedia of this Campsite.  # noqa: E501
-        :rtype: object
+        :rtype: list[Media]
         """
         return self._entitymedia
 
@@ -474,7 +474,7 @@ class Campsite(object):
         Array of Media for the Campsite  # noqa: E501
 
         :param entitymedia: The entitymedia of this Campsite.  # noqa: E501
-        :type: object
+        :type: list[Media]
         """
         if entitymedia is None:
             raise ValueError(

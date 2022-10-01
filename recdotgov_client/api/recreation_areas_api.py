@@ -32,6 +32,367 @@ class RecreationAreasApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
+    def get_organization_rec_area(self, rec_area_id, **kwargs):  # noqa: E501
+        """Retrieve a specific RecArea by id for an organization  # noqa: E501
+
+        This endpoint retrieves a specific RecArea belonging to a specific organization.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_organization_rec_area(rec_area_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str rec_area_id: Id of the RecArea (required)
+        :param str full: Return the full record details or compact (abbreviated) details
+        :return: RecreationArea
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_organization_rec_area_with_http_info(
+                rec_area_id, **kwargs
+            )  # noqa: E501
+        else:
+            (data) = self.get_organization_rec_area_with_http_info(
+                rec_area_id, **kwargs
+            )  # noqa: E501
+            return data
+
+    def get_organization_rec_area_with_http_info(
+        self, rec_area_id, **kwargs
+    ):  # noqa: E501
+        """Retrieve a specific RecArea by id for an organization  # noqa: E501
+
+        This endpoint retrieves a specific RecArea belonging to a specific organization.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_organization_rec_area_with_http_info(rec_area_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str rec_area_id: Id of the RecArea (required)
+        :param str full: Return the full record details or compact (abbreviated) details
+        :return: RecreationArea
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ["rec_area_id", "full"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
+
+        params = locals()
+        for key, val in six.iteritems(params["kwargs"]):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_organization_rec_area" % key
+                )
+            params[key] = val
+        del params["kwargs"]
+        # verify the required parameter 'rec_area_id' is set
+        if "rec_area_id" not in params or params["rec_area_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `rec_area_id` when calling `get_organization_rec_area`"
+            )  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if "rec_area_id" in params:
+            path_params["recAreaId"] = params["rec_area_id"]  # noqa: E501
+
+        query_params = []
+        if "full" in params:
+            query_params.append(("full", params["full"]))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ["Apikey"]  # noqa: E501
+
+        return self.api_client.call_api(
+            "/organizations/{orgId}/recareas/{recAreaId}",
+            "GET",
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type="RecreationArea",  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
+
+    def get_organization_rec_areas(self, org_id, **kwargs):  # noqa: E501
+        """Retrieve all RecAreas for an organization  # noqa: E501
+
+        This endpoint retrieves all RecAreas belonging to a specific organization.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_organization_rec_areas(org_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str org_id: Id of the organization (required)
+        :param str query: Query filter criteria. Searches on RecArea name, description, keywords, and stay limit
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
+        :param str full: Return the full record details or compact (abbreviated) details
+        :param list[str] state: Comma delimited list of 2 character state codes
+        :param list[str] activity: Comma delimited list of activity IDs or keyword
+        :param str lastupdated: Return all records modified since this date **Date Format: (mm-dd-yyyy)**
+        :param str sort: Sort the results by \"ID\", \"Date\" or \"Name\"
+        :return: InlineResponse2001
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_organization_rec_areas_with_http_info(
+                org_id, **kwargs
+            )  # noqa: E501
+        else:
+            (data) = self.get_organization_rec_areas_with_http_info(
+                org_id, **kwargs
+            )  # noqa: E501
+            return data
+
+    def get_organization_rec_areas_with_http_info(self, org_id, **kwargs):  # noqa: E501
+        """Retrieve all RecAreas for an organization  # noqa: E501
+
+        This endpoint retrieves all RecAreas belonging to a specific organization.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_organization_rec_areas_with_http_info(org_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str org_id: Id of the organization (required)
+        :param str query: Query filter criteria. Searches on RecArea name, description, keywords, and stay limit
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
+        :param str full: Return the full record details or compact (abbreviated) details
+        :param list[str] state: Comma delimited list of 2 character state codes
+        :param list[str] activity: Comma delimited list of activity IDs or keyword
+        :param str lastupdated: Return all records modified since this date **Date Format: (mm-dd-yyyy)**
+        :param str sort: Sort the results by \"ID\", \"Date\" or \"Name\"
+        :return: InlineResponse2001
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = [
+            "org_id",
+            "query",
+            "limit",
+            "offset",
+            "full",
+            "state",
+            "activity",
+            "lastupdated",
+            "sort",
+        ]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
+
+        params = locals()
+        for key, val in six.iteritems(params["kwargs"]):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_organization_rec_areas" % key
+                )
+            params[key] = val
+        del params["kwargs"]
+        # verify the required parameter 'org_id' is set
+        if "org_id" not in params or params["org_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `org_id` when calling `get_organization_rec_areas`"
+            )  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if "org_id" in params:
+            path_params["orgId"] = params["org_id"]  # noqa: E501
+
+        query_params = []
+        if "query" in params:
+            query_params.append(("query", params["query"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
+        if "full" in params:
+            query_params.append(("full", params["full"]))  # noqa: E501
+        if "state" in params:
+            query_params.append(("state", params["state"]))  # noqa: E501
+            collection_formats["state"] = ""  # noqa: E501
+        if "activity" in params:
+            query_params.append(("activity", params["activity"]))  # noqa: E501
+            collection_formats["activity"] = ""  # noqa: E501
+        if "lastupdated" in params:
+            query_params.append(("lastupdated", params["lastupdated"]))  # noqa: E501
+        if "sort" in params:
+            query_params.append(("sort", params["sort"]))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ["Apikey"]  # noqa: E501
+
+        return self.api_client.call_api(
+            "/organizations/{orgId}/recareas",
+            "GET",
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type="InlineResponse2001",  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
+
+    def get_rec_area(self, rec_area_id, **kwargs):  # noqa: E501
+        """Retrieve a specific RecArea by id  # noqa: E501
+
+        This endpoint retrieves a specific RecArea.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_rec_area(rec_area_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str rec_area_id: Id of the RecArea (required)
+        :param str full: Return the full record details or compact (abbreviated) details
+        :return: RecreationArea
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_rec_area_with_http_info(rec_area_id, **kwargs)  # noqa: E501
+        else:
+            (data) = self.get_rec_area_with_http_info(
+                rec_area_id, **kwargs
+            )  # noqa: E501
+            return data
+
+    def get_rec_area_with_http_info(self, rec_area_id, **kwargs):  # noqa: E501
+        """Retrieve a specific RecArea by id  # noqa: E501
+
+        This endpoint retrieves a specific RecArea.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_rec_area_with_http_info(rec_area_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str rec_area_id: Id of the RecArea (required)
+        :param str full: Return the full record details or compact (abbreviated) details
+        :return: RecreationArea
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ["rec_area_id", "full"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
+
+        params = locals()
+        for key, val in six.iteritems(params["kwargs"]):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_rec_area" % key
+                )
+            params[key] = val
+        del params["kwargs"]
+        # verify the required parameter 'rec_area_id' is set
+        if "rec_area_id" not in params or params["rec_area_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `rec_area_id` when calling `get_rec_area`"
+            )  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if "rec_area_id" in params:
+            path_params["recAreaId"] = params["rec_area_id"]  # noqa: E501
+
+        query_params = []
+        if "full" in params:
+            query_params.append(("full", params["full"]))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ["Apikey"]  # noqa: E501
+
+        return self.api_client.call_api(
+            "/recareas/{recAreaId}",
+            "GET",
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type="RecreationArea",  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
+
     def get_rec_areas(self, **kwargs):  # noqa: E501
         """Retrieve all RecAreas  # noqa: E501
 
@@ -42,6 +403,9 @@ class RecreationAreasApi(object):
         >>> result = thread.get()
 
         :param async_req bool
+        :param str query: Query filter criteria. Searches on RecArea name, description, keywords, and stay limit
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
         :param str full: Return the full record details or compact (abbreviated) details
         :param list[str] state: Comma delimited list of 2 character state codes
         :param list[str] activity: Comma delimited list of activity IDs or keyword
@@ -71,6 +435,9 @@ class RecreationAreasApi(object):
         >>> result = thread.get()
 
         :param async_req bool
+        :param str query: Query filter criteria. Searches on RecArea name, description, keywords, and stay limit
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
         :param str full: Return the full record details or compact (abbreviated) details
         :param list[str] state: Comma delimited list of 2 character state codes
         :param list[str] activity: Comma delimited list of activity IDs or keyword
@@ -85,6 +452,9 @@ class RecreationAreasApi(object):
         """
 
         all_params = [
+            "query",
+            "limit",
+            "offset",
             "full",
             "state",
             "activity",
@@ -114,6 +484,12 @@ class RecreationAreasApi(object):
         path_params = {}
 
         query_params = []
+        if "query" in params:
+            query_params.append(("query", params["query"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
         if "full" in params:
             query_params.append(("full", params["full"]))  # noqa: E501
         if "state" in params:

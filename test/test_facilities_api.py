@@ -35,6 +35,13 @@ class TestFacilitiesApi(unittest.TestCase):
         """
         pass
 
+    def test_get_facility(self):
+        """Test case for get_facility
+
+        Retrieve a specific facility by id  # noqa: E501
+        """
+        pass
+
     def test_get_organization_facilities(self):
         """Test case for get_organization_facilities
 
@@ -42,10 +49,24 @@ class TestFacilitiesApi(unittest.TestCase):
         """
         pass
 
+    def test_get_organization_facility(self):
+        """Test case for get_organization_facility
+
+        Retrieve a specific facility by id for an organization  # noqa: E501
+        """
+        pass
+
     def test_get_rec_area_facilities(self):
         """Test case for get_rec_area_facilities
 
         Retrieve all facilities for a RecArea  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area_facility(self):
+        """Test case for get_rec_area_facility
+
+        Retrieve a specific facility by id for a RecArea  # noqa: E501
         """
         pass
 

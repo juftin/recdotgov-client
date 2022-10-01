@@ -28,10 +28,45 @@ class TestEventsApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_event(self):
+        """Test case for get_event
+
+        Retrieve a specific event by id  # noqa: E501
+        """
+        pass
+
     def test_get_events(self):
         """Test case for get_events
 
         Retrieve all events  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_event(self):
+        """Test case for get_facility_event
+
+        Retrieve a specific event by id for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_events(self):
+        """Test case for get_facility_events
+
+        Retrieve all events for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area_event(self):
+        """Test case for get_rec_area_event
+
+        Retrieve a specific event by id for a RecArea  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area_events(self):
+        """Test case for get_rec_area_events
+
+        Retrieve all events for a RecArea  # noqa: E501
         """
         pass
 

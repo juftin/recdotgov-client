@@ -29,17 +29,29 @@ class FacilityRecArea(object):
       attribute_map (dict): The key is attribute name
                             and the value is json key in definition.
     """
-    swagger_types = {"rec_area_id": "str", "rec_area_name": "str"}
+    swagger_types = {
+        "rec_area_id": "str",
+        "rec_area_name": "str",
+        "resource_link": "str",
+    }
 
-    attribute_map = {"rec_area_id": "RecAreaID", "rec_area_name": "RecAreaName"}
+    attribute_map = {
+        "rec_area_id": "RecAreaID",
+        "rec_area_name": "RecAreaName",
+        "resource_link": "ResourceLink",
+    }
 
-    def __init__(self, rec_area_id=None, rec_area_name=None):  # noqa: E501
+    def __init__(
+        self, rec_area_id=None, rec_area_name=None, resource_link=None
+    ):  # noqa: E501
         """FacilityRecArea - a model defined in Swagger"""  # noqa: E501
         self._rec_area_id = None
         self._rec_area_name = None
+        self._resource_link = None
         self.discriminator = None
         self.rec_area_id = rec_area_id
         self.rec_area_name = rec_area_name
+        self.resource_link = resource_link
 
     @property
     def rec_area_id(self):
@@ -94,6 +106,33 @@ class FacilityRecArea(object):
             )  # noqa: E501
 
         self._rec_area_name = rec_area_name
+
+    @property
+    def resource_link(self):
+        """Gets the resource_link of this FacilityRecArea.  # noqa: E501
+
+        Internet address (URL) to a web site providing details  # noqa: E501
+
+        :return: The resource_link of this FacilityRecArea.  # noqa: E501
+        :rtype: str
+        """
+        return self._resource_link
+
+    @resource_link.setter
+    def resource_link(self, resource_link):
+        """Sets the resource_link of this FacilityRecArea.
+
+        Internet address (URL) to a web site providing details  # noqa: E501
+
+        :param resource_link: The resource_link of this FacilityRecArea.  # noqa: E501
+        :type: str
+        """
+        if resource_link is None:
+            raise ValueError(
+                "Invalid value for `resource_link`, must not be `None`"
+            )  # noqa: E501
+
+        self._resource_link = resource_link
 
     def to_dict(self):
         """Returns the model properties as a dict"""

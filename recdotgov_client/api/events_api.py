@@ -32,6 +32,105 @@ class EventsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
+    def get_event(self, event_id, **kwargs):  # noqa: E501
+        """Retrieve a specific event by id  # noqa: E501
+
+        This endpoint retrieves a specific event.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_event(event_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str event_id: Id of the event (required)
+        :return: Event
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_event_with_http_info(event_id, **kwargs)  # noqa: E501
+        else:
+            (data) = self.get_event_with_http_info(event_id, **kwargs)  # noqa: E501
+            return data
+
+    def get_event_with_http_info(self, event_id, **kwargs):  # noqa: E501
+        """Retrieve a specific event by id  # noqa: E501
+
+        This endpoint retrieves a specific event.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_event_with_http_info(event_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str event_id: Id of the event (required)
+        :return: Event
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ["event_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
+
+        params = locals()
+        for key, val in six.iteritems(params["kwargs"]):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_event" % key
+                )
+            params[key] = val
+        del params["kwargs"]
+        # verify the required parameter 'event_id' is set
+        if "event_id" not in params or params["event_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `event_id` when calling `get_event`"
+            )  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if "event_id" in params:
+            path_params["eventId"] = params["event_id"]  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ["Apikey"]  # noqa: E501
+
+        return self.api_client.call_api(
+            "/events/{eventId}",
+            "GET",
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type="Event",  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
+
     def get_events(self, **kwargs):  # noqa: E501
         """Retrieve all events  # noqa: E501
 
@@ -42,6 +141,9 @@ class EventsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
+        :param str query: Query filter criteria. Searches on event name, start/end date, description, age group, ADA access, fee description, scope description, and type description
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
         :return: InlineResponse20011
                  If the method is called asynchronously,
                  returns the request thread.
@@ -63,12 +165,15 @@ class EventsApi(object):
         >>> result = thread.get()
 
         :param async_req bool
+        :param str query: Query filter criteria. Searches on event name, start/end date, description, age group, ADA access, fee description, scope description, and type description
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
         :return: InlineResponse20011
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = []  # noqa: E501
+        all_params = ["query", "limit", "offset"]  # noqa: E501
         all_params.append("async_req")
         all_params.append("_return_http_data_only")
         all_params.append("_preload_content")
@@ -89,6 +194,12 @@ class EventsApi(object):
         path_params = {}
 
         query_params = []
+        if "query" in params:
+            query_params.append(("query", params["query"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
 
         header_params = {}
 
@@ -106,6 +217,464 @@ class EventsApi(object):
 
         return self.api_client.call_api(
             "/events",
+            "GET",
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type="InlineResponse20011",  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
+
+    def get_facility_event(self, facility_id, event_id, **kwargs):  # noqa: E501
+        """Retrieve a specific event by id for a facility  # noqa: E501
+
+        This endpoint retrieves a specific event for a specific facility.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_facility_event(facility_id, event_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str facility_id: Id of the facility (required)
+        :param str event_id: Id of the event (required)
+        :return: Event
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_facility_event_with_http_info(
+                facility_id, event_id, **kwargs
+            )  # noqa: E501
+        else:
+            (data) = self.get_facility_event_with_http_info(
+                facility_id, event_id, **kwargs
+            )  # noqa: E501
+            return data
+
+    def get_facility_event_with_http_info(
+        self, facility_id, event_id, **kwargs
+    ):  # noqa: E501
+        """Retrieve a specific event by id for a facility  # noqa: E501
+
+        This endpoint retrieves a specific event for a specific facility.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_facility_event_with_http_info(facility_id, event_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str facility_id: Id of the facility (required)
+        :param str event_id: Id of the event (required)
+        :return: Event
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ["facility_id", "event_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
+
+        params = locals()
+        for key, val in six.iteritems(params["kwargs"]):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_facility_event" % key
+                )
+            params[key] = val
+        del params["kwargs"]
+        # verify the required parameter 'facility_id' is set
+        if "facility_id" not in params or params["facility_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `facility_id` when calling `get_facility_event`"
+            )  # noqa: E501
+        # verify the required parameter 'event_id' is set
+        if "event_id" not in params or params["event_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `event_id` when calling `get_facility_event`"
+            )  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if "facility_id" in params:
+            path_params["facilityId"] = params["facility_id"]  # noqa: E501
+        if "event_id" in params:
+            path_params["eventId"] = params["event_id"]  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ["Apikey"]  # noqa: E501
+
+        return self.api_client.call_api(
+            "/facilities/{facilityId}/events/{eventId}",
+            "GET",
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type="Event",  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
+
+    def get_facility_events(self, facility_id, **kwargs):  # noqa: E501
+        """Retrieve all events for a facility  # noqa: E501
+
+        This endpoint retrieves all events for a specific facility.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_facility_events(facility_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str facility_id: Id of the facility (required)
+        :param str query: Query filter criteria. Searches on event name, start/end date, description, age group, ADA access, fee description, scope description, and type description
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
+        :return: InlineResponse20011
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_facility_events_with_http_info(
+                facility_id, **kwargs
+            )  # noqa: E501
+        else:
+            (data) = self.get_facility_events_with_http_info(
+                facility_id, **kwargs
+            )  # noqa: E501
+            return data
+
+    def get_facility_events_with_http_info(self, facility_id, **kwargs):  # noqa: E501
+        """Retrieve all events for a facility  # noqa: E501
+
+        This endpoint retrieves all events for a specific facility.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_facility_events_with_http_info(facility_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str facility_id: Id of the facility (required)
+        :param str query: Query filter criteria. Searches on event name, start/end date, description, age group, ADA access, fee description, scope description, and type description
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
+        :return: InlineResponse20011
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ["facility_id", "query", "limit", "offset"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
+
+        params = locals()
+        for key, val in six.iteritems(params["kwargs"]):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_facility_events" % key
+                )
+            params[key] = val
+        del params["kwargs"]
+        # verify the required parameter 'facility_id' is set
+        if "facility_id" not in params or params["facility_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `facility_id` when calling `get_facility_events`"
+            )  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if "facility_id" in params:
+            path_params["facilityId"] = params["facility_id"]  # noqa: E501
+
+        query_params = []
+        if "query" in params:
+            query_params.append(("query", params["query"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ["Apikey"]  # noqa: E501
+
+        return self.api_client.call_api(
+            "/facilities/{facilityId}/events",
+            "GET",
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type="InlineResponse20011",  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
+
+    def get_rec_area_event(self, rec_area_id, event_id, **kwargs):  # noqa: E501
+        """Retrieve a specific event by id for a RecArea  # noqa: E501
+
+        This endpoint retrieves a specific event for a specific RecArea.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_rec_area_event(rec_area_id, event_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str rec_area_id: Id of the RecArea (required)
+        :param str event_id: Id of the event (required)
+        :return: Event
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_rec_area_event_with_http_info(
+                rec_area_id, event_id, **kwargs
+            )  # noqa: E501
+        else:
+            (data) = self.get_rec_area_event_with_http_info(
+                rec_area_id, event_id, **kwargs
+            )  # noqa: E501
+            return data
+
+    def get_rec_area_event_with_http_info(
+        self, rec_area_id, event_id, **kwargs
+    ):  # noqa: E501
+        """Retrieve a specific event by id for a RecArea  # noqa: E501
+
+        This endpoint retrieves a specific event for a specific RecArea.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_rec_area_event_with_http_info(rec_area_id, event_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str rec_area_id: Id of the RecArea (required)
+        :param str event_id: Id of the event (required)
+        :return: Event
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ["rec_area_id", "event_id"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
+
+        params = locals()
+        for key, val in six.iteritems(params["kwargs"]):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_rec_area_event" % key
+                )
+            params[key] = val
+        del params["kwargs"]
+        # verify the required parameter 'rec_area_id' is set
+        if "rec_area_id" not in params or params["rec_area_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `rec_area_id` when calling `get_rec_area_event`"
+            )  # noqa: E501
+        # verify the required parameter 'event_id' is set
+        if "event_id" not in params or params["event_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `event_id` when calling `get_rec_area_event`"
+            )  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if "rec_area_id" in params:
+            path_params["recAreaId"] = params["rec_area_id"]  # noqa: E501
+        if "event_id" in params:
+            path_params["eventId"] = params["event_id"]  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ["Apikey"]  # noqa: E501
+
+        return self.api_client.call_api(
+            "/recareas/{recAreaId}/events/{eventId}",
+            "GET",
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type="Event",  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=params.get("async_req"),
+            _return_http_data_only=params.get("_return_http_data_only"),
+            _preload_content=params.get("_preload_content", True),
+            _request_timeout=params.get("_request_timeout"),
+            collection_formats=collection_formats,
+        )
+
+    def get_rec_area_events(self, rec_area_id, **kwargs):  # noqa: E501
+        """Retrieve all events for a RecArea  # noqa: E501
+
+        This endpoint retrieves all events for a specific RecArea.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_rec_area_events(rec_area_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str rec_area_id: Id of the RecArea (required)
+        :param str query: Query filter criteria. Searches on event name, start/end date, description, age group, ADA access, fee description, scope description, and type description
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
+        :return: InlineResponse20011
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs["_return_http_data_only"] = True
+        if kwargs.get("async_req"):
+            return self.get_rec_area_events_with_http_info(
+                rec_area_id, **kwargs
+            )  # noqa: E501
+        else:
+            (data) = self.get_rec_area_events_with_http_info(
+                rec_area_id, **kwargs
+            )  # noqa: E501
+            return data
+
+    def get_rec_area_events_with_http_info(self, rec_area_id, **kwargs):  # noqa: E501
+        """Retrieve all events for a RecArea  # noqa: E501
+
+        This endpoint retrieves all events for a specific RecArea.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_rec_area_events_with_http_info(rec_area_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool
+        :param str rec_area_id: Id of the RecArea (required)
+        :param str query: Query filter criteria. Searches on event name, start/end date, description, age group, ADA access, fee description, scope description, and type description
+        :param int limit: Number of records to return (max 50)
+        :param int offset: Start record of overall result set
+        :return: InlineResponse20011
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ["rec_area_id", "query", "limit", "offset"]  # noqa: E501
+        all_params.append("async_req")
+        all_params.append("_return_http_data_only")
+        all_params.append("_preload_content")
+        all_params.append("_request_timeout")
+
+        params = locals()
+        for key, val in six.iteritems(params["kwargs"]):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_rec_area_events" % key
+                )
+            params[key] = val
+        del params["kwargs"]
+        # verify the required parameter 'rec_area_id' is set
+        if "rec_area_id" not in params or params["rec_area_id"] is None:
+            raise ValueError(
+                "Missing the required parameter `rec_area_id` when calling `get_rec_area_events`"
+            )  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if "rec_area_id" in params:
+            path_params["recAreaId"] = params["rec_area_id"]  # noqa: E501
+
+        query_params = []
+        if "query" in params:
+            query_params.append(("query", params["query"]))  # noqa: E501
+        if "limit" in params:
+            query_params.append(("limit", params["limit"]))  # noqa: E501
+        if "offset" in params:
+            query_params.append(("offset", params["offset"]))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params["Accept"] = self.api_client.select_header_accept(
+            ["application/json"]
+        )  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ["Apikey"]  # noqa: E501
+
+        return self.api_client.call_api(
+            "/recareas/{recAreaId}/events",
             "GET",
             path_params,
             query_params,

@@ -30,10 +30,31 @@ class TestFacilityAddressesApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_facility_address(self):
+        """Test case for get_facility_address
+
+        Retrieve a specific facility address by id  # noqa: E501
+        """
+        pass
+
     def test_get_facility_addresses(self):
         """Test case for get_facility_addresses
 
         Retrieve all facility addresses  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_facility_address(self):
+        """Test case for get_facility_facility_address
+
+        Retrieve a specific facility address by id for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_facility_addresses(self):
+        """Test case for get_facility_facility_addresses
+
+        Retrieve all facility addresses for a facility  # noqa: E501
         """
         pass
 

@@ -28,6 +28,13 @@ class TestOrganizationsApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_organization(self):
+        """Test case for get_organization
+
+        Retrieve a specific organization by id  # noqa: E501
+        """
+        pass
+
     def test_get_organizations(self):
         """Test case for get_organizations
 

@@ -37,8 +37,10 @@ class Tour(object):
         "tour_description": "str",
         "tour_duration": "int",
         "tour_accessible": "bool",
-        "attributes": "object",
-        "entitymedia": "object",
+        "created_date": "date",
+        "last_updated_date": "date",
+        "attributes": "list[Attribute]",
+        "entitymedia": "list[Media]",
         "membertours": "list[TourMEMBERTOURS]",
     }
 
@@ -50,6 +52,8 @@ class Tour(object):
         "tour_description": "TourDescription",
         "tour_duration": "TourDuration",
         "tour_accessible": "TourAccessible",
+        "created_date": "CreatedDate",
+        "last_updated_date": "LastUpdatedDate",
         "attributes": "ATTRIBUTES",
         "entitymedia": "ENTITYMEDIA",
         "membertours": "MEMBERTOURS",
@@ -64,6 +68,8 @@ class Tour(object):
         tour_description=None,
         tour_duration=None,
         tour_accessible=None,
+        created_date=None,
+        last_updated_date=None,
         attributes=None,
         entitymedia=None,
         membertours=None,
@@ -76,6 +82,8 @@ class Tour(object):
         self._tour_description = None
         self._tour_duration = None
         self._tour_accessible = None
+        self._created_date = None
+        self._last_updated_date = None
         self._attributes = None
         self._entitymedia = None
         self._membertours = None
@@ -87,6 +95,8 @@ class Tour(object):
         self.tour_description = tour_description
         self.tour_duration = tour_duration
         self.tour_accessible = tour_accessible
+        self.created_date = created_date
+        self.last_updated_date = last_updated_date
         self.attributes = attributes
         self.entitymedia = entitymedia
         self.membertours = membertours
@@ -281,13 +291,67 @@ class Tour(object):
         self._tour_accessible = tour_accessible
 
     @property
+    def created_date(self):
+        """Gets the created_date of this Tour.  # noqa: E501
+
+        Record creation date  # noqa: E501
+
+        :return: The created_date of this Tour.  # noqa: E501
+        :rtype: date
+        """
+        return self._created_date
+
+    @created_date.setter
+    def created_date(self, created_date):
+        """Sets the created_date of this Tour.
+
+        Record creation date  # noqa: E501
+
+        :param created_date: The created_date of this Tour.  # noqa: E501
+        :type: date
+        """
+        if created_date is None:
+            raise ValueError(
+                "Invalid value for `created_date`, must not be `None`"
+            )  # noqa: E501
+
+        self._created_date = created_date
+
+    @property
+    def last_updated_date(self):
+        """Gets the last_updated_date of this Tour.  # noqa: E501
+
+        Record last update date  # noqa: E501
+
+        :return: The last_updated_date of this Tour.  # noqa: E501
+        :rtype: date
+        """
+        return self._last_updated_date
+
+    @last_updated_date.setter
+    def last_updated_date(self, last_updated_date):
+        """Sets the last_updated_date of this Tour.
+
+        Record last update date  # noqa: E501
+
+        :param last_updated_date: The last_updated_date of this Tour.  # noqa: E501
+        :type: date
+        """
+        if last_updated_date is None:
+            raise ValueError(
+                "Invalid value for `last_updated_date`, must not be `None`"
+            )  # noqa: E501
+
+        self._last_updated_date = last_updated_date
+
+    @property
     def attributes(self):
         """Gets the attributes of this Tour.  # noqa: E501
 
         Array of Attributes for the tour  # noqa: E501
 
         :return: The attributes of this Tour.  # noqa: E501
-        :rtype: object
+        :rtype: list[Attribute]
         """
         return self._attributes
 
@@ -298,7 +362,7 @@ class Tour(object):
         Array of Attributes for the tour  # noqa: E501
 
         :param attributes: The attributes of this Tour.  # noqa: E501
-        :type: object
+        :type: list[Attribute]
         """
         if attributes is None:
             raise ValueError(
@@ -314,7 +378,7 @@ class Tour(object):
         Media records for Tour  # noqa: E501
 
         :return: The entitymedia of this Tour.  # noqa: E501
-        :rtype: object
+        :rtype: list[Media]
         """
         return self._entitymedia
 
@@ -325,7 +389,7 @@ class Tour(object):
         Media records for Tour  # noqa: E501
 
         :param entitymedia: The entitymedia of this Tour.  # noqa: E501
-        :type: object
+        :type: list[Media]
         """
         if entitymedia is None:
             raise ValueError(

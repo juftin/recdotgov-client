@@ -28,6 +28,27 @@ class TestToursApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_facility_tour(self):
+        """Test case for get_facility_tour
+
+        Retrieve a specific tour by id for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_tours(self):
+        """Test case for get_facility_tours
+
+        Retrieve all tours for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_tour(self):
+        """Test case for get_tour
+
+        Retrieve a specific tour by id  # noqa: E501
+        """
+        pass
+
     def test_get_tours(self):
         """Test case for get_tours
 

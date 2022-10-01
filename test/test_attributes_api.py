@@ -35,6 +35,13 @@ class TestAttributesApi(unittest.TestCase):
         """
         pass
 
+    def test_get_permit_entrance_attributes(self):
+        """Test case for get_permit_entrance_attributes
+
+        Retrieve all attributes for a permit entrance  # noqa: E501
+        """
+        pass
+
     def test_get_tour_attributes(self):
         """Test case for get_tour_attributes
 

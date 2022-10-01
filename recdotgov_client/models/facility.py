@@ -50,8 +50,9 @@ class Facility(object):
         "facility_latitude": "float",
         "stay_limit": "str",
         "keywords": "str",
-        "reservable": "object",
-        "enabled": "object",
+        "reservable": "bool",
+        "enabled": "bool",
+        "last_updated_date": "date",
         "campsite": "list[FacilityCampsite]",
         "permitentrance": "list[FacilityPermitEntrance]",
         "tour": "list[FacilityTour]",
@@ -87,6 +88,7 @@ class Facility(object):
         "keywords": "Keywords",
         "reservable": "Reservable",
         "enabled": "Enabled",
+        "last_updated_date": "LastUpdatedDate",
         "campsite": "CAMPSITE",
         "permitentrance": "PERMITENTRANCE",
         "tour": "TOUR",
@@ -123,6 +125,7 @@ class Facility(object):
         keywords=None,
         reservable=None,
         enabled=None,
+        last_updated_date=None,
         campsite=None,
         permitentrance=None,
         tour=None,
@@ -157,6 +160,7 @@ class Facility(object):
         self._keywords = None
         self._reservable = None
         self._enabled = None
+        self._last_updated_date = None
         self._campsite = None
         self._permitentrance = None
         self._tour = None
@@ -192,6 +196,7 @@ class Facility(object):
         self.keywords = keywords
         self.reservable = reservable
         self.enabled = enabled
+        self.last_updated_date = last_updated_date
         if campsite is not None:
             self.campsite = campsite
         if permitentrance is not None:
@@ -750,7 +755,7 @@ class Facility(object):
         Whether the Facility is reservable  # noqa: E501
 
         :return: The reservable of this Facility.  # noqa: E501
-        :rtype: object
+        :rtype: bool
         """
         return self._reservable
 
@@ -761,7 +766,7 @@ class Facility(object):
         Whether the Facility is reservable  # noqa: E501
 
         :param reservable: The reservable of this Facility.  # noqa: E501
-        :type: object
+        :type: bool
         """
         if reservable is None:
             raise ValueError(
@@ -777,7 +782,7 @@ class Facility(object):
         Whether the Facility is enabled  # noqa: E501
 
         :return: The enabled of this Facility.  # noqa: E501
-        :rtype: object
+        :rtype: bool
         """
         return self._enabled
 
@@ -788,7 +793,7 @@ class Facility(object):
         Whether the Facility is enabled  # noqa: E501
 
         :param enabled: The enabled of this Facility.  # noqa: E501
-        :type: object
+        :type: bool
         """
         if enabled is None:
             raise ValueError(
@@ -796,6 +801,33 @@ class Facility(object):
             )  # noqa: E501
 
         self._enabled = enabled
+
+    @property
+    def last_updated_date(self):
+        """Gets the last_updated_date of this Facility.  # noqa: E501
+
+        Record last update date  # noqa: E501
+
+        :return: The last_updated_date of this Facility.  # noqa: E501
+        :rtype: date
+        """
+        return self._last_updated_date
+
+    @last_updated_date.setter
+    def last_updated_date(self, last_updated_date):
+        """Sets the last_updated_date of this Facility.
+
+        Record last update date  # noqa: E501
+
+        :param last_updated_date: The last_updated_date of this Facility.  # noqa: E501
+        :type: date
+        """
+        if last_updated_date is None:
+            raise ValueError(
+                "Invalid value for `last_updated_date`, must not be `None`"
+            )  # noqa: E501
+
+        self._last_updated_date = last_updated_date
 
     @property
     def campsite(self):

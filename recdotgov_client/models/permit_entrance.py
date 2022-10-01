@@ -39,8 +39,11 @@ class PermitEntrance(object):
         "permit_entrance_accessible": "bool",
         "longitude": "float",
         "latitude": "float",
-        "attributes": "object",
-        "entitymedia": "object",
+        "geosjon": "FacilityGEOJSON",
+        "created_date": "date",
+        "last_updated_date": "date",
+        "attributes": "list[Attribute]",
+        "entitymedia": "list[Media]",
         "zones": "list[Zone]",
     }
 
@@ -54,6 +57,9 @@ class PermitEntrance(object):
         "permit_entrance_accessible": "PermitEntranceAccessible",
         "longitude": "Longitude",
         "latitude": "Latitude",
+        "geosjon": "GEOSJON",
+        "created_date": "CreatedDate",
+        "last_updated_date": "LastUpdatedDate",
         "attributes": "ATTRIBUTES",
         "entitymedia": "ENTITYMEDIA",
         "zones": "ZONES",
@@ -70,6 +76,9 @@ class PermitEntrance(object):
         permit_entrance_accessible=None,
         longitude=None,
         latitude=None,
+        geosjon=None,
+        created_date=None,
+        last_updated_date=None,
         attributes=None,
         entitymedia=None,
         zones=None,
@@ -84,6 +93,9 @@ class PermitEntrance(object):
         self._permit_entrance_accessible = None
         self._longitude = None
         self._latitude = None
+        self._geosjon = None
+        self._created_date = None
+        self._last_updated_date = None
         self._attributes = None
         self._entitymedia = None
         self._zones = None
@@ -97,6 +109,10 @@ class PermitEntrance(object):
         self.permit_entrance_accessible = permit_entrance_accessible
         self.longitude = longitude
         self.latitude = latitude
+        if geosjon is not None:
+            self.geosjon = geosjon
+        self.created_date = created_date
+        self.last_updated_date = last_updated_date
         self.attributes = attributes
         self.entitymedia = entitymedia
         self.zones = zones
@@ -345,13 +361,88 @@ class PermitEntrance(object):
         self._latitude = latitude
 
     @property
+    def geosjon(self):
+        """Gets the geosjon of this PermitEntrance.  # noqa: E501
+
+
+        :return: The geosjon of this PermitEntrance.  # noqa: E501
+        :rtype: FacilityGEOJSON
+        """
+        return self._geosjon
+
+    @geosjon.setter
+    def geosjon(self, geosjon):
+        """Sets the geosjon of this PermitEntrance.
+
+
+        :param geosjon: The geosjon of this PermitEntrance.  # noqa: E501
+        :type: FacilityGEOJSON
+        """
+
+        self._geosjon = geosjon
+
+    @property
+    def created_date(self):
+        """Gets the created_date of this PermitEntrance.  # noqa: E501
+
+        Record creation date  # noqa: E501
+
+        :return: The created_date of this PermitEntrance.  # noqa: E501
+        :rtype: date
+        """
+        return self._created_date
+
+    @created_date.setter
+    def created_date(self, created_date):
+        """Sets the created_date of this PermitEntrance.
+
+        Record creation date  # noqa: E501
+
+        :param created_date: The created_date of this PermitEntrance.  # noqa: E501
+        :type: date
+        """
+        if created_date is None:
+            raise ValueError(
+                "Invalid value for `created_date`, must not be `None`"
+            )  # noqa: E501
+
+        self._created_date = created_date
+
+    @property
+    def last_updated_date(self):
+        """Gets the last_updated_date of this PermitEntrance.  # noqa: E501
+
+        Record last update date  # noqa: E501
+
+        :return: The last_updated_date of this PermitEntrance.  # noqa: E501
+        :rtype: date
+        """
+        return self._last_updated_date
+
+    @last_updated_date.setter
+    def last_updated_date(self, last_updated_date):
+        """Sets the last_updated_date of this PermitEntrance.
+
+        Record last update date  # noqa: E501
+
+        :param last_updated_date: The last_updated_date of this PermitEntrance.  # noqa: E501
+        :type: date
+        """
+        if last_updated_date is None:
+            raise ValueError(
+                "Invalid value for `last_updated_date`, must not be `None`"
+            )  # noqa: E501
+
+        self._last_updated_date = last_updated_date
+
+    @property
     def attributes(self):
         """Gets the attributes of this PermitEntrance.  # noqa: E501
 
         Attributes related to the permit  # noqa: E501
 
         :return: The attributes of this PermitEntrance.  # noqa: E501
-        :rtype: object
+        :rtype: list[Attribute]
         """
         return self._attributes
 
@@ -362,7 +453,7 @@ class PermitEntrance(object):
         Attributes related to the permit  # noqa: E501
 
         :param attributes: The attributes of this PermitEntrance.  # noqa: E501
-        :type: object
+        :type: list[Attribute]
         """
         if attributes is None:
             raise ValueError(
@@ -378,7 +469,7 @@ class PermitEntrance(object):
         Array of Media for the Permit Entrance  # noqa: E501
 
         :return: The entitymedia of this PermitEntrance.  # noqa: E501
-        :rtype: object
+        :rtype: list[Media]
         """
         return self._entitymedia
 
@@ -389,7 +480,7 @@ class PermitEntrance(object):
         Array of Media for the Permit Entrance  # noqa: E501
 
         :param entitymedia: The entitymedia of this PermitEntrance.  # noqa: E501
-        :type: object
+        :type: list[Media]
         """
         if entitymedia is None:
             raise ValueError(

@@ -39,6 +39,7 @@ class Organization(object):
         "org_abbrev_name": "str",
         "org_jurisdiction_type": "str",
         "org_parent_id": "str",
+        "last_updated_date": "date",
     }
 
     attribute_map = {
@@ -51,6 +52,7 @@ class Organization(object):
         "org_abbrev_name": "OrgAbbrevName",
         "org_jurisdiction_type": "OrgJurisdictionType",
         "org_parent_id": "OrgParentID",
+        "last_updated_date": "LastUpdatedDate",
     }
 
     def __init__(
@@ -64,6 +66,7 @@ class Organization(object):
         org_abbrev_name=None,
         org_jurisdiction_type=None,
         org_parent_id=None,
+        last_updated_date=None,
     ):  # noqa: E501
         """Organization - a model defined in Swagger"""  # noqa: E501
         self._org_id = None
@@ -75,6 +78,7 @@ class Organization(object):
         self._org_abbrev_name = None
         self._org_jurisdiction_type = None
         self._org_parent_id = None
+        self._last_updated_date = None
         self.discriminator = None
         self.org_id = org_id
         self.org_name = org_name
@@ -85,6 +89,7 @@ class Organization(object):
         self.org_abbrev_name = org_abbrev_name
         self.org_jurisdiction_type = org_jurisdiction_type
         self.org_parent_id = org_parent_id
+        self.last_updated_date = last_updated_date
 
     @property
     def org_id(self):
@@ -328,6 +333,33 @@ class Organization(object):
             )  # noqa: E501
 
         self._org_parent_id = org_parent_id
+
+    @property
+    def last_updated_date(self):
+        """Gets the last_updated_date of this Organization.  # noqa: E501
+
+        Record last update date  # noqa: E501
+
+        :return: The last_updated_date of this Organization.  # noqa: E501
+        :rtype: date
+        """
+        return self._last_updated_date
+
+    @last_updated_date.setter
+    def last_updated_date(self, last_updated_date):
+        """Sets the last_updated_date of this Organization.
+
+        Record last update date  # noqa: E501
+
+        :param last_updated_date: The last_updated_date of this Organization.  # noqa: E501
+        :type: date
+        """
+        if last_updated_date is None:
+            raise ValueError(
+                "Invalid value for `last_updated_date`, must not be `None`"
+            )  # noqa: E501
+
+        self._last_updated_date = last_updated_date
 
     def to_dict(self):
         """Returns the model properties as a dict"""

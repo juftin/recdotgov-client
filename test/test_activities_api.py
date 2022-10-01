@@ -35,6 +35,41 @@ class TestActivitiesApi(unittest.TestCase):
         """
         pass
 
+    def test_get_activity(self):
+        """Test case for get_activity
+
+        Retrieve a specific activity by id  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_activities(self):
+        """Test case for get_facility_activities
+
+        Retrieve all activities for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_facility_activity(self):
+        """Test case for get_facility_activity
+
+        Retrieve a specific activity by id for a facility  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area_activities(self):
+        """Test case for get_rec_area_activities
+
+        Retrieve all activities for a RecArea  # noqa: E501
+        """
+        pass
+
+    def test_get_rec_area_activity(self):
+        """Test case for get_rec_area_activity
+
+        Retrieve a specific activity by id for a RecArea  # noqa: E501
+        """
+        pass
+
 
 if __name__ == "__main__":
     unittest.main()
