@@ -13,7 +13,7 @@
 from setuptools import find_packages, setup  # noqa: H301
 
 NAME = "recdotgov-client"
-VERSION = "0.1.21"
+VERSION = "0.1.22"
 # To install the library, run the following
 #
 # python setup.py install
